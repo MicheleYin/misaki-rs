@@ -1,11 +1,11 @@
-use regex::Regex;
-use num2words::Num2Words;
-use crate::token::MToken;
-use crate::lexicon::Lexicon;
-use std::collections::HashMap;
 use crate::language::Language;
 use crate::languages::{LanguageRules, english::English};
+use crate::lexicon::Lexicon;
 use crate::tagger::PerceptronTagger;
+use crate::token::MToken;
+use num2words::Num2Words;
+use regex::Regex;
+use std::collections::HashMap;
 
 pub struct G2P {
     pub lexicon: Lexicon,
@@ -18,7 +18,8 @@ pub struct G2P {
 impl G2P {
     pub fn new(lang: Language) -> Self {
         // Regex for subtokenization with better UTF-8 support using Unicode properties
-        let subtoken_regex = Regex::new(r"(?x)
+        let subtoken_regex = Regex::new(
+            r"(?x)
             ^['‘’]+ |
             (?:^-)?(?:\d?[,.]?\d)+ |
             [\-_]+ |
@@ -26,7 +27,9 @@ impl G2P {
             \p{L}+(?:[\-'‘’]\p{L})* |
             [^\s\-_0-9\p{L}'‘’] |
             ['‘’]+$
-        ").unwrap();
+        ",
+        )
+        .unwrap();
 
         let weights_json = include_str!("resources/tagger/weights.json");
         let classes_txt = include_str!("resources/tagger/classes.txt");
@@ -63,7 +66,6 @@ impl G2P {
         tokens
     }
 
-
     pub fn g2p(&self, text: &str) -> (String, Vec<MToken>) {
         let (processed_text, _, _) = self.preprocess(text);
         let mut tokens = self.tokenize(&processed_text);
@@ -73,7 +75,12 @@ impl G2P {
         let words: Vec<&str> = words_owned.iter().map(|s| s.as_str()).collect();
         let tags = self.tagger.tag(&words);
 
-        eprintln!("DEBUG: g2p '{}' -> {} tokens, {} tags", text, tokens.len(), tags.len());
+        eprintln!(
+            "DEBUG: g2p '{}' -> {} tokens, {} tags",
+            text,
+            tokens.len(),
+            tags.len()
+        );
 
         for (tk, tag) in tokens.iter_mut().zip(tags.into_iter()) {
             tk.tag = tag.tag;
@@ -81,7 +88,7 @@ impl G2P {
                 let word = tk.text.clone();
                 let tag = tk.tag.clone();
                 eprintln!("DEBUG: processing token '{}' with tag '{}'", word, tag);
-                
+
                 // Try dictionary lookup
                 // Try dictionary lookup
                 if let Some((ps, _)) = self.lexicon.lookup(&word, &tag, None) {
@@ -89,7 +96,7 @@ impl G2P {
                 }
 
                 if tk.phonemes.is_none() {
-                     if word.contains('-') && word.len() > 1 {
+                    if word.contains('-') && word.len() > 1 {
                         // Handle hyphenated words like "twenty-one"
                         let parts: Vec<&str> = word.split('-').filter(|s| !s.is_empty()).collect();
                         let mut sub_ps = Vec::new();
@@ -100,10 +107,10 @@ impl G2P {
                         tk.phonemes = Some(sub_ps.join(" "));
                     } else if self.is_number(&word) {
                         let spoken = self.convert_number(&word);
-                         if spoken != word {
-                             let (p, _) = self.g2p(&spoken);
-                             tk.phonemes = Some(p);
-                         }
+                        if spoken != word {
+                            let (p, _) = self.g2p(&spoken);
+                            tk.phonemes = Some(p);
+                        }
                     }
                 }
 
@@ -133,7 +140,8 @@ impl G2P {
                         tk.phonemes = Some(char_ps.join(" "));
                     } else {
                         // Try to normalize the character or return unknown
-                        let normalized: String = word.chars()
+                        let normalized: String = word
+                            .chars()
                             .map(|c| match c {
                                 'é' | 'è' | 'ê' | 'ë' => 'e',
                                 'á' | 'à' | 'â' | 'ä' | 'ã' | 'å' => 'a',
@@ -146,7 +154,7 @@ impl G2P {
                                 _ => c,
                             })
                             .collect();
-                        
+
                         if normalized != word {
                             let (p, _) = self.g2p(&normalized);
                             tk.phonemes = Some(p);
@@ -168,7 +176,8 @@ impl G2P {
             }
         }
 
-        let result = tokens.iter()
+        let result = tokens
+            .iter()
             .map(|tk| tk.phonemes.as_ref().unwrap_or(&self.unk).clone() + &tk.whitespace)
             .collect::<String>();
 
@@ -188,7 +197,7 @@ impl G2P {
                 // Language::Italian => Num2Words::new(val).lang(num2words::Lang::English),
             };
             if let Ok(spoken) = n2w.to_words() {
-                 return spoken;
+                return spoken;
             }
         }
         word.to_string()
@@ -214,7 +223,7 @@ mod tests {
     //     println!("Phonemes: {}", phonemes);
     //     // "ciao" -> c+i+a+o -> tʃ+a+o -> with stress tʃˈao
     //     // "mondo" -> m+o+n+d+o -> mˈondo
-    //     assert!(phonemes.contains("tʃ") && phonemes.contains("ao")); 
+    //     assert!(phonemes.contains("tʃ") && phonemes.contains("ao"));
     //     assert!(phonemes.contains("mondo"));
     // }
 
@@ -227,19 +236,42 @@ mod tests {
     //     // We relax the check to ensure it produces phonemes and not numbers/unknowns
     //     assert!(!phonemes.contains("42"));
     //     assert!(!phonemes.contains("❓"));
-    //     assert!(phonemes.contains("kwaranta") || phonemes.contains("due")); 
+    //     assert!(phonemes.contains("kwaranta") || phonemes.contains("due"));
     // }
 
     #[test]
     fn test_english_abbreviations() {
         let g2p = G2P::new(Language::EnglishUS);
         let cases = vec![
-            "I'll", "I've", "it's", "he's", "she's", "we're", "they're",
-            "isn't", "aren't", "wasn't", "weren't",
-            "don't", "doesn't", "didn't",
-            "can't", "couldn't", "shouldn't", "wouldn't", "won't",
-            "hasn't", "haven't", "hadn't",
-            "let's", "that's", "what's", "who's", "here's", "there's", "where's",
+            "I'll",
+            "I've",
+            "it's",
+            "he's",
+            "she's",
+            "we're",
+            "they're",
+            "isn't",
+            "aren't",
+            "wasn't",
+            "weren't",
+            "don't",
+            "doesn't",
+            "didn't",
+            "can't",
+            "couldn't",
+            "shouldn't",
+            "wouldn't",
+            "won't",
+            "hasn't",
+            "haven't",
+            "hadn't",
+            "let's",
+            "that's",
+            "what's",
+            "who's",
+            "here's",
+            "there's",
+            "where's",
             "how's",
         ];
         for text in cases {
@@ -252,11 +284,15 @@ mod tests {
     #[test]
     fn test_casing_and_special_chars() {
         let g2p = G2P::new(Language::EnglishUS);
-        
+
         // Test 1: All caps with suffix
         let (playing, _) = g2p.g2p("PLAYING");
         println!("PLAYING: {}", playing);
-        assert!(!playing.contains("❓"), "PLAYING should be resolved, got: {}", playing);
+        assert!(
+            !playing.contains("❓"),
+            "PLAYING should be resolved, got: {}",
+            playing
+        );
 
         // Test 2: Contractions
         let (ive, _) = g2p.g2p("I've");
@@ -267,7 +303,11 @@ mod tests {
         // em-dash — (U+2014) and hyphen -
         let (dash, _) = g2p.g2p("word - word — word");
         println!("Dash: {}", dash);
-        assert!(!dash.contains("❓"), "Dashes should be handled gracefully, got: {}", dash);
+        assert!(
+            !dash.contains("❓"),
+            "Dashes should be handled gracefully, got: {}",
+            dash
+        );
     }
 
     #[test]
@@ -287,7 +327,9 @@ mod tests {
         for text in cases {
             let (p, _) = g2p.g2p(text);
             println!("'{}' -> '{}'", text, p);
-            if !text.is_empty() { assert!(!p.is_empty(), "Failed for '{}'", text); }
+            if !text.is_empty() {
+                assert!(!p.is_empty(), "Failed for '{}'", text);
+            }
         }
     }
 
@@ -295,11 +337,21 @@ mod tests {
     fn test_kokoros_numbers() {
         let g2p = G2P::new(Language::EnglishUS);
         let cases = vec![
-            "CHAPTER XIV", "CHAPTER 14", "CHAPTER 123",
-            "I have 5 apples and 42 oranges", "The year 2024", "1234567890",
-            "CHAPTER I", "CHAPTER II", "CHAPTER III", "CHAPTER IV", "CHAPTER V",
-            "CHAPTER X", "CHAPTER XX", "CHAPTER XXX",
-             "In 2024, CHAPTER XIV had 42 pages.",
+            "CHAPTER XIV",
+            "CHAPTER 14",
+            "CHAPTER 123",
+            "I have 5 apples and 42 oranges",
+            "The year 2024",
+            "1234567890",
+            "CHAPTER I",
+            "CHAPTER II",
+            "CHAPTER III",
+            "CHAPTER IV",
+            "CHAPTER V",
+            "CHAPTER X",
+            "CHAPTER XX",
+            "CHAPTER XXX",
+            "In 2024, CHAPTER XIV had 42 pages.",
             "The price is $123.45",
             "Temperature: -5°C",
             "Score: 100%",
@@ -317,11 +369,20 @@ mod tests {
     fn test_kokoros_utf8_and_special() {
         let g2p = G2P::new(Language::EnglishUS);
         let cases = vec![
-            "café", "naïve", "résumé", "Zürich", "São Paulo", "Müller",
-            "北京", "こんにちは", "Здравствуй", "مرحبا", "🎉🎊🎈",
+            "café",
+            "naïve",
+            "résumé",
+            "Zürich",
+            "São Paulo",
+            "Müller",
+            "北京",
+            "こんにちは",
+            "Здравствуй",
+            "مرحبا",
+            "🎉🎊🎈",
             // Control chars
             "\x00\x01\x02",
-             // Mixed scripts
+            // Mixed scripts
             "Hello 世界",
             "123中文",
             "English123中文",
@@ -352,9 +413,20 @@ mod tests {
             "«French quotes»",
             "„German quotes„",
             "「Japanese quotes」",
-            "Dr. Smith", "Mr. Jones", "Mrs. Brown", "Ms. Davis", "etc.",
-            "U.S.A.", "Ph.D.", "A.I.", "NASA", "FBI",
-             "   ", "\n\n", "\t\t", "\r\n",
+            "Dr. Smith",
+            "Mr. Jones",
+            "Mrs. Brown",
+            "Ms. Davis",
+            "etc.",
+            "U.S.A.",
+            "Ph.D.",
+            "A.I.",
+            "NASA",
+            "FBI",
+            "   ",
+            "\n\n",
+            "\t\t",
+            "\r\n",
         ];
         for text in cases {
             let (p, _) = g2p.g2p(text);
@@ -366,7 +438,7 @@ mod tests {
     fn test_kokoros_long_text() {
         let g2p = G2P::new(Language::EnglishUS);
         // Reduced to 100 to check if it crashes
-        let long_text = "a".repeat(1000); 
+        let long_text = "a".repeat(1000);
         let (p, _) = g2p.g2p(&long_text);
         assert!(!p.is_empty());
     }

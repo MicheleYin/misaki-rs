@@ -1,7 +1,7 @@
-use std::collections::HashMap;
-use serde::{Deserialize, Serialize};
 use crate::data;
 use crate::language::Language;
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
@@ -99,7 +99,7 @@ impl Lexicon {
     pub fn lookup(&self, word: &str, tag: &str, stress: Option<f64>) -> Option<(String, i32)> {
         let mut current_word = word.to_string();
         let mut is_nnp = false;
-        
+
         if word == word.to_uppercase() && !self.golds.contains_key(word) {
             current_word = word.to_lowercase();
             is_nnp = tag == "NNP";
@@ -110,20 +110,33 @@ impl Lexicon {
 
         // println!("DEBUG: lookup '{}', dictionary size: {}", word, self.golds.len());
 
-        if let Some(entry) = self.golds.get(&current_word).or_else(|| self.golds.get(&current_word.to_lowercase())) {
+        if let Some(entry) = self
+            .golds
+            .get(&current_word)
+            .or_else(|| self.golds.get(&current_word.to_lowercase()))
+        {
+            ps = self.resolve_phonemes(entry, tag);
+            rating = 4;
+        }
+
+        if ps.is_none() {
+            if let Some(entry) = self
+                .silvers
+                .get(&current_word)
+                .or_else(|| self.silvers.get(&current_word.to_lowercase()))
+            {
                 ps = self.resolve_phonemes(entry, tag);
-                rating = 4;
+                rating = 3;
             }
-    
-            if ps.is_none() {
-                if let Some(entry) = self.silvers.get(&current_word).or_else(|| self.silvers.get(&current_word.to_lowercase())) {
-                    ps = self.resolve_phonemes(entry, tag);
-                    rating = 3;
-                }
-            }
+        }
 
         if ps.is_none() && (word == "three" || word == "one") {
-            eprintln!("DEBUG: lookup '{}', dictionary size: {}, contains 'three': {}", word, self.golds.len(), self.golds.contains_key("three"));
+            eprintln!(
+                "DEBUG: lookup '{}', dictionary size: {}, contains 'three': {}",
+                word,
+                self.golds.len(),
+                self.golds.contains_key("three")
+            );
         }
 
         // Special NNP handling if not found or no primary stress
@@ -152,11 +165,13 @@ impl Lexicon {
                 }
             }
         }
-        if ps_parts.is_empty() { return None; }
-        
+        if ps_parts.is_empty() {
+            return None;
+        }
+
         let combined = ps_parts.join("");
         let stressed = self.apply_stress(&combined, Some(0.0));
-        
+
         // Python: ps = ps.rsplit(SECONDARY_STRESS, 1) -> return PRIMARY_STRESS.join(ps), 3
         let secondary = 'ˌ';
         let primary = 'ˈ';
@@ -174,20 +189,31 @@ impl Lexicon {
         let secondary = 'ˌ';
         let vowels = "AIOQWYaiuæɑɒɔəɛɜɪʊʌᵻ";
 
-        if stress.is_none() { return ps.to_string(); }
+        if stress.is_none() {
+            return ps.to_string();
+        }
         let s = stress.unwrap();
 
         if s < -1.0 {
             return ps.replace(primary, "").replace(secondary, "");
         } else if s == -1.0 || (s >= -0.5 && s <= 0.0 && ps.contains(primary)) {
-            return ps.replace(secondary, "").replace(primary, &secondary.to_string());
-        } else if (s == 0.0 || s == 0.5 || s == 1.0) && !ps.contains(primary) && !ps.contains(secondary) {
-            if !ps.chars().any(|c| vowels.contains(c)) { return ps.to_string(); }
+            return ps
+                .replace(secondary, "")
+                .replace(primary, &secondary.to_string());
+        } else if (s == 0.0 || s == 0.5 || s == 1.0)
+            && !ps.contains(primary)
+            && !ps.contains(secondary)
+        {
+            if !ps.chars().any(|c| vowels.contains(c)) {
+                return ps.to_string();
+            }
             return self.restress(&format!("{}{}", secondary, ps));
         } else if s >= 1.0 && !ps.contains(primary) && ps.contains(secondary) {
             return ps.replace(secondary, &primary.to_string());
         } else if s > 1.0 && !ps.contains(primary) && !ps.contains(secondary) {
-            if !ps.chars().any(|c| vowels.contains(c)) { return ps.to_string(); }
+            if !ps.chars().any(|c| vowels.contains(c)) {
+                return ps.to_string();
+            }
             return self.restress(&format!("{}{}", primary, ps));
         }
         ps.to_string()
@@ -197,8 +223,9 @@ impl Lexicon {
         let primary = 'ˈ';
         let secondary = 'ˌ';
         let vowels = "AIOQWYaiuæɑɒɔəɛɜɪʊʌᵻ";
-        
-        let mut parts: Vec<(f64, char)> = ps.chars().enumerate().map(|(i, c)| (i as f64, c)).collect();
+
+        let mut parts: Vec<(f64, char)> =
+            ps.chars().enumerate().map(|(i, c)| (i as f64, c)).collect();
         let mut stresses = Vec::new();
 
         for (i, &(_, c)) in parts.iter().enumerate() {
@@ -221,14 +248,22 @@ impl Lexicon {
     // Stemming logic
     pub fn stem_s(&self, word: &str, tag: &str, stress: Option<f64>) -> Option<(String, i32)> {
         let lower = word.to_lowercase();
-        if lower.len() < 3 || !lower.ends_with('s') { return None; }
-        
-        let stem = if !lower.ends_with("ss") && self.is_known(&lower[..lower.len()-1], tag) {
-            &lower[..lower.len()-1]
-        } else if (lower.ends_with("'s") || (lower.len() > 4 && lower.ends_with("es") && !lower.ends_with("ies"))) && self.is_known(&lower[..lower.len()-2], tag) {
-            &lower[..lower.len()-2]
-        } else if lower.len() > 4 && lower.ends_with("ies") && self.is_known(&(lower[..lower.len()-3].to_string() + "y"), tag) {
-            &(lower[..lower.len()-3].to_string() + "y")
+        if lower.len() < 3 || !lower.ends_with('s') {
+            return None;
+        }
+
+        let stem = if !lower.ends_with("ss") && self.is_known(&lower[..lower.len() - 1], tag) {
+            &lower[..lower.len() - 1]
+        } else if (lower.ends_with("'s")
+            || (lower.len() > 4 && lower.ends_with("es") && !lower.ends_with("ies")))
+            && self.is_known(&lower[..lower.len() - 2], tag)
+        {
+            &lower[..lower.len() - 2]
+        } else if lower.len() > 4
+            && lower.ends_with("ies")
+            && self.is_known(&(lower[..lower.len() - 3].to_string() + "y"), tag)
+        {
+            &(lower[..lower.len() - 3].to_string() + "y")
         } else {
             return None;
         };
@@ -238,7 +273,9 @@ impl Lexicon {
     }
 
     pub fn append_s(&self, stem: &str) -> String {
-        if stem.is_empty() { return String::new(); }
+        if stem.is_empty() {
+            return String::new();
+        }
         let last = stem.chars().last().unwrap();
         if "ptkfθ".contains(last) {
             format!("{}s", stem)
@@ -251,11 +288,17 @@ impl Lexicon {
 
     pub fn stem_ed(&self, word: &str, tag: &str, stress: Option<f64>) -> Option<(String, i32)> {
         let lower = word.to_lowercase();
-        if lower.len() < 4 || !lower.ends_with('d') { return None; }
-        let stem = if !lower.ends_with("dd") && self.is_known(&lower[..lower.len()-1], tag) {
-             &lower[..lower.len()-1]
-        } else if lower.len() > 4 && lower.ends_with("ed") && !lower.ends_with("eed") && self.is_known(&lower[..lower.len()-2], tag) {
-             &lower[..lower.len()-2]
+        if lower.len() < 4 || !lower.ends_with('d') {
+            return None;
+        }
+        let stem = if !lower.ends_with("dd") && self.is_known(&lower[..lower.len() - 1], tag) {
+            &lower[..lower.len() - 1]
+        } else if lower.len() > 4
+            && lower.ends_with("ed")
+            && !lower.ends_with("eed")
+            && self.is_known(&lower[..lower.len() - 2], tag)
+        {
+            &lower[..lower.len() - 2]
         } else {
             return None;
         };
@@ -265,7 +308,9 @@ impl Lexicon {
     }
 
     pub fn append_ed(&self, stem: &str) -> String {
-        if stem.is_empty() { return String::new(); }
+        if stem.is_empty() {
+            return String::new();
+        }
         let last = stem.chars().last().unwrap();
         if "pkfθʃsʧ".contains(last) {
             format!("{}t", stem)
@@ -280,15 +325,17 @@ impl Lexicon {
 
     pub fn stem_ing(&self, word: &str, tag: &str, stress: Option<f64>) -> Option<(String, i32)> {
         let lower = word.to_lowercase();
-        if lower.len() < 5 || !lower.ends_with("ing") { return None; }
-        
-        let stem = if lower.len() > 5 && self.is_known(&lower[..lower.len()-3], tag) {
-            lower[..lower.len()-3].to_string()
-        } else if self.is_known(&(lower[..lower.len()-3].to_string() + "e"), tag) {
-            lower[..lower.len()-3].to_string() + "e"
-        } else if lower.len() > 5 && self.is_known(&lower[..lower.len()-4], tag) {
+        if lower.len() < 5 || !lower.ends_with("ing") {
+            return None;
+        }
+
+        let stem = if lower.len() > 5 && self.is_known(&lower[..lower.len() - 3], tag) {
+            lower[..lower.len() - 3].to_string()
+        } else if self.is_known(&(lower[..lower.len() - 3].to_string() + "e"), tag) {
+            lower[..lower.len() - 3].to_string() + "e"
+        } else if lower.len() > 5 && self.is_known(&lower[..lower.len() - 4], tag) {
             // Simplified: python regex checks for doubled consonants
-            lower[..lower.len()-4].to_string()
+            lower[..lower.len() - 4].to_string()
         } else {
             return None;
         };
