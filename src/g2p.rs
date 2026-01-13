@@ -1,12 +1,10 @@
 use regex::Regex;
 use num2words::Num2Words;
-use crate::token::{MToken, Underscore};
+use crate::token::MToken;
 use crate::lexicon::Lexicon;
 use std::collections::HashMap;
 use crate::language::Language;
-use crate::languages::{LanguageRules, english::English, 
-    // italian::Italian
-};
+use crate::languages::{LanguageRules, english::English};
 use crate::tagger::PerceptronTagger;
 
 pub struct G2P {
@@ -110,21 +108,29 @@ impl G2P {
                 }
 
                 if tk.phonemes.is_none() {
-                     if let Some(ps) = self.rules.apply_rules(&word, &tag, &self.lexicon) {
+                    if let Some(ps) = self.rules.apply_rules(&word, &tag, &self.lexicon) {
                         tk.phonemes = Some(ps);
                     }
                 }
 
                 if tk.phonemes.is_none() {
-                     if word.chars().count() > 1 {
-                        // ... char by char
-                    // Try character-by-character if the whole word is unknown
-                    let mut char_ps = Vec::new();
-                    for c in word.chars() {
-                        let (p, _) = self.g2p(&c.to_string());
-                        char_ps.push(p);
+                    let lower = word.to_lowercase();
+                    if lower != word {
+                        if let Some((ps, _)) = self.lexicon.lookup(&lower, &tag, None) {
+                            tk.phonemes = Some(ps);
+                        }
                     }
-                    tk.phonemes = Some(char_ps.join(" "));
+                }
+
+                if tk.phonemes.is_none() {
+                    if word.chars().count() > 1 {
+                        // Try character-by-character if the whole word is unknown
+                        let mut char_ps = Vec::new();
+                        for c in word.chars() {
+                            let (p, _) = self.g2p(&c.to_string());
+                            char_ps.push(p);
+                        }
+                        tk.phonemes = Some(char_ps.join(" "));
                     } else {
                         // Try to normalize the character or return unknown
                         let normalized: String = word.chars()

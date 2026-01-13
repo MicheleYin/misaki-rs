@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
-use crate::token::MToken;
 use crate::data;
 use crate::language::Language;
 
@@ -116,7 +115,7 @@ impl Lexicon {
                 rating = 4;
             }
     
-            if ps.is_none() && !is_nnp {
+            if ps.is_none() {
                 if let Some(entry) = self.silvers.get(&current_word).or_else(|| self.silvers.get(&current_word.to_lowercase())) {
                     ps = self.resolve_phonemes(entry, tag);
                     rating = 3;

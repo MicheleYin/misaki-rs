@@ -1,4 +1,3 @@
-use crate::token::MToken;
 use crate::lexicon::Lexicon;
 
 pub trait LanguageRules: Send + Sync {
