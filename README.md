@@ -22,7 +22,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = { git = "https://github.com/MicheleYin/misaki-rs.git" }
+misaki-rs = "0.1.1"
 ```
 
 ## Quick Start

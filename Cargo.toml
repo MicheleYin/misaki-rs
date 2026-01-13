@@ -1,6 +1,6 @@
 [package]
 name = "misaki-rs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "MIT"
 description = "A self-contained, POS-aware Grapheme-to-Phoneme (G2P) engine for Rust, optimized for TTS models like Kokoro."
