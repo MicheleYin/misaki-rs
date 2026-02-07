@@ -8,6 +8,10 @@ homepage = "https://github.com/MicheleYin/misaki-rs"
 repository = "https://github.com/MicheleYin/misaki-rs"
 readme = "README.md"
 
+[features]
+default = ["espeak"]
+espeak = ["dep:espeak-rs"]
+
 [dependencies]
 log = "0.4"
 regex = "1.10"
@@ -16,6 +20,12 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 fancy-regex = "0.13"
 language-tokenizer = { version = "0.1", features = ["snowball"] }
+espeak-rs = { version = "0.1.9", optional = true }
+thiserror = "2.0"
 
 [dev-dependencies]
 env_logger = "0.11"
+
+[[example]]
+name = "test_stress_fix"
+required-features = ["espeak"]

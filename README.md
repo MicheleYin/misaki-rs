@@ -14,6 +14,23 @@ It is specifically designed for use with TTS models like **Kokoro**, providing a
     - ed past tense stemming
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
+- **Optional espeak fallback** (feature `espeak`, enabled by default): For out-of-vocabulary words, use [espeak-ng](https://github.com/espeak-ng/espeak-ng) to produce phonemes. Disable with `default-features = false` for a smaller build with no system espeak dependency; unknown words will then be spelled letter-by-letter or marked as unknown.
+
+
+## Why “spelling out” when espeak is disabled?
+
+When a word is not in the lexicon and no rule applies, the engine needs a fallback. With the `espeak` feature **enabled**, that fallback is espeak-ng: the word is sent to espeak and its IPA output is converted to the engine’s phoneme set. With the `espeak` feature **disabled**, there is no external fallback, so the engine falls back to **character-by-character spelling**: each letter is phonemized as its name (e.g. “B” → “bˈi”, “K” → “kˈe‍ɪ”). So for example “eBook” becomes the sequence of letter names (E, B, O, O, K) instead of the word “e-book”. Single-character tokens and unrecognized characters may be marked as unknown (❓) instead. This behavior is intentional so that builds without espeak still produce some output rather than failing.
+
+
+## Testing espeak
+
+To check that espeak fallback is working, phonemize an out-of-vocabulary word like `"eBook"` and assert it does not contain the unknown marker and is not spelled letter-by-letter:
+
+```bash
+cargo test test_ebook_with_espeak -- --nocapture
+```
+
+You should see output like `eBook (with espeak): ˈi bˈʊk.` (word-like). Without the espeak feature, the same word is spelled out: `cargo test test_ebook_without_espeak --no-default-features -- --nocapture` gives e.g. `eBook (without espeak): ˈiː  bˈi  ˈo‍ʊ  ˈo‍ʊ  kˈe‍ɪ` (E, B, O, O, K as letter names).
 
 
 ## Installation
@@ -22,7 +39,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.1.1"
+misaki-rs = "0.3.0"
+```
+
+**Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
+
+```toml
+[dependencies]
+misaki-rs = { version = "0.3.0", default-features = false }
+```
+
+To depend on misaki-rs without default features but still use espeak:
+
+```toml
+misaki-rs = { version = "0.3.0", default-features = false, features = ["espeak"] }
 ```
 
 ## Quick Start

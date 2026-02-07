@@ -1,11 +1,21 @@
+use crate::fallback::{Fallback, FallbackError};
 use crate::language::Language;
+#[cfg(feature = "espeak")]
+use crate::fallback::EspeakFallback;
 use crate::languages::{LanguageRules, english::English};
 use crate::lexicon::Lexicon;
+use thiserror::Error;
 use crate::tagger::PerceptronTagger;
 use crate::token::MToken;
 use num2words::Num2Words;
 use regex::Regex;
 use std::collections::HashMap;
+
+#[derive(Error, Debug)]
+pub enum G2PError {
+    #[error("fallback error: {0}")]
+    Fallback(#[from] FallbackError),
+}
 
 pub struct G2P {
     pub lexicon: Lexicon,
@@ -13,6 +23,7 @@ pub struct G2P {
     subtoken_regex: Regex,
     tagger: PerceptronTagger,
     rules: Box<dyn LanguageRules>,
+    fallback: Option<Box<dyn Fallback>>,
 }
 
 impl G2P {
@@ -40,12 +51,24 @@ impl G2P {
             // Language::Italian => Box::new(Italian),
         };
 
+        #[cfg(feature = "espeak")]
+        let fallback: Option<Box<dyn Fallback>> = match EspeakFallback::new(lang == Language::EnglishGB) {
+            Ok(fb) => Some(Box::new(fb)),
+            Err(e) => {
+                log::warn!("espeak-ng fallback unavailable: {}", e);
+                None
+            }
+        };
+        #[cfg(not(feature = "espeak"))]
+        let fallback: Option<Box<dyn Fallback>> = None;
+
         Self {
             lexicon: Lexicon::new(lang),
             unk: "❓".to_string(),
             subtoken_regex,
             tagger: PerceptronTagger::new(weights_json, classes_txt, tags_json),
             rules,
+            fallback,
         }
     }
 
@@ -92,7 +115,7 @@ impl G2P {
         tokens
     }
 
-    pub fn g2p(&self, text: &str) -> (String, Vec<MToken>) {
+    pub fn g2p(&self, text: &str) -> Result<(String, Vec<MToken>), G2PError> {
         let (processed_text, _, _) = self.preprocess(text);
         let mut tokens = self.tokenize(&processed_text);
 
@@ -167,14 +190,14 @@ impl G2P {
                         let parts: Vec<&str> = word.split('-').filter(|s| !s.is_empty()).collect();
                         let mut sub_ps = Vec::new();
                         for part in parts {
-                            let (p, _) = self.g2p(part);
+                            let (p, _) = self.g2p(part)?;
                             sub_ps.push(p);
                         }
                         tokens[i].phonemes = Some(sub_ps.join(" "));
                     } else if self.is_number(&word) {
                         let spoken = self.convert_number(&word);
                         if spoken != word {
-                            let (p, _) = self.g2p(&spoken);
+                            let (p, _) = self.g2p(&spoken)?;
                             tokens[i].phonemes = Some(p);
                         }
                     }
@@ -188,13 +211,30 @@ impl G2P {
 
                 if tokens[i].phonemes.is_none() {
                     if word.chars().count() > 1 {
-                        // Try character-by-character if the whole word is unknown
-                        let mut char_ps = Vec::new();
-                        for c in word.chars() {
-                            let (p, _) = self.g2p(&c.to_string());
-                            char_ps.push(p);
+                        // Unknown multi-character word - use fallback
+                        let mut handled = false;
+                        if let Some(ref fallback) = self.fallback {
+                            match fallback.phonemize(&word) {
+                                Ok(ps) => {
+                                    tokens[i].phonemes = Some(ps);
+                                    handled = true;
+                                }
+                                Err(e) => {
+                                    log::error!("fallback error for '{}': {}", word, e);
+                                    return Err(G2PError::Fallback(e));
+                                }
+                            }
                         }
-                        tokens[i].phonemes = Some(char_ps.join(" "));
+
+                        if !handled {
+                            // No fallback available or failed, try character-by-character
+                            let mut char_ps = Vec::new();
+                            for c in word.chars() {
+                                let (p, _) = self.g2p(&c.to_string())?;
+                                char_ps.push(p);
+                            }
+                            tokens[i].phonemes = Some(char_ps.join(" "));
+                        }
                     } else {
                         // Try to normalize the character or return unknown
                         let normalized: String = word
@@ -213,7 +253,7 @@ impl G2P {
                             .collect();
 
                         if normalized != word {
-                            let (p, _) = self.g2p(&normalized);
+                            let (p, _) = self.g2p(&normalized)?;
                             tokens[i].phonemes = Some(p);
                         } else {
                             // Handle standard punctuation and symbols gracefully
@@ -254,7 +294,7 @@ impl G2P {
             .map(|tk| tk.phonemes.as_ref().unwrap_or(&self.unk).clone() + &tk.whitespace)
             .collect::<String>();
 
-        (result, tokens)
+        Ok((result, tokens))
     }
 
     fn is_number(&self, word: &str) -> bool {
@@ -285,9 +325,44 @@ mod tests {
     fn test_g2p_basic() {
         let _ = env_logger::try_init();
         let g2p = G2P::new(Language::EnglishUS);
-        let (phonemes, _) = g2p.g2p("Hello, world!");
+        let (phonemes, _) = g2p.g2p("Hello, world!").unwrap();
         println!("Phonemes: {}", phonemes);
         assert!(!phonemes.contains("❓"));
+    }
+
+    /// With espeak feature: "eBook" is phonemized by espeak fallback (not in lexicon).
+    #[test]
+    #[cfg(feature = "espeak")]
+    fn test_ebook_with_espeak() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (phonemes, _) = g2p.g2p("eBook").unwrap();
+        assert!(
+            !phonemes.contains("❓"),
+            "with espeak: 'eBook' should be phonemized by fallback, got: {}",
+            phonemes
+        );
+        // Should not be spelled out letter-by-letter (e.g. no ˈi for 'e' as letter)
+        assert!(
+            !phonemes.contains("ˈɛl"),
+            "with espeak: 'eBook' should not spell out letters, got: {}",
+            phonemes
+        );
+        println!("eBook (with espeak): {}", phonemes);
+    }
+
+    /// Without espeak feature: "eBook" is OOV so we get unknown marker or character spelling.
+    #[test]
+    #[cfg(not(feature = "espeak"))]
+    fn test_ebook_without_espeak() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (phonemes, _) = g2p.g2p("eBook").unwrap();
+        // No fallback: either ❓ for unknown or character-by-character spelling
+        assert!(
+            phonemes.contains("❓") || phonemes.contains("ˈi") || phonemes.contains("b"),
+            "without espeak: 'eBook' should show unknown or spelled form, got: {}",
+            phonemes
+        );
+        println!("eBook (without espeak): {}", phonemes);
     }
 
     // #[test]
@@ -349,7 +424,7 @@ mod tests {
             "how's",
         ];
         for text in cases {
-            let (p, _) = g2p.g2p(text);
+            let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             assert!(!p.contains("❓"), "Failed for '{}'", text);
         }
@@ -360,7 +435,7 @@ mod tests {
         let g2p = G2P::new(Language::EnglishUS);
 
         // Test 1: All caps with suffix
-        let (playing, _) = g2p.g2p("PLAYING");
+        let (playing, _) = g2p.g2p("PLAYING").unwrap();
         println!("PLAYING: {}", playing);
         assert!(
             !playing.contains("❓"),
@@ -369,13 +444,13 @@ mod tests {
         );
 
         // Test 2: Contractions
-        let (ive, _) = g2p.g2p("I've");
+        let (ive, _) = g2p.g2p("I've").unwrap();
         println!("I've: {}", ive);
         assert!(!ive.contains("❓"), "I've should be resolved, got: {}", ive);
 
         // Test 3: Dashes
         // em-dash — (U+2014) and hyphen -
-        let (dash, _) = g2p.g2p("word - word — word");
+        let (dash, _) = g2p.g2p("word - word — word").unwrap();
         println!("Dash: {}", dash);
         assert!(
             !dash.contains("❓"),
@@ -399,7 +474,7 @@ mod tests {
             "",
         ];
         for text in cases {
-            let (p, _) = g2p.g2p(text);
+            let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             if !text.is_empty() {
                 assert!(!p.is_empty(), "Failed for '{}'", text);
@@ -433,7 +508,7 @@ mod tests {
             "3.14159",
         ];
         for text in cases {
-            let (p, _) = g2p.g2p(text);
+            let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             assert!(!p.is_empty(), "Failed for '{}'", text);
         }
@@ -469,7 +544,7 @@ mod tests {
             "na\u{00EF}ve", // ï as combining character
         ];
         for text in cases {
-            let (p, _) = g2p.g2p(text);
+            let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             // Some might be empty/unknown depending on handling, but shouldn't crash
         }
@@ -503,7 +578,7 @@ mod tests {
             "\r\n",
         ];
         for text in cases {
-            let (p, _) = g2p.g2p(text);
+            let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
         }
     }
@@ -513,7 +588,7 @@ mod tests {
         let g2p = G2P::new(Language::EnglishUS);
         // Reduced to 100 to check if it crashes
         let long_text = "a".repeat(1000);
-        let (p, _) = g2p.g2p(&long_text);
+        let (p, _) = g2p.g2p(&long_text).unwrap();
         assert!(!p.is_empty());
     }
 }
