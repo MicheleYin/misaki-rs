@@ -101,14 +101,14 @@ impl G2P {
         let words: Vec<&str> = words_owned.iter().map(|s| s.as_str()).collect();
         let tags = self.tagger.tag(&words);
 
-        eprintln!(
-            "DEBUG: g2p '{}' -> {} tokens, {} tags",
+        log::debug!(
+            "g2p '{}' -> {} tokens, {} tags",
             text,
             tokens.len(),
             tags.len()
         );
         for (i, tk) in tokens.iter().enumerate() {
-            eprintln!("DEBUG: token[{}]: '{}'", i, tk.text);
+            log::debug!("token[{}]: '{}'", i, tk.text);
         }
 
         // Process tokens in reverse order (like Python) to build context
@@ -283,6 +283,7 @@ mod tests {
 
     #[test]
     fn test_g2p_basic() {
+        let _ = env_logger::try_init();
         let g2p = G2P::new(Language::EnglishUS);
         let (phonemes, _) = g2p.g2p("Hello, world!");
         println!("Phonemes: {}", phonemes);
