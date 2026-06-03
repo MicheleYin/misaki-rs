@@ -72,6 +72,14 @@ impl G2P {
         }
     }
 
+    /// Build a `G2P` with a custom OOV fallback, replacing the default
+    /// (espeak-ng if that feature is enabled, otherwise none).
+    pub fn with_fallback(lang: Language, fallback: Option<Box<dyn Fallback>>) -> Self {
+        let mut g2p = Self::new(lang);
+        g2p.fallback = fallback;
+        g2p
+    }
+
     pub fn preprocess(&self, text: &str) -> (String, Vec<String>, HashMap<usize, String>) {
         // Simplified preprocess: just return the text and tokens for now
         // Python handles links like [text](phonemes), we'll skip that for simplicity unless needed
@@ -259,8 +267,8 @@ impl G2P {
                             // Handle standard punctuation and symbols gracefully
                             if word.chars().count() == 1 {
                                 let c = word.chars().next().unwrap();
-                                if c.is_ascii_punctuation() || "—–…".contains(c) {
-                                    tokens[i].phonemes = Some(" ".to_string());
+                                if c.is_ascii_punctuation() || “—–…”.contains(c) {
+                                    tokens[i].phonemes = Some(“ “.to_string());
                                 } else {
                                     tokens[i].phonemes = Some(self.unk.clone());
                                 }
