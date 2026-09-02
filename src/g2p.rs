@@ -17,10 +17,81 @@ pub enum G2PError {
     Fallback(#[from] FallbackError),
 }
 
+/// A per-word override parsed from `[text](feature)` markdown-link syntax.
+///
+/// Matches the set of features accepted by Python misaki's
+/// `Lexicon.preprocess` in `misaki/en.py`. The four shapes are:
+///
+/// * `[hello](+2)` / `[hello](-1)` / `[hello](2)` — integer stress
+/// * `[hello](0.5)` / `(+0.5)` / `(-0.5)` — half-stress (these literals only)
+/// * `[xyzzy](/həˈloʊ/)` — direct phoneme override
+/// * `[5](#cardinal#)` — number-formatting flags
+///
+/// Anything else (including `=` or plain words) is dropped silently, matching
+/// the upstream `else: f = None` branch.
+#[derive(Debug, Clone, PartialEq)]
+pub enum LinkFeature {
+    Stress(f64),
+    Phonemes(String),
+    NumFlags(String),
+}
+
+/// A parsed `[text](feature)` marker, anchored to byte offsets in the
+/// stripped text returned by [`G2P::preprocess_links`].
+#[derive(Debug, Clone)]
+pub struct LinkMarker {
+    pub byte_start: usize,
+    pub byte_end: usize,
+    pub feature: LinkFeature,
+}
+
+fn parse_link_feature(raw: &str) -> Option<LinkFeature> {
+    // Mirrors the feature-parsing ladder in misaki/en.py::Lexicon.preprocess.
+    // No trim — the inner text is consumed verbatim.
+    if raw.is_empty() {
+        return None;
+    }
+
+    // Integer stress: optional leading + or -, then all-ASCII-digit body.
+    // Python: `is_digit(f[1 if f[:1] in ('-','+') else 0:])`.
+    let body = match raw.as_bytes()[0] {
+        b'+' | b'-' => &raw[1..],
+        _ => raw,
+    };
+    if !body.is_empty() && body.bytes().all(|b| b.is_ascii_digit()) {
+        if let Ok(n) = raw.parse::<i32>() {
+            return Some(LinkFeature::Stress(n as f64));
+        }
+    }
+
+    // Half stress: only the three literals Python recognises.
+    match raw {
+        "0.5" | "+0.5" => return Some(LinkFeature::Stress(0.5)),
+        "-0.5" => return Some(LinkFeature::Stress(-0.5)),
+        _ => {}
+    }
+
+    // /phonemes/ — Python strips one leading slash and all trailing slashes
+    // (via `f[1:].rstrip('/')` at parse and `v.lstrip('/')` at apply time).
+    if raw.len() > 1 && raw.starts_with('/') && raw.ends_with('/') {
+        let inner = raw[1..].trim_end_matches('/');
+        return Some(LinkFeature::Phonemes(inner.to_string()));
+    }
+
+    // #num_flags# — same lstrip/rstrip semantics as the phoneme branch.
+    if raw.len() > 1 && raw.starts_with('#') && raw.ends_with('#') {
+        let inner = raw[1..].trim_end_matches('#');
+        return Some(LinkFeature::NumFlags(inner.to_string()));
+    }
+
+    None
+}
+
 pub struct G2P {
     pub lexicon: Lexicon,
     pub unk: String,
     subtoken_regex: Regex,
+    link_regex: Regex,
     tagger: PerceptronTagger,
     rules: Box<dyn LanguageRules>,
     fallback: Option<Box<dyn Fallback>>,
@@ -62,52 +133,99 @@ impl G2P {
         #[cfg(not(feature = "espeak"))]
         let fallback: Option<Box<dyn Fallback>> = None;
 
+        // Mirrors `LINK_REGEX = re.compile(r'\[([^\]]+)\]\(([^\)]*)\)')`
+        // from misaki/en.py.
+        let link_regex = Regex::new(r"\[([^\]]+)\]\(([^\)]*)\)").unwrap();
+
         Self {
             lexicon: Lexicon::new(lang),
             unk: "❓".to_string(),
             subtoken_regex,
+            link_regex,
             tagger: PerceptronTagger::new(weights_json, classes_txt, tags_json),
             rules,
             fallback,
         }
     }
 
+    /// Legacy preprocess shape, kept for API compatibility.
+    ///
+    /// The third return value (token-index → feature) is intentionally empty
+    /// — markers are now exposed via [`G2P::preprocess_links`] using byte
+    /// offsets, which compose with our subtokenizer (Python misaki keys
+    /// features by spaCy-tokenized index; we don't have spaCy).
     pub fn preprocess(&self, text: &str) -> (String, Vec<String>, HashMap<usize, String>) {
-        // Simplified preprocess: just return the text and tokens for now
-        // Python handles links like [text](phonemes), we'll skip that for simplicity unless needed
-        let tokens: Vec<String> = text.split_whitespace().map(|s| s.to_string()).collect();
-        (text.to_string(), tokens, HashMap::new())
+        let (stripped, _) = self.preprocess_links(text);
+        let tokens: Vec<String> = stripped.split_whitespace().map(|s| s.to_string()).collect();
+        (stripped, tokens, HashMap::new())
+    }
+
+    /// Parse `[text](feature)` markers from `text` and return the stripped
+    /// text along with markers anchored to byte ranges in the stripped text.
+    ///
+    /// Mirrors the parsing half of `Lexicon.preprocess` in misaki/en.py.
+    pub fn preprocess_links(&self, text: &str) -> (String, Vec<LinkMarker>) {
+        let mut stripped = String::with_capacity(text.len());
+        let mut markers: Vec<LinkMarker> = Vec::new();
+        let mut last_end = 0usize;
+        for caps in self.link_regex.captures_iter(text) {
+            let whole = caps.get(0).unwrap();
+            let inner = caps.get(1).unwrap().as_str();
+            let feat_str = caps.get(2).unwrap().as_str();
+            stripped.push_str(&text[last_end..whole.start()]);
+            let start = stripped.len();
+            stripped.push_str(inner);
+            let end = stripped.len();
+            if let Some(feature) = parse_link_feature(feat_str) {
+                markers.push(LinkMarker {
+                    byte_start: start,
+                    byte_end: end,
+                    feature,
+                });
+            }
+            last_end = whole.end();
+        }
+        stripped.push_str(&text[last_end..]);
+        (stripped, markers)
     }
 
     pub fn tokenize(&self, text: &str) -> Vec<MToken> {
-        // Use language-tokenizer for word boundary detection (like spaCy in Python)
-        // However, language-tokenizer with snowball does stemming, so we need to extract original text
-        // Strategy: Use a simple word splitter that handles contractions, then apply subtokenization
-        // Python uses spaCy which preserves original text, then applies subtokenize later
+        self.tokenize_with_offsets(text)
+            .into_iter()
+            .map(|(tk, _)| tk)
+            .collect()
+    }
 
-        // Simple word splitting that handles contractions: split on whitespace and punctuation
-        // but keep contractions together
+    /// Tokenize, returning each subtoken alongside its byte range in `text`.
+    ///
+    /// Needed to map [`LinkMarker`] byte ranges (from
+    /// [`G2P::preprocess_links`]) onto specific [`MToken`]s after
+    /// subtokenization. The Python equivalent uses spaCy's
+    /// `Alignment.from_strings` against a whitespace-split token list; we use
+    /// byte offsets instead, which is more robust to subtoken splits.
+    pub fn tokenize_with_offsets(
+        &self,
+        text: &str,
+    ) -> Vec<(MToken, std::ops::Range<usize>)> {
         let word_boundary_regex = Regex::new(r"\S+").unwrap();
         let mut tokens = Vec::new();
 
         for mat in word_boundary_regex.find_iter(text) {
             let word = mat.as_str();
-            // Apply subtokenization regex to each word (like Python's subtokenize in retokenize)
-            // This handles abbreviations, numbers, etc. but preserves contractions
-            let subtokens: Vec<&str> = self
-                .subtoken_regex
-                .find_iter(word)
-                .map(|m| m.as_str())
-                .collect();
+            let word_start = mat.start();
+            let subtokens: Vec<regex::Match> =
+                self.subtoken_regex.find_iter(word).collect();
 
             if subtokens.is_empty() {
-                // If regex doesn't match, use the word as-is
                 let tk = MToken::new(word.to_string(), "NN".to_string(), " ".to_string());
-                tokens.push(tk);
+                tokens.push((tk, word_start..mat.end()));
             } else {
                 for sub in subtokens {
-                    let tk = MToken::new(sub.to_string(), "NN".to_string(), " ".to_string());
-                    tokens.push(tk);
+                    let s = word_start + sub.start();
+                    let e = word_start + sub.end();
+                    let tk =
+                        MToken::new(sub.as_str().to_string(), "NN".to_string(), " ".to_string());
+                    tokens.push((tk, s..e));
                 }
             }
         }
@@ -116,8 +234,42 @@ impl G2P {
     }
 
     pub fn g2p(&self, text: &str) -> Result<(String, Vec<MToken>), G2PError> {
-        let (processed_text, _, _) = self.preprocess(text);
-        let mut tokens = self.tokenize(&processed_text);
+        // Parse `[text](feature)` markers and attach them to the subtokens
+        // whose byte range falls inside the marker span. Mirrors the
+        // `Lexicon.tokenize` feature-application pass in misaki/en.py.
+        let (processed_text, markers) = self.preprocess_links(text);
+        let mut tokens_with_spans = self.tokenize_with_offsets(&processed_text);
+
+        for marker in &markers {
+            let mut first_in_span = true;
+            for (tk, span) in tokens_with_spans.iter_mut() {
+                if span.start >= marker.byte_start && span.end <= marker.byte_end {
+                    match &marker.feature {
+                        LinkFeature::Stress(s) => {
+                            tk.underscore_mut().stress = Some(*s);
+                        }
+                        LinkFeature::Phonemes(p) => {
+                            // Only the head subtoken receives the override;
+                            // trailing subtokens are blanked so the main loop
+                            // skips them. Matches Python's
+                            // `phonemes = v.lstrip('/') if i == 0 else ''`.
+                            if first_in_span {
+                                tk.phonemes = Some(p.clone());
+                            } else {
+                                tk.phonemes = Some(String::new());
+                            }
+                        }
+                        LinkFeature::NumFlags(flags) => {
+                            tk.underscore_mut().num_flags = flags.clone();
+                        }
+                    }
+                    first_in_span = false;
+                }
+            }
+        }
+
+        let mut tokens: Vec<MToken> =
+            tokens_with_spans.into_iter().map(|(tk, _)| tk).collect();
 
         // Collect words for tagging
         let words_owned: Vec<String> = tokens.iter().map(|tk| tk.text.clone()).collect();
@@ -147,15 +299,18 @@ impl G2P {
         for i in (0..tokens.len()).rev() {
             let word = tokens[i].text.clone();
             let tag = tokens[i].tag.clone();
-            let stress = if word == word.to_lowercase() {
-                None
-            } else {
-                Some(if word == word.to_uppercase() {
-                    self.lexicon.cap_stresses.1
+            // An explicit `[word](+N)` marker takes precedence over
+            // capitalization-derived stress, matching Python misaki which
+            // writes `tk._.stress = v` before the lexicon lookup runs.
+            let stress = tokens[i].underscore().stress.or_else(|| {
+                if word == word.to_lowercase() {
+                    None
+                } else if word == word.to_uppercase() {
+                    Some(self.lexicon.cap_stresses.1)
                 } else {
-                    self.lexicon.cap_stresses.0
-                })
-            };
+                    Some(self.lexicon.cap_stresses.0)
+                }
+            });
 
             // Determine context from next token
             if i < tokens.len() - 1 {
@@ -340,6 +495,100 @@ mod tests {
         let (phonemes, _) = g2p.g2p("Hello, world!").unwrap();
         println!("Phonemes: {}", phonemes);
         assert!(!phonemes.contains("❓"));
+    }
+
+    // Tests for `[text](feature)` markdown-link parsing — see
+    // misaki/en.py::Lexicon.preprocess for the reference implementation.
+
+    #[test]
+    fn test_preprocess_links_strips_markup() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (stripped, markers) = g2p.preprocess_links("say [hello](+2) please");
+        assert_eq!(stripped, "say hello please");
+        assert_eq!(markers.len(), 1);
+        let m = &markers[0];
+        assert_eq!(&stripped[m.byte_start..m.byte_end], "hello");
+        match m.feature {
+            LinkFeature::Stress(n) => assert!((n - 2.0).abs() < f64::EPSILON),
+            _ => panic!("expected Stress, got {:?}", m.feature),
+        }
+    }
+
+    #[test]
+    fn test_preprocess_links_parses_features() {
+        // Integer stress — signed and unsigned.
+        assert!(matches!(parse_link_feature("+2"), Some(LinkFeature::Stress(n)) if n == 2.0));
+        assert!(matches!(parse_link_feature("-1"), Some(LinkFeature::Stress(n)) if n == -1.0));
+        assert!(matches!(parse_link_feature("2"),  Some(LinkFeature::Stress(n)) if n == 2.0));
+        // Half stress — only these three literals are accepted upstream.
+        assert!(matches!(parse_link_feature("0.5"),  Some(LinkFeature::Stress(n)) if n == 0.5));
+        assert!(matches!(parse_link_feature("+0.5"), Some(LinkFeature::Stress(n)) if n == 0.5));
+        assert!(matches!(parse_link_feature("-0.5"), Some(LinkFeature::Stress(n)) if n == -0.5));
+        // Phoneme override.
+        assert!(matches!(parse_link_feature("/həˈloʊ/"), Some(LinkFeature::Phonemes(ref p)) if p == "həˈloʊ"));
+        // Num flags.
+        assert!(matches!(parse_link_feature("#cardinal#"), Some(LinkFeature::NumFlags(ref f)) if f == "cardinal"));
+        // Anything else → None, matching the upstream `else: f = None` branch.
+        assert!(parse_link_feature("").is_none());
+        assert!(parse_link_feature("=").is_none());
+        assert!(parse_link_feature("doctor").is_none());
+        assert!(parse_link_feature("2.5").is_none());
+        assert!(parse_link_feature("/foo").is_none());
+        assert!(parse_link_feature("foo/").is_none());
+    }
+
+    #[test]
+    fn test_link_stress_promotes() {
+        // `[hello](+2)` should phonemize successfully and emit primary stress.
+        let g2p = G2P::new(Language::EnglishUS);
+        let (boosted, _) = g2p.g2p("[hello](+2)").unwrap();
+        assert!(!boosted.contains("❓"), "boosted output: '{}'", boosted);
+        assert!(boosted.contains('ˈ'),
+            "boosted output missing primary stress: '{}'", boosted);
+    }
+
+    #[test]
+    fn test_link_stress_strips() {
+        // `(-2)` strips all stress marks via Lexicon::apply_stress.
+        let g2p = G2P::new(Language::EnglishUS);
+        let (stripped, _) = g2p.g2p("[hello](-2)").unwrap();
+        assert!(!stripped.contains("❓"));
+        assert!(!stripped.contains('ˈ') && !stripped.contains('ˌ'),
+            "expected no stress marks, got: '{}'", stripped);
+    }
+
+    #[test]
+    fn test_link_phoneme_override() {
+        // `/.../` content is emitted verbatim, bypassing the lexicon.
+        let g2p = G2P::new(Language::EnglishUS);
+        let (out, _) = g2p.g2p("[xyzzy](/həˈloʊ/)").unwrap();
+        assert!(out.contains("həˈloʊ"), "phoneme override missing: '{}'", out);
+        assert!(!out.contains("❓"), "got unknown marker: '{}'", out);
+    }
+
+    #[test]
+    fn test_link_num_flags_sets_field() {
+        // `#flag#` markers don't affect phonemes today (the number-spelling
+        // logic that reads `num_flags` isn't ported yet), but the field must
+        // be set on the token so a future port can consume it.
+        let g2p = G2P::new(Language::EnglishUS);
+        let (_, tokens) = g2p.g2p("[5](#cardinal#)").unwrap();
+        let tagged: Vec<_> = tokens
+            .iter()
+            .filter(|t| !t.underscore().num_flags.is_empty())
+            .collect();
+        assert_eq!(tagged.len(), 1, "expected one token with num_flags set");
+        assert_eq!(tagged[0].underscore().num_flags, "cardinal");
+    }
+
+    #[test]
+    fn test_link_unknown_feature_is_dropped() {
+        // `=` and bare words must not parse — they fall through to None and
+        // the marker is silently ignored, matching upstream behaviour.
+        let g2p = G2P::new(Language::EnglishUS);
+        let (stripped, markers) = g2p.preprocess_links("say [hello](=) please");
+        assert_eq!(stripped, "say hello please");
+        assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
     /// With espeak feature: "eBook" is phonemized by espeak fallback (not in lexicon).
