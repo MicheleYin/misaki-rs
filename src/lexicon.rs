@@ -40,6 +40,14 @@ pub enum PhonemeEntry {
     Tagged(HashMap<String, Option<String>>),
 }
 
+fn capitalize(lower: &str) -> String {
+    let mut chars = lower.chars();
+    match chars.next() {
+        None => String::new(),
+        Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+    }
+}
+
 pub struct Lexicon {
     pub lang: Language,
     pub cap_stresses: (f64, f64),
@@ -49,14 +57,11 @@ pub struct Lexicon {
 
 impl Lexicon {
     pub fn new(lang: Language) -> Self {
-        let (golds_raw, silvers_raw) = match lang {
+        let (golds, silvers) = match lang {
             Language::EnglishGB => (data::load_gb_gold(), data::load_gb_silver()),
             Language::EnglishUS => (data::load_us_gold(), data::load_us_silver()),
             // Language::Italian => (data::load_it_gold(), data::load_it_silver()),
         };
-
-        let golds = Lexicon::grow_dictionary(golds_raw);
-        let silvers = Lexicon::grow_dictionary(silvers_raw);
 
         Self {
             lang,
@@ -66,32 +71,36 @@ impl Lexicon {
         }
     }
 
-    fn grow_dictionary(d: HashMap<String, PhonemeEntry>) -> HashMap<String, PhonemeEntry> {
-        let mut e = HashMap::new();
-        for (k, v) in d.iter() {
-            if k.len() < 2 {
-                continue;
-            }
-            let lower = k.to_lowercase();
-            let capitalized = {
-                let mut chars = lower.chars();
-                match chars.next() {
-                    None => String::new(),
-                    Some(f) => f.to_uppercase().collect::<String>() + chars.as_str(),
-                }
-            };
+    /// The file's own entry first. Failing that, a lowercase word answers for its capitalized
+    /// form and a capitalized word for its lowercase form, so the table holds one entry for both.
+    fn entry<'a>(table: &'a HashMap<String, PhonemeEntry>, word: &str) -> Option<&'a PhonemeEntry> {
+        table
+            .get(word)
+            .or_else(|| Self::case_variant(word).and_then(|variant| table.get(&variant)))
+    }
 
-            if k == &lower {
-                if k != &capitalized {
-                    e.insert(capitalized, v.clone());
-                }
-            } else if k == &capitalized {
-                e.insert(lower, v.clone());
-            }
+    // A one-character word or any other casing answers only itself.
+    fn case_variant(word: &str) -> Option<String> {
+        if word.chars().count() < 2 {
+            return None;
         }
-        let mut result = d;
-        result.extend(e);
-        result
+        let lower = word.to_lowercase();
+        let capitalized = capitalize(&lower);
+        if word == lower {
+            (capitalized != lower).then_some(capitalized)
+        } else if word == capitalized {
+            Some(lower)
+        } else {
+            None
+        }
+    }
+
+    pub fn in_gold(&self, word: &str) -> bool {
+        Self::entry(&self.golds, word).is_some()
+    }
+
+    fn has(&self, word: &str) -> bool {
+        self.in_gold(word) || Self::entry(&self.silvers, word).is_some()
     }
 
     // Helper to get phoneme string based on tag from entry
@@ -149,7 +158,7 @@ impl Lexicon {
         let mut current_word = word.to_string();
         let mut is_nnp = false;
 
-        if word == word.to_uppercase() && !self.golds.contains_key(word) {
+        if word == word.to_uppercase() && !self.in_gold(word) {
             current_word = word.to_lowercase();
             is_nnp = tag == "NNP";
         }
@@ -158,14 +167,14 @@ impl Lexicon {
         let mut rating = 0;
 
         // Try golds first
-        if let Some(entry) = self.golds.get(&current_word) {
+        if let Some(entry) = Self::entry(&self.golds, &current_word) {
             ps = self.resolve_phonemes(entry, tag, ctx);
             rating = 4;
         }
 
         // Try silvers only if not NNP (Python behavior)
         if ps.is_none() && !is_nnp {
-            if let Some(entry) = self.silvers.get(&current_word) {
+            if let Some(entry) = Self::entry(&self.silvers, &current_word) {
                 ps = self.resolve_phonemes(entry, tag, ctx);
                 rating = 3;
             }
@@ -567,10 +576,7 @@ impl Lexicon {
     pub fn is_known(&self, word: &str, _tag: &str) -> bool {
         let symbols = get_symbols();
 
-        if self.golds.contains_key(word)
-            || symbols.contains_key(word)
-            || self.silvers.contains_key(word)
-        {
+        if self.has(word) || symbols.contains_key(word) {
             return true;
         }
 
@@ -589,7 +595,7 @@ impl Lexicon {
             return true;
         }
 
-        if word == word.to_uppercase() && self.golds.contains_key(&word.to_lowercase()) {
+        if word == word.to_uppercase() && self.in_gold(&word.to_lowercase()) {
             return true;
         }
 
@@ -624,14 +630,12 @@ impl Lexicon {
             && word.replace("'", "").chars().all(|c| c.is_alphabetic())
             && word != wl
             && (tag != "NNP" || word.len() > 7)
-            && !self.golds.contains_key(word)
-            && !self.silvers.contains_key(word)
+            && !self.has(word)
             && (word == word.to_uppercase() || {
                 let rest: String = word.chars().skip(1).collect();
                 rest == rest.to_lowercase()
             })
-            && (self.golds.contains_key(&wl)
-                || self.silvers.contains_key(&wl)
+            && (self.has(&wl)
                 || self.stem_s(&wl, tag, stress, ctx).is_some()
                 || self.stem_ed(&wl, tag, stress, ctx).is_some()
                 || self.stem_ing(&wl, tag, stress, ctx).is_some())
@@ -672,5 +676,72 @@ impl Lexicon {
         }
 
         None
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn table(entries: &[(&str, &str)]) -> HashMap<String, PhonemeEntry> {
+        entries
+            .iter()
+            .map(|(word, phonemes)| (word.to_string(), PhonemeEntry::Simple(phonemes.to_string())))
+            .collect()
+    }
+
+    fn lexicon(golds: &[(&str, &str)]) -> Lexicon {
+        Lexicon {
+            lang: Language::EnglishUS,
+            cap_stresses: (0.5, 2.0),
+            golds: table(golds),
+            silvers: HashMap::new(),
+        }
+    }
+
+    fn phonemes(lexicon: &Lexicon, word: &str) -> Option<String> {
+        lexicon.lookup(word, "NN", None, None).map(|(ps, _)| ps)
+    }
+
+    #[test]
+    fn a_lowercase_entry_answers_its_capitalized_form() {
+        let lexicon = lexicon(&[("apple", "ˈæpəl")]);
+        assert_eq!(phonemes(&lexicon, "Apple").as_deref(), Some("ˈæpəl"));
+    }
+
+    #[test]
+    fn a_capitalized_entry_answers_its_lowercase_form() {
+        let lexicon = lexicon(&[("Paris", "pˈɛɹɪs")]);
+        assert_eq!(phonemes(&lexicon, "paris").as_deref(), Some("pˈɛɹɪs"));
+    }
+
+    #[test]
+    fn each_casing_keeps_its_own_entry_when_both_exist() {
+        let lexicon = lexicon(&[("polish", "pˈɑlɪʃ"), ("Polish", "pˈoʊlɪʃ")]);
+        assert_eq!(phonemes(&lexicon, "Polish").as_deref(), Some("pˈoʊlɪʃ"));
+        assert_eq!(phonemes(&lexicon, "polish").as_deref(), Some("pˈɑlɪʃ"));
+    }
+
+    #[test]
+    fn a_single_letter_answers_only_itself() {
+        let lexicon = lexicon(&[("a", "ɐ")]);
+        assert!(lexicon.in_gold("a"));
+        assert!(!lexicon.in_gold("A"));
+    }
+
+    #[test]
+    fn a_proper_noun_is_known_from_its_lowercase_entry() {
+        let lexicon = lexicon(&[("toml", "tˈɑːməl")]);
+        let (ps, _) = lexicon
+            .get_word("Toml", "NNP", None, None)
+            .expect("a known word");
+        assert_eq!(ps, "tˈɑːməl");
+    }
+
+    #[test]
+    fn the_table_holds_the_file_entries_and_nothing_more() {
+        let lexicon = Lexicon::new(Language::EnglishUS);
+        assert_eq!(lexicon.golds.len(), data::load_us_gold().len());
+        assert_eq!(lexicon.silvers.len(), data::load_us_silver().len());
     }
 }
