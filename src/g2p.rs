@@ -148,6 +148,12 @@ impl G2P {
         }
     }
 
+    pub fn with_fallback(lang: Language, fallback: Option<Box<dyn Fallback>>) -> Self {
+        let mut g2p = Self::new(lang);
+        g2p.fallback = fallback;
+        g2p
+    }
+
     /// Legacy preprocess shape, kept for API compatibility.
     ///
     /// The third return value (token-index → feature) is intentionally empty
@@ -488,6 +494,15 @@ impl G2P {
 mod tests {
     use super::*;
 
+    struct TestFallback;
+
+    impl Fallback for TestFallback {
+        fn phonemize(&self, word: &str) -> Result<String, FallbackError> {
+            assert_eq!(word, "qzxwv");
+            Ok("test-phonemes".to_string())
+        }
+    }
+
     #[test]
     fn test_g2p_basic() {
         let _ = env_logger::try_init();
@@ -495,6 +510,16 @@ mod tests {
         let (phonemes, _) = g2p.g2p("Hello, world!").unwrap();
         println!("Phonemes: {}", phonemes);
         assert!(!phonemes.contains("❓"));
+    }
+
+    #[test]
+    fn test_with_fallback_uses_injected_fallback_for_oov_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, Some(Box::new(TestFallback)));
+
+        let (phonemes, tokens) = g2p.g2p("qzxwv").unwrap();
+
+        assert_eq!(phonemes.trim(), "test-phonemes");
+        assert_eq!(tokens[0].phonemes.as_deref(), Some("test-phonemes"));
     }
 
     // Tests for `[text](feature)` markdown-link parsing — see
