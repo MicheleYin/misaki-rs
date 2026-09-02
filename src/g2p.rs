@@ -260,7 +260,19 @@ impl G2P {
                             if word.chars().count() == 1 {
                                 let c = word.chars().next().unwrap();
                                 if c.is_ascii_punctuation() || "—–…".contains(c) {
-                                    tokens[i].phonemes = Some(" ".to_string());
+                                    // Preserve the six punctuation marks Kokoro's vocab
+                                    // encodes explicitly (vocab ids 1-6: ';:,.!?').
+                                    // Downstream tokenizers map these to their own ids
+                                    // and the synthesis model uses them as prosody cues
+                                    // (sentence-end pause, clause breath, question
+                                    // intonation). Anything else (em-dash, ellipsis,
+                                    // parens, …) still collapses to a single space,
+                                    // matching the prior whitespace fallback.
+                                    if matches!(c, ';' | ':' | ',' | '.' | '!' | '?') {
+                                        tokens[i].phonemes = Some(c.to_string());
+                                    } else {
+                                        tokens[i].phonemes = Some(" ".to_string());
+                                    }
                                 } else {
                                     tokens[i].phonemes = Some(self.unk.clone());
                                 }
@@ -581,6 +593,32 @@ mod tests {
             let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
         }
+    }
+
+    #[test]
+    fn test_kokoros_punctuation_preserved() {
+        // Kokoro's vocab encodes ";:,.!?" as distinct token ids (1-6).
+        // G2P must emit each character literally in the phoneme stream so
+        // downstream tokenizers can map them; collapsing to space loses the
+        // sentence-end / clause-breath / question-intonation cues the
+        // synthesis model relies on. Other ASCII punctuation (parens,
+        // dashes, ellipsis, …) keeps the prior single-space fallback.
+        let g2p = G2P::new(Language::EnglishUS);
+
+        let (phonemes, _) = g2p.g2p("Hello, world.").unwrap();
+        assert!(phonemes.contains(','), "comma dropped: {phonemes:?}");
+        assert!(phonemes.contains('.'), "period dropped: {phonemes:?}");
+
+        for c in [';', ':', '!', '?'] {
+            let input = format!("test {c}");
+            let (out, _) = g2p.g2p(&input).unwrap();
+            assert!(out.contains(c), "{c:?} dropped: {out:?}");
+        }
+
+        // Non-vocab ASCII punctuation should still collapse to space.
+        let (out, _) = g2p.g2p("hello (world)").unwrap();
+        assert!(!out.contains('('), "( unexpectedly preserved: {out:?}");
+        assert!(!out.contains(')'), ") unexpectedly preserved: {out:?}");
     }
 
     #[test]
