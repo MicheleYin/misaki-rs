@@ -471,22 +471,86 @@ impl G2P {
     }
 
     fn is_number(&self, word: &str) -> bool {
-        let clean = word.replace(",", "");
-        clean.parse::<i64>().is_ok()
+        word.chars().any(|c| c.is_ascii_digit())
+            && word
+                .chars()
+                .all(|c| c.is_ascii_digit() || c == ',' || c == '.')
+    }
+
+    fn number_lang(&self) -> num2words::Lang {
+        match self.lexicon.lang {
+            Language::EnglishUS | Language::EnglishGB => num2words::Lang::English,
+        }
+    }
+
+    fn cardinal(&self, value: i64) -> Option<String> {
+        Num2Words::new(value)
+            .lang(self.number_lang())
+            .to_words()
+            .ok()
     }
 
     fn convert_number(&self, word: &str) -> String {
         let clean = word.replace(",", "");
-        if let Ok(val) = clean.parse::<i64>() {
-            let n2w = match self.lexicon.lang {
-                Language::EnglishUS | Language::EnglishGB => Num2Words::new(val),
-                // Language::Italian => Num2Words::new(val).lang(num2words::Lang::English),
-            };
-            if let Ok(spoken) = n2w.to_words() {
-                return spoken;
-            }
+        // Off the decimal path below, where parsing 1.10 as a float gives 1.1.
+        if clean.matches('.').count() > 1 {
+            return clean
+                .split('.')
+                .filter(|part| !part.is_empty())
+                .map(|part| self.number_component(part))
+                .collect::<Vec<_>>()
+                .join(" ");
         }
-        word.to_string()
+        if clean.contains('.') {
+            let spoken = clean.parse::<f64>().ok().and_then(|value| {
+                Num2Words::new(value)
+                    .lang(self.number_lang())
+                    .to_words()
+                    .ok()
+            });
+            return match spoken {
+                // num2words drops a zero integral word; upstream keeps it
+                // unless the token itself opens with the point.
+                Some(words) if words.starts_with("point") && !clean.starts_with('.') => {
+                    format!("zero {words}")
+                }
+                Some(words) => words,
+                None => word.to_string(),
+            };
+        }
+        // The year form reads the word as written, so a comma keeps 1,234 a count.
+        if word.len() == 4
+            && word.chars().all(|c| c.is_ascii_digit())
+            && let Ok(value) = word.parse::<i64>()
+            && let Ok(spoken) = Num2Words::new(value)
+                .lang(self.number_lang())
+                .year()
+                .to_words()
+        {
+            return spoken;
+        }
+        clean
+            .parse::<i64>()
+            .ok()
+            .and_then(|value| self.cardinal(value))
+            .unwrap_or_else(|| word.to_string())
+    }
+
+    fn number_component(&self, part: &str) -> String {
+        let digit_wise =
+            part.starts_with('0') || (part.len() != 2 && part[1..].chars().any(|c| c != '0'));
+        if digit_wise {
+            return part
+                .chars()
+                .filter_map(|c| c.to_digit(10))
+                .filter_map(|digit| self.cardinal(i64::from(digit)))
+                .collect::<Vec<_>>()
+                .join(" ");
+        }
+        part.parse::<i64>()
+            .ok()
+            .and_then(|value| self.cardinal(value))
+            .unwrap_or_else(|| part.to_string())
     }
 }
 
@@ -902,5 +966,80 @@ mod tests {
         let long_text = "a".repeat(1000);
         let (p, _) = g2p.g2p(&long_text).unwrap();
         assert!(!p.is_empty());
+    }
+
+    #[test]
+    fn a_version_string_reads_as_its_components() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("0.12.1"), "zero twelve one");
+        assert_eq!(g2p.convert_number("1.0.0"), "one zero zero");
+    }
+
+    #[test]
+    fn a_version_component_of_three_digits_reads_digit_by_digit() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("0.5.123"), "zero five one two three");
+    }
+
+    #[test]
+    fn a_decimal_says_point() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("1.2"), "one point two");
+        assert_eq!(g2p.convert_number("3.14"), "three point one four");
+    }
+
+    #[test]
+    fn a_four_digit_number_reads_as_a_year() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("2026"), "twenty twenty-six");
+    }
+
+    #[test]
+    fn a_plain_integer_still_reads_as_a_cardinal() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("12"), "twelve");
+        assert_eq!(
+            g2p.convert_number("1,234"),
+            "one thousand two hundred and thirty-four"
+        );
+    }
+
+    #[test]
+    fn a_dotted_number_counts_as_a_number() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert!(g2p.is_number("0.12.1"));
+        assert!(g2p.is_number("1.2"));
+        assert!(!g2p.is_number("config.toml"));
+    }
+
+    #[test]
+    fn a_version_in_a_sentence_reads_as_those_words() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (spoken, _) = g2p.g2p("Version 0.12.1").unwrap();
+        let (words, _) = g2p.g2p("Version zero twelve one").unwrap();
+        let phonemes = |s: String| s.split_whitespace().collect::<Vec<_>>().join(" ");
+        assert_eq!(phonemes(spoken), phonemes(words));
+    }
+
+    #[test]
+    fn a_decimal_below_one_keeps_its_zero() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("0.5"), "zero point five");
+        assert_eq!(g2p.convert_number("0.05"), "zero point zero five");
+        // The zero goes only when the token itself opens with the point.
+        assert_eq!(g2p.convert_number(".5"), "point five");
+    }
+
+    #[test]
+    fn a_round_version_component_reads_as_a_count() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert_eq!(g2p.convert_number("1.100.0"), "one one hundred zero");
+    }
+
+    #[test]
+    fn a_token_with_no_digits_is_not_a_number() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert!(!g2p.is_number(".,"));
+        assert!(!g2p.is_number("."));
     }
 }
