@@ -69,20 +69,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.7.0"
+misaki-rs = "0.8.0"
 ```
 
 **Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
 
 ```toml
 [dependencies]
-misaki-rs = { version = "0.7.0", default-features = false }
+misaki-rs = { version = "0.8.0", default-features = false }
 ```
 
 To depend on misaki-rs without default features but still use espeak:
 
 ```toml
-misaki-rs = { version = "0.7.0", default-features = false, features = ["espeak"] }
+misaki-rs = { version = "0.8.0", default-features = false, features = ["espeak"] }
 ```
 
 ## Quick Start
