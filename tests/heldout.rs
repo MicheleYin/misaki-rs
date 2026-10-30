@@ -39,7 +39,7 @@ struct Golden {
 fn heldout_matches_misaki() {
     let raw = std::fs::read_to_string("tests/fixtures/golden_heldout_us.json").unwrap();
     let g: Golden = serde_json::from_str(&raw).unwrap();
-    let mut e = G2P::new(Language::EnglishUS);
+    let mut e = G2P::with_fallback(Language::EnglishUS, None);
     e.unk = String::new();
 
     let mut ok = 0usize;

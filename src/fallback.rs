@@ -95,13 +95,18 @@ impl EspeakFallback {
 #[cfg(feature = "espeak")]
 impl Fallback for EspeakFallback {
     fn phonemize(&self, word: &str) -> Result<String, FallbackError> {
+        let sanitized_word: String = word.chars().filter(|c| !c.is_control()).collect();
+        if sanitized_word.is_empty() {
+            return Ok(String::new());
+        }
+
         let _lock = ESPEAK_MUTEX
             .lock()
             .map_err(|e| FallbackError::MutexPoisoned(format!("{:?}", e)))?;
         let voice = if self.british { "en" } else { "en-us" };
 
         // Use the portable espeak-rs call (used in kokoros)
-        match text_to_phonemes(word, voice, None, true, false) {
+        match text_to_phonemes(&sanitized_word, voice, None, true, false) {
             Ok(phonemes) => {
                 if phonemes.is_empty() {
                     return Err(FallbackError::NoPhonemes {
@@ -133,6 +138,14 @@ mod tests {
 
         // Verify it doesn't spell out character-by-character
         assert!(!phonemes.contains("ˈɛl"));  // Should not have spelled-out 'L'
+    }
+
+    #[test]
+    fn test_espeak_fallback_ignores_control_only_input() {
+        let fallback = EspeakFallback::new(false).expect("espeak should initialize");
+
+        assert_eq!(fallback.phonemize("\0\x01\x02").unwrap(), "");
+        assert!(!ESPEAK_MUTEX.is_poisoned());
     }
 
     #[test]
