@@ -7,6 +7,14 @@ description = "A self-contained, POS-aware Grapheme-to-Phoneme (G2P) engine for 
 homepage = "https://github.com/MicheleYin/misaki-rs"
 repository = "https://github.com/MicheleYin/misaki-rs"
 readme = "README.md"
+exclude = [
+	"tests/**",
+	"tools/**",
+	"examples/**",
+	"expand_dicts.py",
+	"data.txt",
+	"data_test.txt",
+]
 
 [features]
 default = ["espeak"]
