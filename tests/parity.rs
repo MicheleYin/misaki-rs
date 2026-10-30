@@ -55,7 +55,7 @@ fn run(path: &str) -> Report {
     assert_eq!(g.cases.len(), g.n, "fixture case count disagrees with itself");
 
     let lang = if g.lang == "b" { Language::EnglishGB } else { Language::EnglishUS };
-    let mut engine = G2P::new(lang);
+    let mut engine = G2P::with_fallback(lang, None);
     // Fixtures were generated with `unk=''` (see tools/gen_fixtures.py), the
     // same value our Kokoro pipeline constructs misaki with. The crate defaults
     // to '?' which would differ on every out-of-vocabulary word.
