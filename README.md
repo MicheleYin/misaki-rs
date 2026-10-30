@@ -28,13 +28,42 @@ With the default `espeak` feature enabled, an out-of-vocabulary word is sent to 
 
 ## Testing espeak
 
-To check that espeak fallback is working, phonemize an out-of-vocabulary word like `"eBook"` and assert it does not contain the unknown marker and is not spelled letter-by-letter:
+To check that the espeak fallback is working, run the espeak-enabled tests:
 
 ```bash
 cargo test test_ebook_with_espeak -- --nocapture
 ```
 
-You should see output like `eBook (with espeak): ˈi bˈʊk.` (word-like). Without the espeak feature, the same word is spelled out: `cargo test test_ebook_without_espeak --no-default-features -- --nocapture` gives e.g. `eBook (without espeak): ˈiː  bˈi  ˈo‍ʊ  ˈo‍ʊ  kˈe‍ɪ` (E, B, O, O, K as letter names).
+Without a fallback, an out-of-vocabulary word remains unresolved and uses `G2P::unk` in the assembled phoneme string. It is not spelled letter-by-letter.
+
+## Rust and Python comparison samples
+
+These US English samples were run with the Rust feature-parity branch and Python Misaki 0.9.4. Rust's default feature enables espeak; build with `--no-default-features` to disable it. In Python, `fallback=None` disables fallback and `espeak.EspeakFallback` enables it.
+
+For words in the lexicon, enabling fallback does not change the result:
+
+**“Please read the report I read yesterday.”**
+
+- Rust, no espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
+- Rust, espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
+- Python, no fallback: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
+- Python, espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
+
+**“They record a record every week.”**
+
+- Rust, no espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
+- Rust, espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
+- Python, no fallback: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
+- Python, espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
+
+For an out-of-vocabulary word, the fallback changes the result. The eSpeak backends may render it differently:
+
+**“qzxwv”**
+
+- Rust, no espeak: `❓`
+- Rust, espeak: `kjˌˈuzˌˈiˈɛksdˌʌbəljˌˈuvˈi.`
+- Python, no fallback: `❓`
+- Python, espeak: `kjˌuzˌiˈɛksdˌʌbᵊljˌuvˈi`
 
 
 ## Installation
