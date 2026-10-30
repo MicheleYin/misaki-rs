@@ -708,9 +708,13 @@ impl G2P {
         // five" and not "five hundred fifty five".
         let head_groups = Self::group_by_adjacency(&tokens);
         let mut is_head: Vec<bool> = vec![false; tokens.len()];
+        let mut is_subtoken_group = vec![false; tokens.len()];
         for g in &head_groups {
             if g.start < is_head.len() {
                 is_head[g.start] = true;
+            }
+            if g.len() > 1 {
+                is_subtoken_group[g.clone()].fill(true);
             }
         }
 
@@ -913,35 +917,22 @@ impl G2P {
 
                 if tokens[i].phonemes.is_none() {
                     if word.chars().count() > 1 {
-                        // Unknown multi-character word - use fallback
-                        let mut handled = false;
-                        if let Some(ref fallback) = self.fallback {
-                            match fallback.phonemize(&word) {
-                                Ok(ps) => {
-                                    tokens[i].phonemes = Some(ps);
-                                    handled = true;
-                                }
-                                Err(e) => {
-                                    log::error!("fallback error for '{}': {}", word, e);
-                                    return Err(G2PError::Fallback(e));
+                        // Python applies fallback after resolving the whole
+                        // adjacency group, not to an unresolved subtoken.
+                        if !is_subtoken_group[i] {
+                            if let Some(ref fallback) = self.fallback {
+                                match fallback.phonemize(&word) {
+                                    Ok(ps) => tokens[i].phonemes = Some(ps),
+                                    Err(e) => {
+                                        log::error!("fallback error for '{}': {}", word, e);
+                                        return Err(G2PError::Fallback(e));
+                                    }
                                 }
                             }
                         }
 
-                        if !handled {
-                            // Leave it unresolved. misaki returns (None, None) for an
-                            // out-of-vocabulary word (`Lexicon.__call__`); with no
-                            // fallback configured the phonemes stay None and the
-                            // assembled string substitutes `unk`.
-                            //
-                            // There was a character-by-character spell-out here. It is
-                            // not what misaki does and it was actively harmful: every
-                            // unknown proper noun became its spelling, so "Bennet" read
-                            // as "b-e-n-n-e-t" and one token became six, which is why
-                            // 257 of 413 failing prose cases differed in TOKEN COUNT
-                            // and therefore in every downstream word timestamp.
-                            let _ = &mut handled;
-                        }
+                        // Leave it unresolved for the group merge or final
+                        // unknown marker. Misaki does not spell OOV words out.
                     } else {
                         // Try to normalize the character or return unknown
                         let normalized: String = word
@@ -1059,7 +1050,7 @@ impl G2P {
                         if !tk.text.is_empty() && tk.text.chars().all(|c| SUBTOKEN_JUNKS.contains(c)) {
                             String::new()
                         } else {
-                            tk.phonemes.clone().unwrap_or_default()
+                            tk.phonemes.clone().unwrap_or_else(|| self.unk.clone())
                         }
                     };
 
@@ -1206,6 +1197,26 @@ impl G2P {
                                 }
                             }
                             left = 0;
+                        }
+                    }
+                    if let Some(fallback) = &self.fallback {
+                        let needs_fallback = res.iter().enumerate().any(|(i, part)| {
+                            part.is_none()
+                                && !group[i].text.is_empty()
+                                && !group[i]
+                                    .text
+                                    .chars()
+                                    .all(|c| SUBTOKEN_JUNKS.contains(c))
+                        });
+                        if needs_fallback {
+                            let ps = fallback.phonemize(&text)?;
+                            let mut tk = group[0].clone();
+                            tk.text = text;
+                            tk.tag = tag;
+                            tk.whitespace = ws;
+                            tk.phonemes = Some(ps);
+                            merged.push(tk);
+                            continue;
                         }
                     }
                     // Anything still unresolved stays unresolved, as misaki
@@ -1709,6 +1720,15 @@ mod tests {
         }
     }
 
+    struct HyphenatedFallback;
+
+    impl Fallback for HyphenatedFallback {
+        fn phonemize(&self, word: &str) -> Result<String, FallbackError> {
+            assert_eq!(word, "il-lilly");
+            Ok("whole-word-fallback".to_string())
+        }
+    }
+
     #[test]
     fn test_g2p_basic() {
         let _ = env_logger::try_init();
@@ -1726,6 +1746,34 @@ mod tests {
 
         assert_eq!(phonemes.trim(), "test-phonemes");
         assert_eq!(tokens[0].phonemes.as_deref(), Some("test-phonemes"));
+    }
+
+    #[test]
+    fn test_hyphenated_oov_preserves_unknown_marker_without_fallback() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        let (phonemes, tokens) = g2p.g2p("il-lilly").unwrap();
+
+        assert_eq!(phonemes, "❓lˈɪli");
+        assert_eq!(tokens[0].phonemes.as_deref(), Some("❓lˈɪli"));
+    }
+
+    #[test]
+    fn test_hyphenated_oov_fallback_receives_merged_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, Some(Box::new(HyphenatedFallback)));
+        let (phonemes, tokens) = g2p.g2p("il-lilly").unwrap();
+
+        assert_eq!(phonemes, "whole-word-fallback");
+        assert_eq!(tokens[0].phonemes.as_deref(), Some("whole-word-fallback"));
+    }
+
+    #[cfg(feature = "espeak")]
+    #[test]
+    fn test_hyphenated_oov_matches_espeak_reference() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (phonemes, tokens) = g2p.g2p("il-lilly").unwrap();
+
+        assert_eq!(phonemes, "ˈɪllˈɪli");
+        assert_eq!(tokens[0].phonemes.as_deref(), Some("ˈɪllˈɪli"));
     }
 
     // Tests for `[text](feature)` markdown-link parsing — see

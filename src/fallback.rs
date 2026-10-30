@@ -45,16 +45,48 @@ impl EspeakFallback {
 
     /// Convert espeak IPA output to misaki phoneme format
     fn convert_espeak_to_misaki(&self, espeak_ipa: &str) -> String {
-        let mut result = espeak_ipa.to_string();
+        let mut result = espeak_ipa
+            .trim()
+            .trim_end_matches(|c| matches!(c, '.' | ',' | '?' | '!'))
+            .to_string();
 
-        // Conversions to match misaki phoneme set
-        result = result.replace("iː", "ˈi").replace("i:", "ˈi");
-        result = result.replace("uː", "ˈu").replace("u:", "ˈu");
-        result = result.replace("ɜː", "ɜ").replace("ɜ:", "ɜ");
-        result = result.replace("ɔː", "ɔ").replace("ɔ:", "ɔ");
-        result = result.replace("ɑː", "ɑ").replace("ɑ:", "ɑ");
-        result = result.replace("ː", ""); // remove remaining length markers
-        result = result.replace("_", ""); // stop syllables
+        result = result
+            .replace("ʔˌn\u{0329}", "ʔn")
+            .replace("ʔn\u{0329}", "ʔn")
+            .replace("aɪ", "I")
+            .replace("aʊ", "W")
+            .replace("dʒ", "ʤ")
+            .replace("eɪ", "A")
+            .replace("tʃ", "ʧ")
+            .replace("ɔɪ", "Y")
+            .replace("ə^l", "ᵊl")
+            .replace("ʲo", "jo")
+            .replace("ʲə", "jə")
+            .replace("ʲ", "")
+            .replace("x", "k")
+            .replace("ç", "k")
+            .replace("ɐ", "ə")
+            .replace("ɬ", "l")
+            .replace("ɜːɹ", "ɜɹ")
+            .replace("ɜː", "ɜ")
+            .replace("ɪə", "iə")
+            .replace("iː", "i")
+            .replace("i:", "i")
+            .replace("uː", "u")
+            .replace("u:", "u")
+            .replace("ɔː", "ɔ")
+            .replace("ɔ:", "ɔ")
+            .replace("ɑː", "ɑ")
+            .replace("ɑ:", "ɑ")
+            .replace("ː", "")
+            .replace("_", "")
+            .replace("əl", "ᵊl")
+            .replace('e', "A")
+            .replace('o', "ɔ")
+            .replace('r', "ɹ")
+            .replace('ɾ', "T")
+            .replace('ʔ', "t")
+            .replace('^', "");
 
         result.replace("ˈˈ", "ˈ").replace("ˌˌ", "ˌ")
     }
@@ -101,6 +133,21 @@ mod tests {
 
         // Verify it doesn't spell out character-by-character
         assert!(!phonemes.contains("ˈɛl"));  // Should not have spelled-out 'L'
+    }
+
+    #[test]
+    fn test_espeak_conversion_matches_python_reference_forms() {
+        let fallback = EspeakFallback::new(false).expect("espeak should initialize");
+
+        assert_eq!(
+            fallback.convert_espeak_to_misaki("ˈɪllˈɪli."),
+            "ˈɪllˈɪli"
+        );
+        assert_eq!(
+            fallback.convert_espeak_to_misaki("kjˌuːzˌiːˈɛksdˌʌbəljˌuːvˈiː."),
+            "kjˌuzˌiˈɛksdˌʌbᵊljˌuvˈi"
+        );
+        assert_eq!(fallback.convert_espeak_to_misaki("ɜː."), "ɜ");
     }
 
     #[test]

@@ -38,33 +38,30 @@ Without a fallback, an out-of-vocabulary word remains unresolved and uses `G2P::
 
 ## Rust and Python comparison samples
 
-These US English samples were run with the Rust feature-parity branch and Python Misaki 0.9.4. Rust's default feature enables espeak; build with `--no-default-features` to disable it. In Python, `fallback=None` disables fallback and `espeak.EspeakFallback` enables it.
+These US English samples were rerun with Rust and Python Misaki 0.9.4. Rust's default feature enables espeak; build with `--no-default-features` to disable it. In Python, `fallback=None` disables fallback and `espeak.EspeakFallback` enables it. The phoneme strings below match in both implementations and fallback modes.
 
 For words in the lexicon, enabling fallback does not change the result:
 
-**“Please read the report I read yesterday.”**
+### “Please read the report I read yesterday.”
 
 - Rust, no espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
 - Rust, espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
 - Python, no fallback: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
 - Python, espeak: `plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.`
 
-**“They record a record every week.”**
+### “They record a record every week.”
 
 - Rust, no espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
 - Rust, espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
 - Python, no fallback: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
 - Python, espeak: `ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.`
 
-For an out-of-vocabulary word, the fallback changes the result. The eSpeak backends may render it differently:
-
-**“qzxwv”**
+### “qzxwv”
 
 - Rust, no espeak: `❓`
-- Rust, espeak: `kjˌˈuzˌˈiˈɛksdˌʌbəljˌˈuvˈi.`
+- Rust, espeak: `kjˌuzˌiˈɛksdˌʌbᵊljˌuvˈi`
 - Python, no fallback: `❓`
 - Python, espeak: `kjˌuzˌiˈɛksdˌʌbᵊljˌuvˈi`
-
 
 ## Installation
 
