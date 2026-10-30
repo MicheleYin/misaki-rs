@@ -1,0 +1,771 @@
+[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.
+Please read the report I read yesterday.
+He will lead the team with a lead pipe.
+They record a record every week.
+We live near a live volcano.
+The bandage was wound around the wound.
+The dove dove into the bushes.
+I object to that object.
+The farm was used to produce produce.
+He did not desert his comrades in the desert.
+The soldier decided to desert in the desert.
+She was too close to the door to close it.
+The buck does funny things when the does are present.
+A bass was painted on the bass drum.
+They were too separate to separate the pieces.
+The insurance was invalid for the invalid.
+I had to subject the subject to a test.
+The wind was too strong to wind the sail.
+He wound the clock after the wound healed.
+Do not refuse to take out the refuse.
+The contract did not contract as expected.
+The apple and the pear were on the table.
+The elephant ate the entire thing.
+I want to eat and to sleep.
+She went to Ohio to open an account.
+A unicorn and an umbrella.
+A hour is not an hour.
+I have three PDFs and two URLs to send you.
+The CEOs of several NGOs met.
+He bought two CDs and three DVDs.
+NASA and the FBI and the CIA.
+An API, two APIs, and some APIs' documentation.
+The GPUs cost more than the CPUs.
+Chapter 12 begins on page 347 in 1999.
+It cost $1,250.75 and weighed 3.5 kg.
+Dr. Smith met Mr. Jones at 5:30 p.m. on Jan. 3rd.
+She finished 1st, he finished 2nd, and I was 23rd.
+In 1776 and again in 1812 and once more in 2026.
+The temperature was -40 degrees.
+Add 1/2 cup and 3/4 teaspoon.
+It is 100% certain that 50% will fail.
+Call 555-1234 or 1-800-555-0199.
+The price rose from £5 to €7 to $9.
+He ran 26.2 miles in 3:42:15.
+Room 101 on the 4th floor of building 7A.
+She said "don't go" and then left.
+It was -- how shall I say it -- unexpected.
+Wait... what? No! Really?
+The cat's toys; the dogs' bones.
+(Parenthetical) [bracketed] {braced}
+A semicolon; a colon: and a comma, too.
+Hyphenated-words and re-entry and co-operate.
+'Single quotes' and “curly doubles” and ‘curly singles’.
+ALL CAPS SENTENCE HERE.
+iPhone and eBay and McDonald's.
+e.g. and i.e. and etc. and vs.
+The naive cafe served souffle.
+Mr O'Brien and Mrs McCarthy-Jones.
+A well-known fact about ice cream.
+The New York Times said so.
+He is a self-made man.
+[Kokoro](/kˈOkəɹO/) is fast.
+[hello](+2) and [hello](-1) and [hello](0.5).
+A.
+I
+...
+a
+The
+Hmm.
+Shhh!
+Ok.
+CHAPTER I On an exceptionally hot evening early in July a young man came out of the garret in which he lodged in S.
+Place and walked slowly, as though in hesitation, towards K.
+He had successfully avoided meeting his landlady on the staircase.
+His garret was under the roof of a high, five-storied house and was more like a cupboard than a room.
+The landlady who provided him with garret, dinners, and attendance, lived on the floor below, and every time he went out he was obliged to pass her kitchen, the door of which invariably stood open.
+And each time he passed, the young man had a sick, frightened feeling, which made him scowl and feel ashamed.
+He was hopelessly in debt to his landlady, and was afraid of meeting her.
+This was not because he was cowardly and abject, quite the contrary; but for some time past he had been in an overstrained irritable condition, verging on hypochondria.
+He had become so completely absorbed in himself, and isolated from his fellows that he dreaded meeting, not only his landlady, but anyone at all.
+He was crushed by poverty, but the anxieties of his position had of late ceased to weigh upon him.
+He had given up attending to matters of practical importance; he had lost all desire to do so.
+Nothing that any landlady could do had a real terror for him.
+But to be stopped on the stairs, to be forced to listen to her trivial, irrelevant gossip, to pestering demands for payment, threats and complaints, and to rack his brains for excuses, to prevaricate, to lie--no, rather than that, he would creep down the stairs like a cat and slip out unseen.
+This evening, however, on coming out into the street, he became acutely aware of his fears.
+“I want to attempt a thing _like that_ and am frightened by these trifles,” he thought, with an odd smile.
+yes, all is in a man’s hands and he lets it all slip from cowardice, that’s an axiom.
+It would be interesting to know what it is men are most afraid of.
+Taking a new step, uttering a new word is what they fear most....
+But I am talking too much.
+It’s because I chatter that I do nothing.
+Or perhaps it is that I chatter because I do nothing.
+I’ve learned to chatter this last month, lying for days together in my den thinking...
+of Jack the Giant-killer.
+Why am I going there now?
+Am I capable of _that_?
+It is not serious at all.
+It’s simply a fantasy to amuse myself; a plaything!
+Yes, maybe it is a plaything.” The heat in the street was terrible: and the airlessness, the bustle and the plaster, scaffolding, bricks, and dust all about him, and that special Petersburg stench, so familiar to all who are unable to get out of town in summer--all worked painfully upon the young man’s already overwrought nerves.
+The insufferable stench from the pot-houses, which are particularly numerous in that part of the town, and the drunken men whom he met continually, although it was a working day, completed the revolting misery of the picture.
+An expression of the profoundest disgust gleamed for a moment in the young man’s refined face.
+He was, by the way, exceptionally handsome, above the average in height, slim, well-built, with beautiful dark eyes and dark brown hair.
+Soon he sank into deep thought, or more accurately speaking into a complete blankness of mind; he walked along not observing what was about him and not caring to observe it.
+From time to time, he would mutter something, from the habit of talking to himself, to which he had just confessed.
+At these moments he would become conscious that his ideas were sometimes in a tangle and that he was very weak; for two days he had scarcely tasted food.
+He was so badly dressed that even a man accustomed to shabbiness would have been ashamed to be seen in the street in such rags.
+In that quarter of the town, however, scarcely any shortcoming in dress would have created surprise.
+Owing to the proximity of the Hay Market, the number of establishments of bad character, the preponderance of the trading and working class population crowded in these streets and alleys in the heart of Petersburg, types so various were to be seen in the streets that no figure, however queer, would have caused surprise.
+But there was such accumulated bitterness and contempt in the young man’s heart, that, in spite of all the fastidiousness of youth, he minded his rags least of all in the street.
+It was a different matter when he met with acquaintances or with former fellow students, whom, indeed, he disliked meeting at any time.
+And yet when a drunken man who, for some unknown reason, was being taken somewhere in a huge waggon dragged by a heavy dray horse, suddenly shouted at him as he drove past: “Hey there, German hatter” bawling at the top of his voice and pointing at him--the young man stopped suddenly and clutched tremulously at his hat.
+It was a tall round hat from Zimmerman’s, but completely worn out, rusty with age, all torn and bespattered, brimless and bent on one side in a most unseemly fashion.
+Not shame, however, but quite another feeling akin to terror had overtaken him.
+“I knew it,” he muttered in confusion, “I thought so!
+That’s the worst of all!
+Why, a stupid thing like this, the most trivial detail might spoil the whole plan.
+Yes, my hat is too noticeable....
+It looks absurd and that makes it noticeable....
+With my rags I ought to wear a cap, any sort of old pancake, but not this grotesque thing.
+Nobody wears such a hat, it would be noticed a mile off, it would be remembered....
+What matters is that people would remember it, and that would give them a clue.
+For this business one should be as little conspicuous as possible....
+Trifles, trifles are what matter!
+Why, it’s just such trifles that always ruin everything....” He had not far to go; he knew indeed how many steps it was from the gate of his lodging house: exactly seven hundred and thirty.
+He had counted them once when he had been lost in dreams.
+At the time he had put no faith in those dreams and was only tantalising himself by their hideous but daring recklessness.
+Now, a month later, he had begun to look upon them differently, and, in spite of the monologues in which he jeered at his own impotence and indecision, he had involuntarily come to regard this “hideous” dream as an exploit to be attempted, although he still did not realise this himself.
+He was positively going now for a “rehearsal” of his project, and at every step his excitement grew more and more violent.
+With a sinking heart and a nervous tremor, he went up to a huge house which on one side looked on to the canal, and on the other into the street.
+This house was let out in tiny tenements and was inhabited by working people of all kinds--tailors, locksmiths, cooks, Germans of sorts, girls picking up a living as best they could, petty clerks, etc.
+There was a continual coming and going through the two gates and in the two courtyards of the house.
+Three or four door-keepers were employed on the building.
+The young man was very glad to meet none of them, and at once slipped unnoticed through the door on the right, and up the staircase.
+It was a back staircase, dark and narrow, but he was familiar with it already, and knew his way, and he liked all these surroundings: in such darkness even the most inquisitive eyes were not to be dreaded.
+“If I am so scared now, what would it be if it somehow came to pass that I were really going to do it?” he could not help asking himself as he reached the fourth storey.
+There his progress was barred by some porters who were engaged in moving furniture out of a flat.
+He knew that the flat had been occupied by a German clerk in the civil service, and his family.
+This German was moving out then, and so the fourth floor on this staircase would be untenanted except by the old woman.
+“That’s a good thing anyway,” he thought to himself, as he rang the bell of the old woman’s flat.
+The bell gave a faint tinkle as though it were made of tin and not of copper.
+The little flats in such houses always have bells that ring like that.
+He had forgotten the note of that bell, and now its peculiar tinkle seemed to remind him of something and to bring it clearly before him....
+He started, his nerves were terribly overstrained by now.
+In a little while, the door was opened a tiny crack: the old woman eyed her visitor with evident distrust through the crack, and nothing could be seen but her little eyes, glittering in the darkness.
+But, seeing a number of people on the landing, she grew bolder, and opened the door wide.
+The young man stepped into the dark entry, which was partitioned off from the tiny kitchen.
+The old woman stood facing him in silence and looking inquiringly at him.
+She was a diminutive, withered up old woman of sixty, with sharp malignant eyes and a sharp little nose.
+Her colourless, somewhat grizzled hair was thickly smeared with oil, and she wore no kerchief over it.
+Round her thin long neck, which looked like a hen’s leg, was knotted some sort of flannel rag, and, in spite of the heat, there hung flapping on her shoulders, a mangy fur cape, yellow with age.
+The old woman coughed and groaned at every instant.
+The young man must have looked at her with a rather peculiar expression, for a gleam of mistrust came into her eyes again.
+“Raskolnikov, a student, I came here a month ago,” the young man made haste to mutter, with a half bow, remembering that he ought to be more polite.
+“I remember, my good sir, I remember quite well your coming here,” the old woman said distinctly, still keeping her inquiring eyes on his face.
+I am again on the same errand,” Raskolnikov continued, a little disconcerted and surprised at the old woman’s mistrust.
+“Perhaps she is always like that though, only I did not notice it the other time,” he thought with an uneasy feeling.
+The old woman paused, as though hesitating; then stepped on one side, and pointing to the door of the room, she said, letting her visitor pass in front of her: “Step in, my good sir.” The little room into which the young man walked, with yellow paper on the walls, geraniums and muslin curtains in the windows, was brightly lighted up at that moment by the setting sun.
+“So the sun will shine like this _then_ too!” flashed as it were by chance through Raskolnikov’s mind, and with a rapid glance he scanned everything in the room, trying as far as possible to notice and remember its arrangement.
+But there was nothing special in the room.
+The furniture, all very old and of yellow wood, consisted of a sofa with a huge bent wooden back, an oval table in front of the sofa, a dressing-table with a looking-glass fixed on it between the windows, chairs along the walls and two or three half-penny prints in yellow frames, representing German damsels with birds in their hands--that was all.
+In the corner a light was burning before a small ikon.
+Everything was very clean; the floor and the furniture were brightly polished; everything shone.
+“Lizaveta’s work,” thought the young man.
+There was not a speck of dust to be seen in the whole flat.
+“It’s in the houses of spiteful old widows that one finds such cleanliness,” Raskolnikov thought again, and he stole a curious glance at the cotton curtain over the door leading into another tiny room, in which stood the old woman’s bed and chest of drawers and into which he had never looked before.
+These two rooms made up the whole flat.
+“What do you want?” the old woman said severely, coming into the room and, as before, standing in front of him so as to look him straight in the face.
+“I’ve brought something to pawn here,” and he drew out of his pocket an old-fashioned flat silver watch, on the back of which was engraved a globe; the chain was of steel.
+“But the time is up for your last pledge.
+The month was up the day before yesterday.” “I will bring you the interest for another month; wait a little.” “But that’s for me to do as I please, my good sir, to wait or to sell your pledge at once.” “How much will you give me for the watch, Alyona Ivanovna?” “You come with such trifles, my good sir, it’s scarcely worth anything.
+I gave you two roubles last time for your ring and one could buy it quite new at a jeweler’s for a rouble and a half.” “Give me four roubles for it, I shall redeem it, it was my father’s.
+I shall be getting some money soon.” “A rouble and a half, and interest in advance, if you like!” “A rouble and a half!” cried the young man.
+“Please yourself”--and the old woman handed him back the watch.
+The young man took it, and was so angry that he was on the point of going away; but checked himself at once, remembering that there was nowhere else he could go, and that he had had another object also in coming.
+“Hand it over,” he said roughly.
+The old woman fumbled in her pocket for her keys, and disappeared behind the curtain into the other room.
+The young man, left standing alone in the middle of the room, listened inquisitively, thinking.
+He could hear her unlocking the chest of drawers.
+“It must be the top drawer,” he reflected.
+“So she carries the keys in a pocket on the right.
+All in one bunch on a steel ring....
+And there’s one key there, three times as big as all the others, with deep notches; that can’t be the key of the chest of drawers...
+then there must be some other chest or strong-box...
+Strong-boxes always have keys like that...
+but how degrading it all is.” The old woman came back.
+“Here, sir: as we say ten copecks the rouble a month, so I must take fifteen copecks from a rouble and a half for the month in advance.
+But for the two roubles I lent you before, you owe me now twenty copecks on the same reckoning in advance.
+That makes thirty-five copecks altogether.
+So I must give you a rouble and fifteen copecks for the watch.
+Here it is.” “What!
+only a rouble and fifteen copecks now!” “Just so.” The young man did not dispute it and took the money.
+He looked at the old woman, and was in no hurry to get away, as though there was still something he wanted to say or to do, but he did not himself quite know what.
+“I may be bringing you something else in a day or two, Alyona Ivanovna--a valuable thing--silver--a cigarette-box, as soon as I get it back from a friend...” he broke off in confusion.
+“Well, we will talk about it then, sir.” “Good-bye--are you always at home alone, your sister is not here with you?” He asked her as casually as possible as he went out into the passage.
+“What business is she of yours, my good sir?” “Oh, nothing particular, I simply asked.
+You are too quick....
+Good-day, Alyona Ivanovna.” Raskolnikov went out in complete confusion.
+This confusion became more and more intense.
+As he went down the stairs, he even stopped short, two or three times, as though suddenly struck by some thought.
+When he was in the street he cried out, “Oh, God, how loathsome it all is!
+and can I, can I possibly....
+No, it’s nonsense, it’s rubbish!” he added resolutely.
+“And how could such an atrocious thing come into my head?
+What filthy things my heart is capable of.
+Yes, filthy above all, disgusting, loathsome, loathsome!--and for a whole month I’ve been....” But no words, no exclamations, could express his agitation.
+The feeling of intense repulsion, which had begun to oppress and torture his heart while he was on his way to the old woman, had by now reached such a pitch and had taken such a definite form that he did not know what to do with himself to escape from his wretchedness.
+He walked along the pavement like a drunken man, regardless of the passers-by, and jostling against them, and only came to his senses when he was in the next street.
+Looking round, he noticed that he was standing close to a tavern which was entered by steps leading from the pavement to the basement.
+At that instant two drunken men came out at the door, and abusing and supporting one another, they mounted the steps.
+Without stopping to think, Raskolnikov went down the steps at once.
+Till that moment he had never been into a tavern, but now he felt giddy and was tormented by a burning thirst.
+He longed for a drink of cold beer, and attributed his sudden weakness to the want of food.
+He sat down at a sticky little table in a dark and dirty corner; ordered some beer, and eagerly drank off the first glassful.
+At once he felt easier; and his thoughts became clear.
+“All that’s nonsense,” he said hopefully, “and there is nothing in it all to worry about!
+It’s simply physical derangement.
+Just a glass of beer, a piece of dry bread--and in one moment the brain is stronger, the mind is clearer and the will is firm!
+Phew, how utterly petty it all is!” But in spite of this scornful reflection, he was by now looking cheerful as though he were suddenly set free from a terrible burden: and he gazed round in a friendly way at the people in the room.
+But even at that moment he had a dim foreboding that this happier frame of mind was also not normal.
+There were few people at the time in the tavern.
+Besides the two drunken men he had met on the steps, a group consisting of about five men and a girl with a concertina had gone out at the same time.
+Their departure left the room quiet and rather empty.
+The persons still in the tavern were a man who appeared to be an artisan, drunk, but not extremely so, sitting before a pot of beer, and his companion, a huge, stout man with a grey beard, in a short full-skirted coat.
+There was another man in the room who looked somewhat like a retired government clerk.
+He was sitting apart, now and then sipping from his pot and looking round at the company.
+He, too, appeared to be in some agitation.
+CHAPTER II Raskolnikov was not used to crowds, and, as we said before, he avoided society of every sort, more especially of late.
+But now all at once he felt a desire to be with other people.
+Something new seemed to be taking place within him, and with it he felt a sort of thirst for company.
+He was so weary after a whole month of concentrated wretchedness and gloomy excitement that he longed to rest, if only for a moment, in some other world, whatever it might be; and, in spite of the filthiness of the surroundings, he was glad now to stay in the tavern.
+The master of the establishment was in another room, but he frequently came down some steps into the main room, his jaunty, tarred boots with red turn-over tops coming into view each time before the rest of his person.
+He wore a full coat and a horribly greasy black satin waistcoat, with no cravat, and his whole face seemed smeared with oil like an iron lock.
+At the counter stood a boy of about fourteen, and there was another boy somewhat younger who handed whatever was wanted.
+On the counter lay some sliced cucumber, some pieces of dried black bread, and some fish, chopped up small, all smelling very bad.
+It was insufferably close, and so heavy with the fumes of spirits that five minutes in such an atmosphere might well make a man drunk.
+There are chance meetings with strangers that interest us from the first moment, before a word is spoken.
+Such was the impression made on Raskolnikov by the person sitting a little distance from him, who looked like a retired clerk.
+The young man often recalled this impression afterwards, and even ascribed it to presentiment.
+He looked repeatedly at the clerk, partly no doubt because the latter was staring persistently at him, obviously anxious to enter into conversation.
+At the other persons in the room, including the tavern-keeper, the clerk looked as though he were used to their company, and weary of it, showing a shade of condescending contempt for them as persons of station and culture inferior to his own, with whom it would be useless for him to converse.
+He was a man over fifty, bald and grizzled, of medium height, and stoutly built.
+His face, bloated from continual drinking, was of a yellow, even greenish, tinge, with swollen eyelids out of which keen reddish eyes gleamed like little chinks.
+But there was something very strange in him; there was a light in his eyes as though of intense feeling--perhaps there were even thought and intelligence, but at the same time there was a gleam of something like madness.
+He was wearing an old and hopelessly ragged black dress coat, with all its buttons missing except one, and that one he had buttoned, evidently clinging to this last trace of respectability.
+A crumpled shirt front, covered with spots and stains, protruded from his canvas waistcoat.
+Like a clerk, he wore no beard, nor moustache, but had been so long unshaven that his chin looked like a stiff greyish brush.
+And there was something respectable and like an official about his manner too.
+But he was restless; he ruffled up his hair and from time to time let his head drop into his hands dejectedly resting his ragged elbows on the stained and sticky table.
+At last he looked straight at Raskolnikov, and said loudly and resolutely: “May I venture, honoured sir, to engage you in polite conversation?
+Forasmuch as, though your exterior would not command respect, my experience admonishes me that you are a man of education and not accustomed to drinking.
+I have always respected education when in conjunction with genuine sentiments, and I am besides a titular counsellor in rank.
+Marmeladov--such is my name; titular counsellor.
+I make bold to inquire--have you been in the service?” “No, I am studying,” answered the young man, somewhat surprised at the grandiloquent style of the speaker and also at being so directly addressed.
+In spite of the momentary desire he had just been feeling for company of any sort, on being actually spoken to he felt immediately his habitual irritable and uneasy aversion for any stranger who approached or attempted to approach him.
+“A student then, or formerly a student,” cried the clerk.
+“Just what I thought!
+I’m a man of experience, immense experience, sir,” and he tapped his forehead with his fingers in self-approval.
+“You’ve been a student or have attended some learned institution!...
+But allow me....” He got up, staggered, took up his jug and glass, and sat down beside the young man, facing him a little sideways.
+He was drunk, but spoke fluently and boldly, only occasionally losing the thread of his sentences and drawling his words.
+He pounced upon Raskolnikov as greedily as though he too had not spoken to a soul for a month.
+“Honoured sir,” he began almost with solemnity, “poverty is not a vice, that’s a true saying.
+Yet I know too that drunkenness is not a virtue, and that that’s even truer.
+But beggary, honoured sir, beggary is a vice.
+In poverty you may still retain your innate nobility of soul, but in beggary--never--no one.
+For beggary a man is not chased out of human society with a stick, he is swept out with a broom, so as to make it as humiliating as possible; and quite right, too, forasmuch as in beggary I am ready to be the first to humiliate myself.
+Honoured sir, a month ago Mr.
+Lebeziatnikov gave my wife a beating, and my wife is a very different matter from me!
+Allow me to ask you another question out of simple curiosity: have you ever spent a night on a hay barge, on the Neva?” “No, I have not happened to,” answered Raskolnikov.
+“What do you mean?” “Well, I’ve just come from one and it’s the fifth night I’ve slept so....” He filled his glass, emptied it and paused.
+Bits of hay were in fact clinging to his clothes and sticking to his hair.
+[Illustration: GEORGE ALLEN PUBLISHER 156 CHARING CROSS ROAD LONDON RUSKIN HOUSE ] [Illustration: _Reading Jane’s Letters._ _Chap 34._ ] PRIDE.
+and PREJUDICE by Jane Austen, with a Preface by George Saintsbury and Illustrations by Hugh Thomson [Illustration: 1894] Ruskin 156.
+CHISWICK PRESS:--CHARLES WHITTINGHAM AND CO.
+TOOKS COURT, CHANCERY LANE, LONDON.
+Comyns Carr in acknowledgment of all I owe to his friendship and advice, these illustrations are gratefully inscribed_ _Hugh Thomson_ ] PREFACE.
+[Illustration] _Walt Whitman has somewhere a fine and just distinction between “loving by allowance” and “loving with personal love.” This distinction applies to books as well as to men and women; and in the case of the not very numerous authors who are the objects of the personal affection, it brings a curious consequence with it.
+There is much more difference as to their best work than in the case of those others who are loved “by allowance” by convention, and because it is felt to be the right and proper thing to love them.
+And in the sect--fairly large and yet unusually choice--of Austenians or Janites, there would probably be found partisans of the claim to primacy of almost every one of the novels.
+The catastrophe of_ Mansfield Park _is admittedly theatrical, the hero and heroine are insipid, and the author has almost wickedly destroyed all romantic interest by expressly admitting that Edmund only took Fanny because Mary shocked him, and that Fanny might very likely have taken Crawford if he had been a little more assiduous; yet the matchless rehearsal-scenes and the characters of Mrs.
+_It is the larger, the more varied, the more popular; the author had by the time of its composition seen rather more of the world, and had improved her general, though not her most peculiar and characteristic dialogue; such figures as Miss Bates, as the Eltons, cannot but unite the suffrages of everybody.
+On the other hand, I, for my part, declare for_ Pride and Prejudice _unhesitatingly.
+I do not know whether, in this combination of the fresh and vigorous projection of youth, and the critical revision of middle life, there may be traced the distinct superiority in point of construction, which, as it seems to me, it possesses over all the others.
+The plot, though not elaborate, is almost regular enough for Fielding; hardly a character, hardly an incident could be retrenched without loss to the story.
+The elopement of Lydia and Wickham is not, like that of Crawford and Mrs.
+Rushworth, a_ coup de théâtre; _it connects itself in the strictest way with the course of the story earlier, and brings about the denouement with complete propriety.
+All the minor passages--the loves of Jane and Bingley, the advent of Mr.
+Collins, the visit to Hunsford, the Derbyshire tour--fit in after the same unostentatious, but masterly fashion.
+There is no attempt at the hide-and-seek, in-and-out business, which in the transactions between Frank Churchill and Jane Fairfax contributes no doubt a good deal to the intrigue of_ Emma, _but contributes it in a fashion which I do not think the best feature of that otherwise admirable book.
+I do not know whether the all-grasping hand of the playwright has ever been laid upon_ Pride and Prejudice; _and I dare say that, if it were, the situations would prove not startling or garish enough for the footlights, the character-scheme too subtle and delicate for pit and gallery.
+It sets off his other gifts and graces most advantageously to the critical eye; and the want of it will sometimes mar those graces--appreciably, though not quite consciously--to eyes by no means ultra-critical.
+But a very badly-built novel which excelled in pathetic or humorous character, or which displayed consummate command of dialogue--perhaps the rarest of all faculties--would be an infinitely better thing than a faultless plot acted and told by puppets with pebbles in their mouths.
+And despite the ability which Miss Austen has shown in working out the story, I for one should put_ Pride and Prejudice _far lower if it did not contain what seem to me the very masterpieces of Miss Austen’s humour and of her faculty of character-creation--masterpieces who may indeed admit John Thorpe, the Eltons, Mrs.
+Norris, and one or two others to their company, but who, in one instance certainly, and perhaps in others, are still superior to them._ _The characteristics of Miss Austen’s humour are so subtle and delicate that they are, perhaps, at all times easier to apprehend than to express, and at any particular time likely to be differently apprehended by different persons.
+To me this humour seems to possess a greater affinity, on the whole, to that of Addison than to any other of the numerous species of this great British genus.
+The differences of scheme, of time, of subject, of literary convention, are, of course, obvious enough; the difference of sex does not, perhaps, count for much, for there was a distinctly feminine element in “Mr.
+Spectator,” and in Jane Austen’s genius there was, though nothing mannish, much that was masculine.
+But the likeness of quality consists in a great number of common subdivisions of quality--demureness, extreme minuteness of touch, avoidance of loud tones and glaring effects.
+Also there is in both a certain not inhuman or unamiable cruelty.
+It is the custom with those who judge grossly to contrast the good nature of Addison with the savagery of Swift, the mildness of Miss Austen with the boisterousness of Fielding and Smollett, even with the ferocious practical jokes that her immediate predecessor, Miss Burney, allowed without very much protest.
+Yet, both in Mr.
+Addison and in Miss Austen there is, though a restrained and well-mannered, an insatiable and ruthless delight in roasting and cutting up a fool.
+But another_ Spectator _letter--that of the damsel of fourteen who wishes to marry Mr.
+Shapely, and assures her selected Mentor that “he admires your_ Spectators _mightily”--might have been written by a rather more ladylike and intelligent Lydia Bennet in the days of Lydia’s great-grandmother; while, on the other hand, some (I think unreasonably) have found “cynicism” in touches of Miss Austen’s own, such as her satire of Mrs.
+Musgrove’s self-deceiving regrets over her son.
+But this word “cynical” is one of the most misused in the English language, especially when, by a glaring and gratuitous falsification of its original sense, it is applied, not to rough and snarling invective, but to gentle and oblique satire.
+If cynicism means the perception of “the other side,” the sense of “the accepted hells beneath,” the consciousness that motives are nearly always mixed, and that to seem is not identical with to be--if this be cynicism, then every man and woman who is not a fool, who does not care to live in a fool’s paradise, who has knowledge of nature and the world and life, is a cynic.
+And in that sense Miss Austen certainly was one.
+She may even have been one in the further sense that, like her own Mr.
+Bennet, she took an epicurean delight in dissecting, in displaying, in setting at work her fools and her mean persons.
+I think she did take this delight, and I do not think at all the worse of her for it as a woman, while she was immensely the better for it as an artist._ _In respect of her art generally, Mr.
+Goldwin Smith has truly observed that “metaphor has been exhausted in depicting the perfection of it, combined with the narrowness of her field;” and he has justly added that we need not go beyond her own comparison to the art of a miniature painter.
+To make this latter observation quite exact we must not use the term miniature in its restricted sense, and must think rather of Memling at one end of the history of painting and Meissonier at the other, than of Cosway or any of his kind.
+And I am not so certain that I should myself use the word “narrow” in connection with her.
+If her world is a microcosm, the cosmic quality of it is at least as eminent as the littleness.
+She does not touch what she did not feel herself called to paint; I am not so sure that she could not have painted what she did not feel herself called to touch.
+It is at least remarkable that in two very short periods of writing--one of about three years, and another of not much more than five--she executed six capital works, and has not left a single failure.
+It is possible that the romantic paste in her composition was defective: we must always remember that hardly anybody born in her decade--that of the eighteenth-century seventies--independently exhibited the full romantic quality.
+Even Scott required hill and mountain and ballad, even Coleridge metaphysics and German to enable them to chip the classical shell.
+Miss Austen, too, drew back when the white frost touched her shoes; but I think she would have made a pretty good journey even in a black one._ _For if her knowledge was not very extended, she knew two things which only genius knows.
+The one was humanity, and the other was art.
+On the first head she could not make a mistake; her men, though limited, are true, and her women are, in the old sense, “absolute.” As to art, if she has never tried idealism, her realism is real to a degree which makes the false realism of our own day look merely dead-alive.
+Take almost any Frenchman, except the late M.
+de Maupassant, and watch him laboriously piling up strokes in the hope of giving a complete impression.
+You get none; you are lucky if, discarding two-thirds of what he gives, you can shape a real impression out of the rest.
+But with Miss Austen the myriad, trivial, unforced strokes build up the picture like magic.
+Nothing is false; nothing is superfluous.
+When (to take the present book only) Mr.
+Collins changed his mind from Jane to Elizabeth “while Mrs.
+Bennet was stirring the fire” (and we know_ how _Mrs.
+Bennet would have stirred the fire), when Mr.
+Darcy “brought his coffee-cup back_ himself,” _the touch in each case is like that of Swift--“taller by the breadth of my nail”--which impressed the half-reluctant Thackeray with just and outspoken admiration.
+Indeed, fantastic as it may seem, I should put Miss Austen as near to Swift in some ways, as I have put her to Addison in others._ _This Swiftian quality appears in the present novel as it appears nowhere else in the character of the immortal, the ineffable Mr.
+Collins is really_ great; _far greater than anything Addison ever did, almost great enough for Fielding or for Swift himself.
+It has been said that no one ever was like him.
+But in the first place,_ he _was like him; he is there--alive, imperishable, more real than hundreds of prime ministers and archbishops, of “metals, semi-metals, and distinguished philosophers.” In the second place, it is rash, I think, to conclude that an actual Mr.
+Collins was impossible or non-existent at the end of the eighteenth century.
+It is very interesting that we possess, in this same gallery, what may be called a spoiled first draught, or an unsuccessful study of him, in John Dashwood.
+The formality, the under-breeding, the meanness, are there; but the portrait is only half alive, and is felt to be even a little unnatural.
+Collins is perfectly natural, and perfectly alive.
+In fact, for all the “miniature,” there is something gigantic in the way in which a certain side, and more than one, of humanity, and especially eighteenth-century humanity, its Philistinism, its well-meaning but hide-bound morality, its formal pettiness, its grovelling respect for rank, its materialism, its selfishness, receives exhibition.
+I will not admit that one speech or one action of this inestimable man is incapable of being reconciled with reality, and I should not wonder if many of these words and actions are historically true._ _But the greatness of Mr.
+Collins could not have been so satisfactorily exhibited if his creatress had not adjusted so artfully to him the figures of Mr.
+Bennet and of Lady Catherine de Bourgh.
+The latter, like Mr.
+Collins himself, has been charged with exaggeration.
+There is, perhaps, a very faint shade of colour for the charge; but it seems to me very faint indeed.
+Even now I do not think that it would be impossible to find persons, especially female persons, not necessarily of noble birth, as overbearing, as self-centred, as neglectful of good manners, as Lady Catherine.
+A hundred years ago, an earl’s daughter, the Lady Powerful (if not exactly Bountiful) of an out-of-the-way country parish, rich, long out of marital authority, and so forth, had opportunities of developing these agreeable characteristics which seldom present themselves now.
+Bennet, Miss Austen, and Mr.
+Darcy, and even Miss Elizabeth herself, were, I am inclined to think, rather hard on him for the “impropriety” of his conduct.
+His wife was evidently, and must always have been, a quite irreclaimable fool; and unless he had shot her or himself there was no way out of it for a man of sense and spirit but the ironic.
+From no other point of view is he open to any reproach, except for an excusable and not unnatural helplessness at the crisis of the elopement, and his utterances are the most acutely delightful in the consciously humorous kind--in the kind that we laugh with, not at--that even Miss Austen has put into the mouth of any of her characters.
+It is difficult to know whether he is most agreeable when talking to his wife, or when putting Mr.
+Collins through his paces; but the general sense of the world has probably been right in preferring to the first rank his consolation to the former when she maunders over the entail, “My dear, do not give way to such gloomy thoughts.
+Let us hope for better things.
+Let us flatter ourselves that_ I _may be the survivor;” and his inquiry to his colossal cousin as to the compliments which Mr.
+Bennet we have glanced at, and it is not easy to say whether she is more exquisitely amusing or more horribly true.
+Much the same may be said of Kitty and Lydia; but it is not every author, even of genius, who would have differentiated with such unerring skill the effects of folly and vulgarity of intellect and disposition working upon the common weaknesses of woman at such different ages.
+With Mary, Miss Austen has taken rather less pains, though she has been even more unkind to her; not merely in the text, but, as we learn from those interesting traditional appendices which Mr.
+Austen Leigh has given us, in dooming her privately to marry “one of Mr.
+Philips’s clerks.” The habits of first copying and then retailing moral sentiments, of playing and singing too long in public, are, no doubt, grievous and criminal; but perhaps poor Mary was rather the scapegoat of the sins of blue stockings in that Fordyce-belectured generation.
+It is at any rate difficult not to extend to her a share of the respect and affection (affection and respect of a peculiar kind; doubtless), with which one regards Mr.
+Collins, when she draws the moral of Lydia’s fall.
+I sometimes wish that the exigencies of the story had permitted Miss Austen to unite these personages, and thus at once achieve a notable mating and soothe poor Mrs.
+Only genius could have made Charlotte what she is, yet not disagreeable; Wickham what he is, without investing him either with a cheap Don Juanish attractiveness or a disgusting rascality.
+But the hero and the heroine are not tints to be dismissed._ _Darcy has always seemed to me by far the best and most interesting of Miss Austen’s heroes; the only possible competitor being Henry Tilney, whose part is so slight and simple that it hardly enters into comparison.
+It has sometimes, I believe, been urged that his pride is unnatural at first in its expression and later in its yielding, while his falling in love at all is not extremely probable.
+Here again I cannot go with the objectors.
+Darcy’s own account of the way in which his pride had been pampered, is perfectly rational and sufficient; and nothing could be, psychologically speaking, a_ causa verior _for its sudden restoration to healthy conditions than the shock of Elizabeth’s scornful refusal acting on a nature_ ex hypothesi _generous.
+Nothing in even our author is finer and more delicately touched than the change of his demeanour at the sudden meeting in the grounds of Pemberley.
+Had he been a bad prig or a bad coxcomb, he might have been still smarting under his rejection, or suspicious that the girl had come husband-hunting.
+His being neither is exactly consistent with the probable feelings of a man spoilt in the common sense, but not really injured in disposition, and thoroughly in love.
+Elizabeth of course belongs to the_ allegro _or_ allegra _division of the army of Venus.
+Miss Austen was always provokingly chary of description in regard to her beauties; and except the fine eyes, and a hint or two that she had at any rate sometimes a bright complexion, and was not very tall, we hear nothing about her looks.
+But her chief difference from other heroines of the lively type seems to lie first in her being distinctly clever--almost strong-minded, in the better sense of that objectionable word--and secondly in her being entirely destitute of ill-nature for all her propensity to tease and the sharpness of her tongue.
+Elizabeth can give at least as good as she gets when she is attacked; but she never “scratches,” and she never attacks first.
+Some of the merest obsoletenesses of phrase and manner give one or two of her early speeches a slight pertness, but that is nothing, and when she comes to serious business, as in the great proposal scene with Darcy (which is, as it should be, the climax of the interest of the book), and in the final ladies’ battle with Lady Catherine, she is unexceptionable.
+Then too she is a perfectly natural girl.
+She does not disguise from herself or anybody that she resents Darcy’s first ill-mannered personality with as personal a feeling.
+Nearly all of them would have been in speechless awe of the magnificent Darcy; nearly all of them would have palpitated and fluttered at the idea of proposals, even naughty ones, from the fascinating Wickham.
+Elizabeth, with nothing offensive, nothing_ viraginous, _nothing of the “New Woman” about her, has by nature what the best modern (not “new”) women have by education and experience, a perfect freedom from the idea that all men may bully her if they choose, and that most will away with her if they can.
+Though not in the least “impudent and mannish grown,” she has no mere sensibility, no nasty niceness about her.
+The form of passion common and likely to seem natural in Miss Austen’s day was so invariably connected with the display of one or the other, or both of these qualities, that she has not made Elizabeth outwardly passionate.
+There were better sense in the sad mechanic exercise of determining the reason of its absence where it is not.
+In the novels of the last hundred years there are vast numbers of young ladies with whom it might be a pleasure to fall in love; there are at least five with whom, as it seems to me, no man of taste and spirit can help doing so.
+Their names are, in chronological order, Elizabeth Bennet, Diana Vernon, Argemone Lavington, Beatrix Esmond, and Barbara Grant.
+I should have been most in love with Beatrix and Argemone; I should, I think, for mere occasional companionship, have preferred Diana and Barbara.
+But to live with and to marry, I do not know that any one of the four can come into competition with Elizabeth._ _GEORGE SAINTSBURY._ [Illustration: List of Illustrations.] PAGE Frontispiece iv Title-page v Dedication vii Heading to Preface ix Heading to List of Illustrations xxv Heading to Chapter I.
+1 “He came down to see the place” 2 Mr.
+Bennet 5 “I hope Mr.
+Bingley will like it” 6 “I’m the tallest” 9 “He rode a black horse” 10 “When the party entered” 12 “She is tolerable” 15 Heading to Chapter IV.
+18 Heading to Chapter V.
+22 “Without once opening his lips” 24 Tailpiece to Chapter V.
+26 Heading to Chapter VI.
+27 “The entreaties of several” 31 “A note for Miss Bennet” 36 “Cheerful prognostics” 40 “The apothecary came” 43 “Covering a screen” 45 “Mrs.
+Bennet and her two youngest girls” 53 Heading to Chapter X.
+60 “No, no; stay where you are” 67 “Piling up the fire” 69 Heading to Chapter XII.
+75 Heading to Chapter XIII.
+78 Heading to Chapter XIV.
+84 “Protested that he never read novels” 87 Heading to Chapter XV.
+89 Heading to Chapter XVI.
+95 “The officers of the ----shire” 97 “Delighted to see their dear friend again” 108 Heading to Chapter XVIII.
+113 “Such very superior dancing is not often seen” 118 “To assure you in the most animated language” 132 Heading to Chapter XX.
+139 “They entered the breakfast-room” 143 Heading to Chapter XXI.
+146 “Walked back with them” 148 Heading to Chapter XXII.
+154 “So much love and eloquence” 156 “Protested he must be entirely mistaken” 161 “Whenever she spoke in a low voice” 166 Heading to Chapter XXIV.
+168 Heading to Chapter XXV.
+175 “Offended two or three young ladies” 177 “Will you come and see me?” 181 “On the stairs” 189 “At the door” 194 “In conversation with the ladies” 198 “Lady Catherine,” said she, “you have given me a treasure” 200 Heading to Chapter XXX.
+209 “He never failed to inform them” 211 “The gentlemen accompanied him” 213 Heading to Chapter XXXI.
+215 Heading to Chapter XXXII.
+221 “Accompanied by their aunt” 225 “On looking up” 228 Heading to Chapter XXXIV.
+235 “Hearing herself called” 243 Heading to Chapter XXXVI.
+253 “Meeting accidentally in town” 256 “His parting obeisance” 261 “Dawson” 263 “The elevation of his feelings” 267 “They had forgotten to leave any message” 270 “How nicely we are crammed in!” 272 Heading to Chapter XL.
+278 “I am determined never to speak of it again” 283 “When Colonel Miller’s regiment went away” 285 “Tenderly flirting” 290 The arrival of the Gardiners 294 “Conjecturing as to the date” 301 Heading to Chapter XLIV.
+318 “To make herself agreeable to all” 321 “Engaged by the river” 327 Heading to Chapter XLVI.
+334 “I have not an instant to lose” 339 “The first pleasing earnest of their welcome” 345 The Post 359 “To whom I have related the affair” 363 Heading to Chapter XLIX.
+368 “But perhaps you would like to read it” 370 “The spiteful old ladies” 377 “With an affectionate smile” 385 “I am sure she did not listen” 393 “Mr.
+Darcy with him” 404 “Jane happened to look round” 415 “Mrs.
+Long and her nieces” 420 “Lizzy, my dear, I want to speak to you” 422 Heading to Chapter LVI.
+431 “After a short survey” 434 “But now it comes out” 442 “The efforts of his aunt” 448 “Unable to utter a syllable” 457 “The obsequious civility” 466 Heading to Chapter LXI.
+472 The End 476 [Illustration: ·PRIDE AND PREJUDICE· Chapter I.] It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife.
+However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered as the rightful property of some one or other of their daughters.
+Bennet,” said his lady to him one day, “have you heard that Netherfield Park is let at last?” Mr.
+Bennet replied that he had not.
+“But it is,” returned she; “for Mrs.
+Long has just been here, and she told me all about it.” Mr.
+Bennet made no answer.
+“Do not you want to know who has taken it?” cried his wife, impatiently.
+“_You_ want to tell me, and I have no objection to hearing it.” [Illustration: “He came down to see the place” [_Copyright 1894 by George Allen._]] This was invitation enough.
+“Why, my dear, you must know, Mrs.
+Long says that Netherfield is taken by a young man of large fortune from the north of England; that he came down on Monday in a chaise and four to see the place, and was so much delighted with it that he agreed with Mr.
+Morris immediately; that he is to take possession before Michaelmas, and some of his servants are to be in the house by the end of next week.” “What is his name?” “Bingley.” “Is he married or single?” “Oh, single, my dear, to be sure!
+A single man of large fortune; four or five thousand a year.
+What a fine thing for our girls!” “How so?
+how can it affect them?” “My dear Mr.
+Bennet,” replied his wife, “how can you be so tiresome?
+You must know that I am thinking of his marrying one of them.” “Is that his design in settling here?” “Design?
+Nonsense, how can you talk so!
+But it is very likely that he _may_ fall in love with one of them, and therefore you must visit him as soon as he comes.” “I see no occasion for that.
+You and the girls may go--or you may send them by themselves, which perhaps will be still better; for as you are as handsome as any of them, Mr.
+Bingley might like you the best of the party.” “My dear, you flatter me.
+I certainly _have_ had my share of beauty, but I do not pretend to be anything extraordinary now.
+When a woman has five grown-up daughters, she ought to give over thinking of her own beauty.” “In such cases, a woman has not often much beauty to think of.” “But, my dear, you must indeed go and see Mr.
+Bingley when he comes into the neighbourhood.” “It is more than I engage for, I assure you.” “But consider your daughters.
+Only think what an establishment it would be for one of them.
+Sir William and Lady Lucas are determined to go, merely on that account; for in general, you know, they visit no new comers.
+Indeed you must go, for it will be impossible for _us_ to visit him, if you do not.” “You are over scrupulous, surely.
+I dare say Mr.
+Bingley will be very glad to see you; and I will send a few lines by you to assure him of my hearty consent to his marrying whichever he chooses of the girls--though I must throw in a good word for my little Lizzy.” “I desire you will do no such thing.
+Lizzy is not a bit better than the others: and I am sure she is not half so handsome as Jane, nor half so good-humoured as Lydia.
+But you are always giving _her_ the preference.” “They have none of them much to recommend them,” replied he: “they are all silly and ignorant like other girls; but Lizzy has something more of quickness than her sisters.” “Mr.
+Bennet, how can you abuse your own children in such a way?
+You take delight in vexing me.
+You have no compassion on my poor nerves.” “You mistake me, my dear.
+I have a high respect for your nerves.
+They are my old friends.
+Bennet was so odd a mixture of quick parts, sarcastic humour, reserve, and caprice, that the experience of three-and-twenty years had been insufficient to make his wife understand his character.
+_Her_ mind was less difficult to develope.
+She was a woman of mean understanding, little information, and uncertain temper.
+When she was discontented, she fancied herself nervous.
+The business of her life was to get her daughters married: its solace was visiting and news.
+[Illustration: M^{r.} & M^{rs.} Bennet [_Copyright 1894 by George Allen._]] [Illustration: “I hope Mr.
+Bingley will like it” [_Copyright 1894 by George Allen._]] CHAPTER II.
+Bennet was among the earliest of those who waited on Mr.
+He had always intended to visit him, though to the last always assuring his wife that he should not go; and till the evening after the visit was paid she had no knowledge of it.
+It was then disclosed in the following manner.
+Observing his second daughter employed in trimming a hat, he suddenly addressed her with,-- “I hope Mr.
+Bingley will like it, Lizzy.” “We are not in a way to know _what_ Mr.
+Bingley likes,” said her mother, resentfully, “since we are not to visit.” “But you forget, mamma,” said Elizabeth, “that we shall meet him at the assemblies, and that Mrs.
+Long has promised to introduce him.” “I do not believe Mrs.
+Letter 2 Letter 3 Letter 4 Chapter 1 Chapter 2 Chapter 3 Chapter 4 Chapter 5 Chapter 6 Chapter 7 Chapter 8 Chapter 9 Chapter 10 Chapter 11 Chapter 12 Chapter 13 Chapter 14 Chapter 15 Chapter 16 Chapter 17 Chapter 18 Chapter 19 Chapter 20 Chapter 21 Chapter 22 Chapter 23 Chapter 24 Letter 1 _To Mrs.
+You will rejoice to hear that no disaster has accompanied the commencement of an enterprise which you have regarded with such evil forebodings.
+I arrived here yesterday, and my first task is to assure my dear sister of my welfare and increasing confidence in the success of my undertaking.
+I am already far north of London, and as I walk in the streets of Petersburgh, I feel a cold northern breeze play upon my cheeks, which braces my nerves and fills me with delight.
+Do you understand this feeling?
+This breeze, which has travelled from the regions towards which I am advancing, gives me a foretaste of those icy climes.
+Inspirited by this wind of promise, my daydreams become more fervent and vivid.
+I try in vain to be persuaded that the pole is the seat of frost and desolation; it ever presents itself to my imagination as the region of beauty and delight.
+There, Margaret, the sun is for ever visible, its broad disk just skirting the horizon and diffusing a perpetual splendour.
+There—for with your leave, my sister, I will put some trust in preceding navigators—there snow and frost are banished; and, sailing over a calm sea, we may be wafted to a land surpassing in wonders and in beauty every region hitherto discovered on the habitable globe.
+Its productions and features may be without example, as the phenomena of the heavenly bodies undoubtedly are in those undiscovered solitudes.
+What may not be expected in a country of eternal light?
+I may there discover the wondrous power which attracts the needle and may regulate a thousand celestial observations that require only this voyage to render their seeming eccentricities consistent for ever.
+I shall satiate my ardent curiosity with the sight of a part of the world never before visited, and may tread a land never before imprinted by the foot of man.
+These are my enticements, and they are sufficient to conquer all fear of danger or death and to induce me to commence this laborious voyage with the joy a child feels when he embarks in a little boat, with his holiday mates, on an expedition of discovery up his native river.
+But supposing all these conjectures to be false, you cannot contest the inestimable benefit which I shall confer on all mankind, to the last generation, by discovering a passage near the pole to those countries, to reach which at present so many months are requisite; or by ascertaining the secret of the magnet, which, if at all possible, can only be effected by an undertaking such as mine.
+These reflections have dispelled the agitation with which I began my letter, and I feel my heart glow with an enthusiasm which elevates me to heaven, for nothing contributes so much to tranquillise the mind as a steady purpose—a point on which the soul may fix its intellectual eye.
+This expedition has been the favourite dream of my early years.
+I have read with ardour the accounts of the various voyages which have been made in the prospect of arriving at the North Pacific Ocean through the seas which surround the pole.
+You may remember that a history of all the voyages made for purposes of discovery composed the whole of our good Uncle Thomas’ library.
+My education was neglected, yet I was passionately fond of reading.
+These volumes were my study day and night, and my familiarity with them increased that regret which I had felt, as a child, on learning that my father’s dying injunction had forbidden my uncle to allow me to embark in a seafaring life.
+These visions faded when I perused, for the first time, those poets whose effusions entranced my soul and lifted it to heaven.
+I also became a poet and for one year lived in a paradise of my own creation; I imagined that I also might obtain a niche in the temple where the names of Homer and Shakespeare are consecrated.
+You are well acquainted with my failure and how heavily I bore the disappointment.
+But just at that time I inherited the fortune of my cousin, and my thoughts were turned into the channel of their earlier bent.
+Six years have passed since I resolved on my present undertaking.
+I can, even now, remember the hour from which I dedicated myself to this great enterprise.
+I commenced by inuring my body to hardship.
+I accompanied the whale-fishers on several expeditions to the North Sea; I voluntarily endured cold, famine, thirst, and want of sleep; I often worked harder than the common sailors during the day and devoted my nights to the study of mathematics, the theory of medicine, and those branches of physical science from which a naval adventurer might derive the greatest practical advantage.
+Twice I actually hired myself as an under-mate in a Greenland whaler, and acquitted myself to admiration.
+I must own I felt a little proud when my captain offered me the second dignity in the vessel and entreated me to remain with the greatest earnestness, so valuable did he consider my services.
+And now, dear Margaret, do I not deserve to accomplish some great purpose?
+My life might have been passed in ease and luxury, but I preferred glory to every enticement that wealth placed in my path.
+Oh, that some encouraging voice would answer in the affirmative!
+My courage and my resolution is firm; but my hopes fluctuate, and my spirits are often depressed.
+I am about to proceed on a long and difficult voyage, the emergencies of which will demand all my fortitude: I am required not only to raise the spirits of others, but sometimes to sustain my own, when theirs are failing.
+This is the most favourable period for travelling in Russia.
+They fly quickly over the snow in their sledges; the motion is pleasant, and, in my opinion, far more agreeable than that of an English stagecoach.
+The cold is not excessive, if you are wrapped in furs—a dress which I have already adopted, for there is a great difference between walking the deck and remaining seated motionless for hours, when no exercise prevents the blood from actually freezing in your veins.
+I have no ambition to lose my life on the post-road between St.
+I shall depart for the latter town in a fortnight or three weeks; and my intention is to hire a ship there, which can easily be done by paying the insurance for the owner, and to engage as many sailors as I think necessary among those who are accustomed to the whale-fishing.
+I do not intend to sail until the month of June; and when shall I return?
+Ah, dear sister, how can I answer this question?
+If I succeed, many, many months, perhaps years, will pass before you and I may meet.
+If I fail, you will see me again soon, or never.
+Farewell, my dear, excellent Margaret.
+Heaven shower down blessings on you, and save me, that I may again and again testify my gratitude for all your love and kindness.
+Your affectionate brother, R.
+Walton Letter 2 _To Mrs.
+Saville, England._ Archangel, 28th March, 17—.
+How slowly the time passes here, encompassed as I am by frost and snow!
+Yet a second step is taken towards my enterprise.
+I have hired a vessel and am occupied in collecting my sailors; those whom I have already engaged appear to be men on whom I can depend and are certainly possessed of dauntless courage.
+But I have one want which I have never yet been able to satisfy, and the absence of the object of which I now feel as a most severe evil, I have no friend, Margaret: when I am glowing with the enthusiasm of success, there will be none to participate my joy; if I am assailed by disappointment, no one will endeavour to sustain me in dejection.
+I shall commit my thoughts to paper, it is true; but that is a poor medium for the communication of feeling.
+I desire the company of a man who could sympathise with me, whose eyes would reply to mine.
+You may deem me romantic, my dear sister, but I bitterly feel the want of a friend.
+I have no one near me, gentle yet courageous, possessed of a cultivated as well as of a capacious mind, whose tastes are like my own, to approve or amend my plans.
+How would such a friend repair the faults of your poor brother!
+I am too ardent in execution and too impatient of difficulties.
+But it is a still greater evil to me that I am self-educated: for the first fourteen years of my life I ran wild on a common and read nothing but our Uncle Thomas’ books of voyages.
+At that age I became acquainted with the celebrated poets of our own country; but it was only when it had ceased to be in my power to derive its most important benefits from such a conviction that I perceived the necessity of becoming acquainted with more languages than that of my native country.
+Now I am twenty-eight and am in reality more illiterate than many schoolboys of fifteen.
+It is true that I have thought more and that my daydreams are more extended and magnificent, but they want (as the painters call it) _keeping;_ and I greatly need a friend who would have sense enough not to despise me as romantic, and affection enough for me to endeavour to regulate my mind.
+Well, these are useless complaints; I shall certainly find no friend on the wide ocean, nor even here in Archangel, among merchants and seamen.
+Yet some feelings, unallied to the dross of human nature, beat even in these rugged bosoms.
+My lieutenant, for instance, is a man of wonderful courage and enterprise; he is madly desirous of glory, or rather, to word my phrase more characteristically, of advancement in his profession.
+He is an Englishman, and in the midst of national and professional prejudices, unsoftened by cultivation, retains some of the noblest endowments of humanity.
+I first became acquainted with him on board a whale vessel; finding that he was unemployed in this city, I easily engaged him to assist in my enterprise.
+The master is a person of an excellent disposition and is remarkable in the ship for his gentleness and the mildness of his discipline.
+This circumstance, added to his well-known integrity and dauntless courage, made me very desirous to engage him.
+I heard of him first in rather a romantic manner, from a lady who owes to him the happiness of her life.
+This, briefly, is his story.
+Some years ago he loved a young Russian lady of moderate fortune, and having amassed a considerable sum in prize-money, the father of the girl consented to the match.
+He saw his mistress once before the destined ceremony; but she was bathed in tears, and throwing herself at his feet, entreated him to spare her, confessing at the same time that she loved another, but that he was poor, and that her father would never consent to the union.
+My generous friend reassured the suppliant, and on being informed of the name of her lover, instantly abandoned his pursuit.
+He had already bought a farm with his money, on which he had designed to pass the remainder of his life; but he bestowed the whole on his rival, together with the remains of his prize-money to purchase stock, and then himself solicited the young woman’s father to consent to her marriage with her lover.
+But the old man decidedly refused, thinking himself bound in honour to my friend, who, when he found the father inexorable, quitted his country, nor returned until he heard that his former mistress was married according to her inclinations.
+“What a noble fellow!” you will exclaim.
+He is so; but then he is wholly uneducated: he is as silent as a Turk, and a kind of ignorant carelessness attends him, which, while it renders his conduct the more astonishing, detracts from the interest and sympathy which otherwise he would command.
+Yet do not suppose, because I complain a little or because I can conceive a consolation for my toils which I may never know, that I am wavering in my resolutions.
+Those are as fixed as fate, and my voyage is only now delayed until the weather shall permit my embarkation.
+The winter has been dreadfully severe, but the spring promises well, and it is considered as a remarkably early season, so that perhaps I may sail sooner than I expected.
+I shall do nothing rashly: you know me sufficiently to confide in my prudence and considerateness whenever the safety of others is committed to my care.
+I cannot describe to you my sensations on the near prospect of my undertaking.
+It is impossible to communicate to you a conception of the trembling sensation, half pleasurable and half fearful, with which I am preparing to depart.
+I am going to unexplored regions, to “the land of mist and snow,” but I shall kill no albatross; therefore do not be alarmed for my safety or if I should come back to you as worn and woeful as the “Ancient Mariner.” You will smile at my allusion, but I will disclose a secret.
+I have often attributed my attachment to, my passionate enthusiasm for, the dangerous mysteries of ocean to that production of the most imaginative of modern poets.
+There is something at work in my soul which I do not understand.
+I am practically industrious—painstaking, a workman to execute with perseverance and labour—but besides this there is a love for the marvellous, a belief in the marvellous, intertwined in all my projects, which hurries me out of the common pathways of men, even to the wild sea and unvisited regions I am about to explore.
+But to return to dearer considerations.
+Shall I meet you again, after having traversed immense seas, and returned by the most southern cape of Africa or America?
+I dare not expect such success, yet I cannot bear to look on the reverse of the picture.
+Continue for the present to write to me by every opportunity: I may receive your letters on some occasions when I need them most to support my spirits.
+I love you very tenderly.
+Remember me with affection, should you never hear from me again.
+Your affectionate brother, Robert Walton Letter 3 _To Mrs.
+Saville, England._ July 7th, 17—.
+My dear Sister, I write a few lines in haste to say that I am safe—and well advanced on my voyage.
+This letter will reach England by a merchantman now on its homeward voyage from Archangel; more fortunate than I, who may not see my native land, perhaps, for many years.
+I am, however, in good spirits: my men are bold and apparently firm of purpose, nor do the floating sheets of ice that continually pass us, indicating the dangers of the region towards which we are advancing, appear to dismay them.
+We have already reached a very high latitude; but it is the height of summer, and although not so warm as in England, the southern gales, which blow us speedily towards those shores which I so ardently desire to attain, breathe a degree of renovating warmth which I had not expected.
+No incidents have hitherto befallen us that would make a figure in a letter.
+One or two stiff gales and the springing of a leak are accidents which experienced navigators scarcely remember to record, and I shall be well content if nothing worse happen to us during our voyage.
+Adieu, my dear Margaret.
+Be assured that for my own sake, as well as yours, I will not rashly encounter danger.
+I will be cool, persevering, and prudent.
+But success _shall_ crown my endeavours.
+Thus far I have gone, tracing a secure way over the pathless seas, the very stars themselves being witnesses and testimonies of my triumph.
+Why not still proceed over the untamed yet obedient element?
+What can stop the determined heart and resolved will of man?
+My swelling heart involuntarily pours itself out thus.
+But I must finish.
+Heaven bless my beloved sister!
+Letter 4 _To Mrs.
+Saville, England._ August 5th, 17—.
+So strange an accident has happened to us that I cannot forbear recording it, although it is very probable that you will see me before these papers can come into your possession.
+Last Monday (July 31st) we were nearly surrounded by ice, which closed in the ship on all sides, scarcely leaving her the sea-room in which she floated.
+Our situation was somewhat dangerous, especially as we were compassed round by a very thick fog.
+We accordingly lay to, hoping that some change would take place in the atmosphere and weather.
+About two o’clock the mist cleared away, and we beheld, stretched out in every direction, vast and irregular plains of ice, which seemed to have no end.
+Some of my comrades groaned, and my own mind began to grow watchful with anxious thoughts, when a strange sight suddenly attracted our attention and diverted our solicitude from our own situation.
+We perceived a low carriage, fixed on a sledge and drawn by dogs, pass on towards the north, at the distance of half a mile; a being which had the shape of a man, but apparently of gigantic stature, sat in the sledge and guided the dogs.
+We watched the rapid progress of the traveller with our telescopes until he was lost among the distant inequalities of the ice.
+This appearance excited our unqualified wonder.
+We were, as we believed, many hundred miles from any land; but this apparition seemed to denote that it was not, in reality, so distant as we had supposed.
+Shut in, however, by ice, it was impossible to follow his track, which we had observed with the greatest attention.
+About two hours after this occurrence we heard the ground sea, and before night the ice broke and freed our ship.
+We, however, lay to until the morning, fearing to encounter in the dark those large loose masses which float about after the breaking up of the ice.
+I profited of this time to rest for a few hours.
+In the morning, however, as soon as it was light, I went upon deck and found all the sailors busy on one side of the vessel, apparently talking to someone in the sea.
+It was, in fact, a sledge, like that we had seen before, which had drifted towards us in the night on a large fragment of ice.
+Only one dog remained alive; but there was a human being within it whom the sailors were persuading to enter the vessel.
+He was not, as the other traveller seemed to be, a savage inhabitant of some undiscovered island, but a European.
+When I appeared on deck the master said, “Here is our captain, and he will not allow you to perish on the open sea.” On perceiving me, the stranger addressed me in English, although with a foreign accent.
+“Before I come on board your vessel,” said he, “will you have the kindness to inform me whither you are bound?” You may conceive my astonishment on hearing such a question addressed to me from a man on the brink of destruction and to whom I should have supposed that my vessel would have been a resource which he would not have exchanged for the most precious wealth the earth can afford.
+I replied, however, that we were on a voyage of discovery towards the northern pole.
+Upon hearing this he appeared satisfied and consented to come on board.
+Margaret, if you had seen the man who thus capitulated for his safety, your surprise would have been boundless.
+His limbs were nearly frozen, and his body dreadfully emaciated by fatigue and suffering.
+I never saw a man in so wretched a condition.
+We attempted to carry him into the cabin, but as soon as he had quitted the fresh air he fainted.
+We accordingly brought him back to the deck and restored him to animation by rubbing him with brandy and forcing him to swallow a small quantity.
+As soon as he showed signs of life we wrapped him up in blankets and placed him near the chimney of the kitchen stove.
+By slow degrees he recovered and ate a little soup, which restored him wonderfully.
+Two days passed in this manner before he was able to speak, and I often feared that his sufferings had deprived him of understanding.
+When he had in some measure recovered, I removed him to my own cabin and attended on him as much as my duty would permit.
+I never saw a more interesting creature: his eyes have generally an expression of wildness, and even madness, but there are moments when, if anyone performs an act of kindness towards him or does him any the most trifling service, his whole countenance is lighted up, as it were, with a beam of benevolence and sweetness that I never saw equalled.
+But he is generally melancholy and despairing, and sometimes he gnashes his teeth, as if impatient of the weight of woes that oppresses him.
+Down the Rabbit-Hole CHAPTER II.
+The Pool of Tears CHAPTER III.
+A Caucus-Race and a Long Tale CHAPTER IV.
+The Rabbit Sends in a Little Bill CHAPTER V.
+Advice from a Caterpillar CHAPTER VI.
+Pig and Pepper CHAPTER VII.
+A Mad Tea-Party CHAPTER VIII.
+The Queen’s Croquet-Ground CHAPTER IX.
+The Mock Turtle’s Story CHAPTER X.
+The Lobster Quadrille CHAPTER XI.
+Who Stole the Tarts?
+Alice’s Evidence CHAPTER I.
+There was nothing so _very_ remarkable in that; nor did Alice think it so _very_ much out of the way to hear the Rabbit say to itself, “Oh dear!
+In another moment down went Alice after it, never once considering how in the world she was to get out again.
+The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.
+Either the well was very deep, or she fell very slowly, for she had plenty of time as she went down to look about her and to wonder what was going to happen next.
+First, she tried to look down and make out what she was coming to, but it was too dark to see anything; then she looked at the sides of the well, and noticed that they were filled with cupboards and book-shelves; here and there she saw maps and pictures hung upon pegs.
+She took down a jar from one of the shelves as she passed; it was labelled “ORANGE MARMALADE”, but to her great disappointment it was empty: she did not like to drop the jar for fear of killing somebody underneath, so managed to put it into one of the cupboards as she fell past it.
+“Well!” thought Alice to herself, “after such a fall as this, I shall think nothing of tumbling down stairs!
+How brave they’ll all think me at home!
+Why, I wouldn’t say anything about it, even if I fell off the top of the house!” (Which was very likely true.) Down, down, down.
+Would the fall _never_ come to an end?
+“I wonder how many miles I’ve fallen by this time?” she said aloud.
+“I must be getting somewhere near the centre of the earth.
+“I wonder if I shall fall right _through_ the earth!
+How funny it’ll seem to come out among the people that walk with their heads downward!
+The Antipathies, I think—” (she was rather glad there _was_ no one listening, this time, as it didn’t sound at all the right word) “—but I shall have to ask them what the name of the country is, you know.
+Please, Ma’am, is this New Zealand or Australia?” (and she tried to curtsey as she spoke—fancy _curtseying_ as you’re falling through the air!
+Do you think you could manage it?) “And what an ignorant little girl she’ll think me for asking!
+No, it’ll never do to ask: perhaps I shall see it written up somewhere.” Down, down, down.
+There was nothing else to do, so Alice soon began talking again.
+“Dinah’ll miss me very much to-night, I should think!” (Dinah was the cat.) “I hope they’ll remember her saucer of milk at tea-time.
+I wish you were down here with me!
+There are no mice in the air, I’m afraid, but you might catch a bat, and that’s very like a mouse, you know.
+But do cats eat bats, I wonder?” And here Alice began to get rather sleepy, and went on saying to herself, in a dreamy sort of way, “Do cats eat bats?
+Do cats eat bats?” and sometimes, “Do bats eat cats?” for, you see, as she couldn’t answer either question, it didn’t much matter which way she put it.
+She felt that she was dozing off, and had just begun to dream that she was walking hand in hand with Dinah, and saying to her very earnestly, “Now, Dinah, tell me the truth: did you ever eat a bat?” when suddenly, thump!
+down she came upon a heap of sticks and dry leaves, and the fall was over.
+Alice was not a bit hurt, and she jumped up on to her feet in a moment: she looked up, but it was all dark overhead; before her was another long passage, and the White Rabbit was still in sight, hurrying down it.
+There was not a moment to be lost: away went Alice like the wind, and was just in time to hear it say, as it turned a corner, “Oh my ears and whiskers, how late it’s getting!” She was close behind it when she turned the corner, but the Rabbit was no longer to be seen: she found herself in a long, low hall, which was lit up by a row of lamps hanging from the roof.
+There were doors all round the hall, but they were all locked; and when Alice had been all the way down one side and up the other, trying every door, she walked sadly down the middle, wondering how she was ever to get out again.
+Suddenly she came upon a little three-legged table, all made of solid glass; there was nothing on it except a tiny golden key, and Alice’s first thought was that it might belong to one of the doors of the hall; but, alas!
+either the locks were too large, or the key was too small, but at any rate it would not open any of them.
+However, on the second time round, she came upon a low curtain she had not noticed before, and behind it was a little door about fifteen inches high: she tried the little golden key in the lock, and to her great delight it fitted!
+Alice opened the door and found that it led into a small passage, not much larger than a rat-hole: she knelt down and looked along the passage into the loveliest garden you ever saw.
+How she longed to get out of that dark hall, and wander about among those beds of bright flowers and those cool fountains, but she could not even get her head through the doorway; “and even if my head would go through,” thought poor Alice, “it would be of very little use without my shoulders.
+Oh, how I wish I could shut up like a telescope!
+I think I could, if I only knew how to begin.” For, you see, so many out-of-the-way things had happened lately, that Alice had begun to think that very few things indeed were really impossible.
+It was all very well to say “Drink me,” but the wise little Alice was not going to do _that_ in a hurry.
+However, this bottle was _not_ marked “poison,” so Alice ventured to taste it, and finding it very nice, (it had, in fact, a sort of mixed flavour of cherry-tart, custard, pine-apple, roast turkey, toffee, and hot buttered toast,) she very soon finished it off.
+* * * * * * * * * * * * * * * * * * * * “What a curious feeling!” said Alice; “I must be shutting up like a telescope.” And so it was indeed: she was now only ten inches high, and her face brightened up at the thought that she was now the right size for going through the little door into that lovely garden.
+First, however, she waited for a few minutes to see if she was going to shrink any further: she felt a little nervous about this; “for it might end, you know,” said Alice to herself, “in my going out altogether, like a candle.
+I wonder what I should be like then?” And she tried to fancy what the flame of a candle is like after the candle is blown out, for she could not remember ever having seen such a thing.
+After a while, finding that nothing more happened, she decided on going into the garden at once; but, alas for poor Alice!
+when she got to the door, she found she had forgotten the little golden key, and when she went back to the table for it, she found she could not possibly reach it: she could see it quite plainly through the glass, and she tried her best to climb up one of the legs of the table, but it was too slippery; and when she had tired herself out with trying, the poor little thing sat down and cried.
+“But it’s no use now,” thought poor Alice, “to pretend to be two people!
+Why, there’s hardly enough of me left to make _one_ respectable person!” Soon her eye fell on a little glass box that was lying under the table: she opened it, and found in it a very small cake, on which the words “EAT ME” were beautifully marked in currants.
+“Well, I’ll eat it,” said Alice, “and if it makes me grow larger, I can reach the key; and if it makes me grow smaller, I can creep under the door; so either way I’ll get into the garden, and I don’t care which happens!” She ate a little bit, and said anxiously to herself, “Which way?
+Which way?”, holding her hand on the top of her head to feel which way it was growing, and she was quite surprised to find that she remained the same size: to be sure, this generally happens when one eats cake, but Alice had got so much into the way of expecting nothing but out-of-the-way things to happen, that it seemed quite dull and stupid for life to go on in the common way.
+So she set to work, and very soon finished off the cake.
+* * * * * * * * * * * * * * * * * * * * CHAPTER II.
+The Pool of Tears “Curiouser and curiouser!” cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); “now I’m opening out like the largest telescope that ever was!
+Good-bye, feet!” (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off).
+“Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears?
+I’m sure _I_ shan’t be able!
+I shall be a great deal too far off to trouble myself about you: you must manage the best way you can;—but I must be kind to them,” thought Alice, “or perhaps they won’t walk the way I want to go!
+Let me see: I’ll give them a new pair of boots every Christmas.” And she went on planning to herself how she would manage it.
+“They must go by the carrier,” she thought; “and how funny it’ll seem, sending presents to one’s own feet!
+And how odd the directions will look!
+_Alice’s Right Foot, Esq., Hearthrug, near the Fender,_ (_with Alice’s love_).
+Oh dear, what nonsense I’m talking!” Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door.
+It was as much as she could do, lying down on one side, to look through into the garden with one eye; but to get through was more hopeless than ever: she sat down and began to cry again.
+“You ought to be ashamed of yourself,” said Alice, “a great girl like you,” (she might well say this), “to go on crying in this way!
+Stop this moment, I tell you!” But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall.
+After a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming.
+It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh!
+the Duchess, the Duchess!
+won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go.
+Alice took up the fan and gloves, and, as the hall was very hot, she kept fanning herself all the time she went on talking: “Dear, dear!
+How queer everything is to-day!
+And yesterday things went on just as usual.
+I wonder if I’ve been changed in the night?
+Let me think: was I the same when I got up this morning?
+I almost think I can remember feeling a little different.
+But if I’m not the same, the next question is, Who in the world am I?
+Ah, _that’s_ the great puzzle!” And she began thinking over all the children she knew that were of the same age as herself, to see if she could have been changed for any of them.
+“I’m sure I’m not Ada,” she said, “for her hair goes in such long ringlets, and mine doesn’t go in ringlets at all; and I’m sure I can’t be Mabel, for I know all sorts of things, and she, oh!
+she knows such a very little!
+Besides, _she’s_ she, and _I’m_ I, and—oh dear, how puzzling it all is!
+I’ll try if I know all the things I used to know.
+Let me see: four times five is twelve, and four times six is thirteen, and four times seven is—oh dear!
+I shall never get to twenty at that rate!
+However, the Multiplication Table doesn’t signify: let’s try Geography.
+London is the capital of Paris, and Paris is the capital of Rome, and Rome—no, _that’s_ all wrong, I’m certain!
+I must have been changed for Mabel!
+I’ll try and say ‘_How doth the little_—’” and she crossed her hands on her lap as if she were saying lessons, and began to repeat it, but her voice sounded hoarse and strange, and the words did not come the same as they used to do:— “How doth the little crocodile Improve his shining tail, And pour the waters of the Nile On every golden scale!
+“How cheerfully he seems to grin, How neatly spread his claws, And welcome little fishes in With gently smiling jaws!” “I’m sure those are not the right words,” said poor Alice, and her eyes filled with tears again as she went on, “I must be Mabel after all, and I shall have to go and live in that poky little house, and have next to no toys to play with, and oh!
+ever so many lessons to learn!
+No, I’ve made up my mind about it; if I’m Mabel, I’ll stay down here!
+It’ll be no use their putting their heads down and saying ‘Come up again, dear!’ I shall only look up and say ‘Who am I then?
+Tell me that first, and then, if I like being that person, I’ll come up: if not, I’ll stay down here till I’m somebody else’—but, oh dear!” cried Alice, with a sudden burst of tears, “I do wish they _would_ put their heads down!
+I am so _very_ tired of being all alone here!” As she said this she looked down at her hands, and was surprised to see that she had put on one of the Rabbit’s little white kid gloves while she was talking.
+“How _can_ I have done that?” she thought.
+“I must be growing small again.” She got up and went to the table to measure herself by it, and found that, as nearly as she could guess, she was now about two feet high, and was going on shrinking rapidly: she soon found out that the cause of this was the fan she was holding, and she dropped it hastily, just in time to avoid shrinking away altogether.
+“That _was_ a narrow escape!” said Alice, a good deal frightened at the sudden change, but very glad to find herself still in existence; “and now for the garden!” and she ran with all speed back to the little door: but, alas!
+the little door was shut again, and the little golden key was lying on the glass table as before, “and things are worse than ever,” thought the poor child, “for I never was so small as this before, never!
+And I declare it’s too bad, that it is!” As she said these words her foot slipped, and in another moment, splash!
+she was up to her chin in salt water.
+Her first idea was that she had somehow fallen into the sea, “and in that case I can go back by railway,” she said to herself.
+“I wish I hadn’t cried so much!” said Alice, as she swam about, trying to find her way out.
+“I shall be punished for it now, I suppose, by being drowned in my own tears!
+That _will_ be a queer thing, to be sure!
+However, everything is queer to-day.” Just then she heard something splashing about in the pool a little way off, and she swam nearer to make out what it was: at first she thought it must be a walrus or hippopotamus, but then she remembered how small she was now, and she soon made out that it was only a mouse that had slipped in like herself.
+“Would it be of any use, now,” thought Alice, “to speak to this mouse?
+Everything is so out-of-the-way down here, that I should think very likely it can talk: at any rate, there’s no harm in trying.” So she began: “O Mouse, do you know the way out of this pool?
+I am very tired of swimming about here, O Mouse!” (Alice thought this must be the right way of speaking to a mouse: she had never done such a thing before, but she remembered having seen in her brother’s Latin Grammar, “A mouse—of a mouse—to a mouse—a mouse—O mouse!”) The Mouse looked at her rather inquisitively, and seemed to her to wink with one of its little eyes, but it said nothing.
+“Perhaps it doesn’t understand English,” thought Alice; “I daresay it’s a French mouse, come over with William the Conqueror.” (For, with all her knowledge of history, Alice had no very clear notion how long ago anything had happened.) So she began again: “Où est ma chatte?” which was the first sentence in her French lesson-book.
+The Mouse gave a sudden leap out of the water, and seemed to quiver all over with fright.
+“Oh, I beg your pardon!” cried Alice hastily, afraid that she had hurt the poor animal’s feelings.
+“I quite forgot you didn’t like cats.” “Not like cats!” cried the Mouse, in a shrill, passionate voice.
+“Would _you_ like cats if you were me?” “Well, perhaps not,” said Alice in a soothing tone: “don’t be angry about it.
+And yet I wish I could show you our cat Dinah: I think you’d take a fancy to cats if you could only see her.
+“We won’t talk about her any more if you’d rather not.” “We indeed!” cried the Mouse, who was trembling down to the end of his tail.
+“As if _I_ would talk on such a subject!
+Our family always _hated_ cats: nasty, low, vulgar things!
+Don’t let me hear the name again!” “I won’t indeed!” said Alice, in a great hurry to change the subject of conversation.
+“Are you—are you fond—of—of dogs?” The Mouse did not answer, so Alice went on eagerly: “There is such a nice little dog near our house I should like to show you!
+A little bright-eyed terrier, you know, with oh, such long curly brown hair!
+And it’ll fetch things when you throw them, and it’ll sit up and beg for its dinner, and all sorts of things—I can’t remember half of them—and it belongs to a farmer, you know, and he says it’s so useful, it’s worth a hundred pounds!
+He says it kills all the rats and—oh dear!” cried Alice in a sorrowful tone, “I’m afraid I’ve offended it again!” For the Mouse was swimming away from her as hard as it could go, and making quite a commotion in the pool as it went.
+So she called softly after it, “Mouse dear!
+Alice led the way, and the whole party swam to the shore.
+A Caucus-Race and a Long Tale They were indeed a queer-looking party that assembled on the bank—the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet, cross, and uncomfortable.
+The first question of course was, how to get dry again: they had a consultation about this, and after a few minutes it seemed quite natural to Alice to find herself talking familiarly with them, as if she had known them all her life.
+Indeed, she had quite a long argument with the Lory, who at last turned sulky, and would only say, “I am older than you, and must know better;” and this Alice would not allow without knowing how old it was, and, as the Lory positively refused to tell its age, there was no more to be said.
+At last the Mouse, who seemed to be a person of authority among them, called out, “Sit down, all of you, and listen to me!
+_I’ll_ soon make you dry enough!” They all sat down at once, in a large ring, with the Mouse in the middle.
+Alice kept her eyes anxiously fixed on it, for she felt sure she would catch a bad cold if she did not get dry very soon.
+“Ahem!” said the Mouse with an important air, “are you all ready?
+This is the driest thing I know.
+Silence all round, if you please!
+‘William the Conqueror, whose cause was favoured by the pope, was soon submitted to by the English, who wanted leaders, and had been of late much accustomed to usurpation and conquest.
+Edwin and Morcar, the earls of Mercia and Northumbria—’” “Ugh!” said the Lory, with a shiver.
+“I beg your pardon!” said the Mouse, frowning, but very politely: “Did you speak?” “Not I!” said the Lory hastily.
+“I thought you did,” said the Mouse.
+‘Edwin and Morcar, the earls of Mercia and Northumbria, declared for him: and even Stigand, the patriotic archbishop of Canterbury, found it advisable—’” “Found _what_?” said the Duck.
+“Found _it_,” the Mouse replied rather crossly: “of course you know what ‘it’ means.” “I know what ‘it’ means well enough, when _I_ find a thing,” said the Duck: “it’s generally a frog or a worm.
+The question is, what did the archbishop find?” The Mouse did not notice this question, but hurriedly went on, “‘—found it advisable to go with Edgar Atheling to meet William and offer him the crown.
+William’s conduct at first was moderate.
+But the insolence of his Normans—’ How are you getting on now, my dear?” it continued, turning to Alice as it spoke.
