@@ -121,15 +121,27 @@ impl Lexicon {
                     }
                 }
 
-                // Try specific tag, then parent tag, then DEFAULT
-                if let Some(Some(ps)) = map.get(current_tag) {
-                    return Some(ps.clone());
+                // misaki:
+                //
+                //     elif tag not in ps:
+                //         tag = Lexicon.get_parent_tag(tag)
+                //     ps = ps.get(tag, ps['DEFAULT'])
+                //
+                // The parent tag is tried only when the tag is not a KEY, and
+                // the value found may be an explicit None -- which means "no
+                // pronunciation for this part of speech", NOT "fall back to
+                // DEFAULT". us_gold holds ME as {DEFAULT: mˌi, NOUN: None}, so
+                // ME tagged NNP resolves through NOUN to None and then to
+                // get_NNP, giving ˌɛmˈi. Skipping past the None to DEFAULT read
+                // it as the word "me".
+                let mut t = current_tag;
+                if !map.contains_key(t) {
+                    t = Lexicon::get_parent_tag(t);
                 }
-                let parent = Lexicon::get_parent_tag(current_tag);
-                if let Some(Some(ps)) = map.get(parent) {
-                    return Some(ps.clone());
+                match map.get(t) {
+                    Some(v) => v.clone(),
+                    None => map.get("DEFAULT").and_then(|opt| opt.clone()),
                 }
-                map.get("DEFAULT").and_then(|opt| opt.clone())
             }
         }
     }
@@ -180,22 +192,24 @@ impl Lexicon {
             }
         }
 
-        if ps.is_none() && (word == "three" || word == "one") {
-            eprintln!(
-                "DEBUG: lookup '{}', dictionary size: {}, contains 'three': {}",
-                word,
-                self.golds.len(),
-                self.golds.contains_key("three")
-            );
-        }
-
-        // Special NNP handling if not found or no primary stress
-        if ps.is_none() || (is_nnp && !ps.as_ref()?.contains('ˈ')) {
-            if is_nnp {
-                if let Some((nnp_ps, nnp_rating)) = self.get_nnp(&current_word) {
-                    ps = Some(nnp_ps);
-                    rating = nnp_rating;
-                }
+        // misaki (`Lexicon.lookup`):
+        //
+        //     if ps is None or (is_NNP and PRIMARY_STRESS not in ps):
+        //         ps, rating = self.get_NNP(word)
+        //         if ps is not None:
+        //             return ps, rating
+        //     return apply_stress(ps, stress), rating
+        //
+        // Two differences from what was here. There was an extra `if is_nnp`
+        // guard around the get_NNP call, so a word that is in no lexicon could
+        // only be spelled out when its tag was literally NNP -- every plural
+        // acronym under its real tag of NNS resolved to nothing, and "PDFs",
+        // "CEOs", "CDs", "DVDs", "GPUs", "CPUs" and "APIs" all came out silent.
+        // And misaki RETURNS get_NNP's result as-is; applying `stress` to it
+        // afterwards is not what it does.
+        if ps.is_none() || (is_nnp && !ps.as_deref().is_some_and(|p| p.contains('ˈ'))) {
+            if let Some((nnp_ps, nnp_rating)) = self.get_nnp(&current_word) {
+                return Some((nnp_ps, nnp_rating));
             }
         }
 
@@ -303,7 +317,15 @@ impl Lexicon {
         stress: Option<f64>,
         ctx: Option<&TokenContext>,
     ) -> Option<(String, i32)> {
-        let lower = word.to_lowercase();
+        // misaki stems the word AS GIVEN -- `stem_s`, `stem_ed` and `stem_ing`
+        // all read `word`, never `word.lower()`. Lowercasing first destroys the
+        // all-caps acronym rule in `is_known`, whose last line is
+        // `word[1:] == word[1:].upper()`: is_known("PDF") is true, is_known("pdf")
+        // is false. So "PDFs" failed to stem at all and resolved to nothing,
+        // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
+        // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
+        // since it ends in 'S' rather than 's'.
+        let lower = word.to_string();
         if lower.len() < 3 || !lower.ends_with('s') {
             return None;
         }
@@ -350,7 +372,15 @@ impl Lexicon {
         stress: Option<f64>,
         ctx: Option<&TokenContext>,
     ) -> Option<(String, i32)> {
-        let lower = word.to_lowercase();
+        // misaki stems the word AS GIVEN -- `stem_s`, `stem_ed` and `stem_ing`
+        // all read `word`, never `word.lower()`. Lowercasing first destroys the
+        // all-caps acronym rule in `is_known`, whose last line is
+        // `word[1:] == word[1:].upper()`: is_known("PDF") is true, is_known("pdf")
+        // is false. So "PDFs" failed to stem at all and resolved to nothing,
+        // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
+        // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
+        // since it ends in 'S' rather than 's'.
+        let lower = word.to_string();
         if lower.len() < 4 || !lower.ends_with('d') {
             return None;
         }
@@ -435,7 +465,15 @@ impl Lexicon {
         stress: Option<f64>,
         ctx: Option<&TokenContext>,
     ) -> Option<(String, i32)> {
-        let lower = word.to_lowercase();
+        // misaki stems the word AS GIVEN -- `stem_s`, `stem_ed` and `stem_ing`
+        // all read `word`, never `word.lower()`. Lowercasing first destroys the
+        // all-caps acronym rule in `is_known`, whose last line is
+        // `word[1:] == word[1:].upper()`: is_known("PDF") is true, is_known("pdf")
+        // is false. So "PDFs" failed to stem at all and resolved to nothing,
+        // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
+        // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
+        // since it ends in 'S' rather than 's'.
+        let lower = word.to_string();
         if lower.len() < 5 || !lower.ends_with("ing") {
             return None;
         }
@@ -486,7 +524,19 @@ impl Lexicon {
             return self.lookup(add_symbols[word], "NN", Some(-0.5), ctx);
         } else if symbols.contains_key(word) {
             return self.lookup(symbols[word], "NN", None, ctx);
-        } else if word.contains('.') && word.replace('.', "").chars().all(|c| c.is_alphabetic()) {
+        } else if word.trim_matches('.').contains('.')
+            && word.replace('.', "").chars().all(|c| c.is_alphabetic())
+        {
+            // misaki requires the period to be INSIDE the word:
+            //
+            //     elif '.' in word.strip('.') and word.replace('.','').isalpha()
+            //          and len(max(word.split('.'), key=len)) < 3:
+            //
+            // so "U.S.A." and "a.m." are acronyms but "Mr." is not -- strip the
+            // trailing period and no period remains. Testing `word.contains('.')`
+            // instead sent every abbreviation down the spell-it-out path, which
+            // read "Mr." as ˌɛmˈɑɹ ("em-arr") rather than mˈɪstəɹ. 29 occurrences
+            // in the prose corpus, the single largest remaining divergence.
             let max_len = word.split('.').map(|s| s.len()).max().unwrap_or(0);
             if max_len < 3 {
                 return self.get_nnp(word);
@@ -647,9 +697,18 @@ impl Lexicon {
             return self.lookup(current_word, tag, stress, ctx);
         }
 
-        // Handle possessive forms
+        // Possessives. misaki tests the REWRITTEN form, not the stem:
+        //
+        //     elif word.endswith("s'") and self.is_known(word[:-2] + "'s", tag):
+        //         return self.lookup(word[:-2] + "'s", tag, stress, ctx)
+        //
+        // Testing is_known(word[:-2]) instead let the branch fire for `dogs'`
+        // -- "dog" is known -- and then lookup("dog's") spelled the word out,
+        // D-O-G-S. misaki finds "dog's" NOT known, returns None for the whole
+        // word, and lets the span loop resolve `dogs` + `'` separately, which
+        // gives dˈɔɡz and nothing.
         if current_word.ends_with("s'")
-            && self.is_known(&current_word[..current_word.len() - 2], tag)
+            && self.is_known(&format!("{}'s", &current_word[..current_word.len() - 2]), tag)
         {
             return self.lookup(
                 &format!("{}'s", &current_word[..current_word.len() - 2]),
@@ -671,7 +730,9 @@ impl Lexicon {
         if let Some(result) = self.stem_ed(current_word, tag, stress, ctx) {
             return Some(result);
         }
-        if let Some(result) = self.stem_ing(current_word, tag, Some(0.5).or(stress), ctx) {
+        // misaki: `0.5 if stress is None else stress`. `Some(0.5).or(stress)`
+        // is always Some(0.5) and discarded an explicit stress.
+        if let Some(result) = self.stem_ing(current_word, tag, stress.or(Some(0.5)), ctx) {
             return Some(result);
         }
 
