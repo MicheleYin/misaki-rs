@@ -370,12 +370,12 @@ impl G2P {
     /// quotes become straight ones, then NFKC. The lexicons are keyed with
     /// straight apostrophes.
     ///
-    /// NFKC itself is not applied here -- it would need a unicode-normalisation
-    /// dependency, and the characters it folds that matter for English
-    /// (ligatures, full-width forms) do not appear in the corpora. The quote
-    /// substitution is the part that changes lookups.
+    /// NFKC is not applied wholesale, but the trademark sign is expanded to
+    /// its compatibility form because it is a common standalone lexicon key.
     fn normalize_lookup(text: &str) -> String {
-        text.replace('\u{2018}', "'").replace('\u{2019}', "'")
+        text.replace('\u{2122}', "TM")
+            .replace('\u{2018}', "'")
+            .replace('\u{2019}', "'")
     }
 
     /// misaki's punctuation phonemes (`en.py:598-599`): the PUNCT_TAG_PHONEMES
@@ -1432,12 +1432,20 @@ impl G2P {
                 return true;
             }
         }
-        // A single decimal point, digits on both sides.
-        if clean.matches('.').count() == 1 {
-            if let Some((a, b)) = clean.split_once('.') {
-                if !a.is_empty()
+        let unsigned = clean.strip_prefix('-').unwrap_or(&clean);
+        if unsigned.matches('.').count() > 1
+            && unsigned.chars().any(|c| c.is_ascii_digit())
+            && unsigned
+                .chars()
+                .all(|c| c.is_ascii_digit() || c == '.')
+        {
+            return true;
+        }
+        // A single decimal point, with an optional integer part.
+        if unsigned.matches('.').count() == 1 {
+            if let Some((a, b)) = unsigned.split_once('.') {
+                if (a.is_empty() || a.chars().all(|c| c.is_ascii_digit()))
                     && !b.is_empty()
-                    && a.chars().all(|c| c.is_ascii_digit())
                     && b.chars().all(|c| c.is_ascii_digit())
                 {
                     return true;
@@ -1533,7 +1541,7 @@ impl G2P {
             out.push(Self::normalize_num_words(
                 &Num2Words::new(n).to_words().ok()?,
             ));
-            out.push(if n == 1 {
+            out.push(if n == 1 || unit == "pence" {
                 unit.to_string()
             } else {
                 format!("{unit}s")
@@ -1620,6 +1628,19 @@ impl G2P {
         None
     }
 
+    fn number_component(&self, part: &str) -> String {
+        let digit_wise =
+            part.starts_with('0') || (part.len() != 2 && part[1..].chars().any(|c| c != '0'));
+        if digit_wise {
+            part.chars()
+                .map(|digit| Self::spell(&digit.to_string()))
+                .collect::<Vec<_>>()
+                .join(" ")
+        } else {
+            Self::spell(part)
+        }
+    }
+
     fn convert_number(&self, word: &str) -> String {
         let clean = word.replace(",", "");
 
@@ -1660,7 +1681,7 @@ impl G2P {
         }
 
         // Bare four-digit numbers read as years, per misaki's get_number.
-        if clean.len() == 4 && clean.chars().all(|c| c.is_ascii_digit()) {
+        if word.len() == 4 && word.chars().all(|c| c.is_ascii_digit()) {
             if let Ok(y) = clean.parse::<i64>() {
                 if let Some(spoken) = Self::year_words(y) {
                     return Self::normalize_num_words(&spoken);
@@ -1678,6 +1699,16 @@ impl G2P {
             }
         }
 
+        // Dotted versions read each component independently.
+        if clean.matches('.').count() > 1 {
+            return clean
+                .split('.')
+                .filter(|part| !part.is_empty())
+                .map(|part| self.number_component(part))
+                .collect::<Vec<_>>()
+                .join(" ");
+        }
+
         // A single decimal point: the integer part as a cardinal, then "point",
         // then each fractional DIGIT on its own. Verified against misaki:
         //
@@ -1685,20 +1716,38 @@ impl G2P {
         //   1.25   -> one point two five      100.01 -> one hundred point zero one
         if clean.matches('.').count() == 1 {
             let (int_part, frac) = clean.split_once('.').unwrap();
-            let int_ok = !int_part.is_empty() && int_part.chars().all(|c| c.is_ascii_digit());
+            let int_ok = int_part.is_empty() || int_part.chars().all(|c| c.is_ascii_digit());
             let frac_ok = !frac.is_empty() && frac.chars().all(|c| c.is_ascii_digit());
             if int_ok && frac_ok {
-                if let Ok(iv) = int_part.parse::<i64>() {
-                    if let Ok(head) = Num2Words::new(iv).to_words() {
-                        let mut out = vec![Self::normalize_num_words(&head), "point".to_string()];
-                        for d in frac.chars() {
-                            let dv = (d as u8 - b'0') as i64;
-                            if let Ok(w) = Num2Words::new(dv).to_words() {
-                                out.push(Self::normalize_num_words(&w));
-                            }
-                        }
-                        return out.join(" ");
+                let head = if int_part.is_empty() {
+                    Some(String::new())
+                } else {
+                    int_part
+                        .parse::<i64>()
+                        .ok()
+                        .and_then(|iv| Num2Words::new(iv).to_words().ok())
+                };
+                if let Some(head) = head {
+                    let significant_frac = frac.trim_end_matches('0');
+                    if significant_frac.is_empty() {
+                        return if head.is_empty() {
+                            "zero".to_string()
+                        } else {
+                            Self::normalize_num_words(&head)
+                        };
                     }
+                    let mut out = Vec::new();
+                    if !head.is_empty() {
+                        out.push(Self::normalize_num_words(&head));
+                    }
+                    out.push("point".to_string());
+                    for d in significant_frac.chars() {
+                        let dv = (d as u8 - b'0') as i64;
+                        if let Ok(w) = Num2Words::new(dv).to_words() {
+                            out.push(Self::normalize_num_words(&w));
+                        }
+                    }
+                    return out.join(" ");
                 }
             }
         }
@@ -1736,6 +1785,36 @@ mod tests {
         let (phonemes, _) = g2p.g2p("Hello, world!").unwrap();
         println!("Phonemes: {}", phonemes);
         assert!(!phonemes.contains("❓"));
+    }
+
+    #[test]
+    fn test_dotted_number_normalization() {
+        let g2p = G2P::new(Language::EnglishUS);
+        assert!(g2p.is_number_like("0.12.1"));
+        assert!(g2p.is_number_like(".5"));
+        assert!(g2p.is_number_like("-0.12.1"));
+        assert!(!g2p.is_number_like("config.toml"));
+        assert_eq!(g2p.convert_number("0.12.1"), "zero twelve one");
+        assert_eq!(g2p.convert_number("1.100.0"), "one one hundred zero");
+        assert_eq!(g2p.convert_number("1.2"), "one point two");
+        assert_eq!(g2p.convert_number("0.05"), "zero point zero five");
+        assert_eq!(g2p.convert_number("1.200"), "one point two");
+        assert_eq!(g2p.convert_number("1.0"), "one");
+        assert_eq!(g2p.convert_number("1,234"), "one thousand two hundred thirty four");
+        assert_eq!(g2p.convert_number(".5"), "point five");
+        assert_eq!(g2p.convert_number("2026"), "twenty twenty six");
+        assert_eq!(g2p.convert_number("-40"), "minus forty");
+        assert_eq!(g2p.convert_number("23rd"), "twenty third");
+        assert_eq!(g2p.currency_words('\u{a3}', "1.50").as_deref(), Some("one pound and fifty pence"));
+    }
+
+    #[test]
+    fn test_dotted_number_is_normalized_in_g2p_pipeline() {
+        let g2p = G2P::new(Language::EnglishUS);
+        let (version, _) = g2p.g2p("Version 0.12.1").unwrap();
+        let (words, _) = g2p.g2p("Version zero twelve one").unwrap();
+        let normalize = |text: String| text.split_whitespace().collect::<Vec<_>>().join(" ");
+        assert_eq!(normalize(version), normalize(words));
     }
 
     #[test]

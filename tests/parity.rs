@@ -80,6 +80,9 @@ fn run(path: &str) -> Report {
         if ps_match { r.ps_ok += 1; }
         if tok_match { r.tok_ok += 1; }
         if ps_match && tok_match { r.both_ok += 1; }
+        if !tok_match {
+            println!("\n  token mismatch for {:?}:\n    misaki: {:?}\n    Rust:   {:?}", c.text, c.tokens, got);
+        }
         if !ps_match && r.first.len() < 30 {
             r.first.push((c.text.clone(), c.ps.clone(), ps.clone()));
         }
