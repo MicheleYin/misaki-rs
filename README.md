@@ -3,26 +3,27 @@
 [![Crates.io](https://img.shields.io/crates/v/misaki-rs)](https://crates.io/crates/misaki-rs)
 
 
-**misaki-rs** is a self-contained, high-performance Rust port of the [Misaki](https://github.com/hexgrad/misaki) G2P (Grapheme-to-Phoneme) engine. 
+**misaki-rs** is a self-contained Rust port of the [Misaki](https://github.com/hexgrad/misaki) G2P (Grapheme-to-Phoneme) engine, with its English pipeline brought to feature parity with Misaki 0.9.4.
 
-It is specifically designed for use with TTS models like **Kokoro**, providing accurate Part-of-Speech aware phonemization for English text.
+It is designed for TTS models like **Kokoro**, providing Part-of-Speech-aware phonemization for US and British English.
 
 ## Features
 
 - **Self-Contained**: All lexicons, dictionaries, and Part-of-Speech tagger weights are embedded directly into the binary at compile time. No external resource files are required at runtime.
-- **POS-Aware Phonemization**: Uses an averaged perceptron tagger to handle heteronyms (words with different pronunciations based on context, e.g., *object* as a noun vs. verb).
+- **Misaki Compatibility**: Ports Misaki 0.9.4's English phonemization behavior, including its spaCy-compatible tokenizer, normalization, and POS tagger.
+- **POS-Aware Phonemization**: Handles heteronyms (words with different pronunciations based on context, e.g., *object* as a noun vs. verb).
 - **Multi-Dialect Support**: Supports both **US English** (en-us) and **British English** (en-gb).
 - **Morphological Stemming**: Intelligent handling of suffixes (plurals, past tense, continuous tense). Other rules may be added in the future. Currently those are:
     -  s plural stemming
     - ed past tense stemming
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
-- **Optional espeak fallback** (feature `espeak`, enabled by default): For out-of-vocabulary words, use [espeak-ng](https://github.com/espeak-ng/espeak-ng) to produce phonemes. Disable with `default-features = false` for a smaller build with no system espeak dependency; unknown words will then be spelled letter-by-letter or marked as unknown.
+- **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words. Disable with `default-features = false` for a build without the espeak dependency; unresolved words are marked with `G2P::unk` (❓ by default), not spelled letter-by-letter.
 
 
-## Why “spelling out” when espeak is disabled?
+## Unknown words and fallback
 
-When a word is not in the lexicon and no rule applies, the engine needs a fallback. With the `espeak` feature **enabled**, that fallback is espeak-ng: the word is sent to espeak and its IPA output is converted to the engine’s phoneme set. With the `espeak` feature **disabled**, there is no external fallback, so the engine falls back to **character-by-character spelling**: each letter is phonemized as its name (e.g. “B” → “bˈi”, “K” → “kˈe‍ɪ”). So for example “eBook” becomes the sequence of letter names (E, B, O, O, K) instead of the word “e-book”. Single-character tokens and unrecognized characters may be marked as unknown (❓) instead. This behavior is intentional so that builds without espeak still produce some output rather than failing.
+With the default `espeak` feature enabled, an out-of-vocabulary word is sent to espeak-ng and its IPA output is converted to the engine's phoneme set. If espeak is disabled or unavailable, unresolved words keep `None` phonemes and the assembled phoneme string uses the configured unknown marker (`G2P::unk`, ❓ by default). You can provide a different fallback with `G2P::with_fallback`.
 
 
 ## Testing espeak
@@ -42,38 +43,37 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.6.0"
+misaki-rs = "0.7.0"
 ```
 
 **Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
 
 ```toml
 [dependencies]
-misaki-rs = { version = "0.6.0", default-features = false }
+misaki-rs = { version = "0.7.0", default-features = false }
 ```
 
 To depend on misaki-rs without default features but still use espeak:
 
 ```toml
-misaki-rs = { version = "0.6.0", default-features = false, features = ["espeak"] }
+misaki-rs = { version = "0.7.0", default-features = false, features = ["espeak"] }
 ```
 
 ## Quick Start
 
 ```rust
-use misaki_rs::G2P;
+use misaki_rs::{G2P, Language};
 
-fn main() {
-    // Initialize for US English (false = US, true = GB)
-    let g2p = G2P::new(false); 
-    
-    let (phonemes, tokens) = g2p.g2p("Hello, world! 123");
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let g2p = G2P::new(Language::EnglishUS);
+    let (phonemes, tokens) = g2p.g2p("Hello, world! 123")?;
     println!("US Phonemes: {}", phonemes);
-    
-    // Initialize for British English
-    let g2p_gb = G2P::new(true);
-    let (phonemes_gb, _) = g2p_gb.g2p("The schedule is full.");
+
+    let g2p_gb = G2P::new(Language::EnglishGB);
+    let (phonemes_gb, _) = g2p_gb.g2p("The schedule is full.")?;
     println!("GB Phonemes: {}", phonemes_gb);
+
+    Ok(())
 }
 ```
 
@@ -82,7 +82,7 @@ fn main() {
 If you want to override the default out-of-vocabulary behavior, inject your own fallback implementation by implementing the `Fallback` trait and passing it to `G2P::with_fallback`.
 
 ```rust
-use misaki_rs::{Fallback, FallbackError, G2P, Language};
+use misaki_rs::{fallback::FallbackError, Fallback, G2P, Language};
 
 struct CustomFallback;
 
@@ -105,6 +105,18 @@ This is useful when you want a custom pronunciation source, a dictionary lookup,
 ## Pronunciations
 
 The original misaki project had very few words and some were not pronunced correctly. Here I updated the original pronunciation dict to include more words and correct pronunciations using eSpeak.
+
+## Misaki parity
+
+The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 71 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,623 tokens across 771 sentences.
+
+Run the parity suite with:
+
+```bash
+cargo test --no-default-features
+```
+
+See [PARITY.md](PARITY.md) for the test methodology and coverage details.
 
 ## Scope
 
