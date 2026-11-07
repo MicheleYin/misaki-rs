@@ -19,6 +19,7 @@ It is designed for TTS models like **Kokoro**, providing Part-of-Speech-aware ph
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
 - **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words. Disable with `default-features = false` for a build without the espeak dependency; unresolved words are marked with `G2P::unk` (❓ by default), not spelled letter-by-letter.
+- **Optional perceptron tagger** (feature `perceptron-tagger`, off by default): Also loads the averaged perceptron tagger that earlier versions used, for comparing it with the spaCy tagger. Pronunciation always uses the spaCy tagger, so leaving it off changes no output, makes the binary smaller and roughly halves the memory a `G2P` uses.
 
 
 ## Unknown words and fallback

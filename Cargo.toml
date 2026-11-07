@@ -19,6 +19,9 @@ exclude = [
 [features]
 default = ["espeak"]
 espeak = ["dep:espeak-rs"]
+# Loads the old perceptron tagger in `G2P::new`, for comparing it with the spaCy tagger.
+# Pronunciation never uses it, so it's off by default.
+perceptron-tagger = []
 
 [dependencies]
 log = "0.4"
