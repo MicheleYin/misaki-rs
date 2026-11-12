@@ -5,6 +5,7 @@ use crate::fallback::EspeakFallback;
 use crate::languages::{LanguageRules, english::English};
 use crate::lexicon::Lexicon;
 use thiserror::Error;
+#[cfg(feature = "perceptron-tagger")]
 use crate::tagger::PerceptronTagger;
 use crate::token::MToken;
 use fancy_regex::Regex as FancyRegex;
@@ -95,7 +96,10 @@ pub struct G2P {
     link_regex: Regex,
     /// The perceptron tagger this crate shipped with. No longer used for
     /// pronunciation -- `spacy_tagger` is, because misaki's output depends on
-    /// spaCy's exact tags -- but kept so the two remain comparable.
+    /// spaCy's exact tags -- but kept so the two remain comparable. Only
+    /// loaded with the `perceptron-tagger` feature, since it makes the binary
+    /// larger and roughly doubles the memory a `G2P` uses.
+    #[cfg(feature = "perceptron-tagger")]
     #[allow(dead_code)]
     tagger: PerceptronTagger,
     spacy_tagger: crate::spacy_tagger::Tagger,
@@ -143,10 +147,6 @@ impl G2P {
         ))
         .unwrap();
 
-        let weights_json = include_str!("resources/tagger/weights.json");
-        let classes_txt = include_str!("resources/tagger/classes.txt");
-        let tags_json = include_str!("resources/tagger/tags.json");
-
         let rules: Box<dyn LanguageRules> = match lang {
             Language::EnglishUS | Language::EnglishGB => Box::new(English),
             // Language::Italian => Box::new(Italian),
@@ -172,7 +172,12 @@ impl G2P {
             unk: "❓".to_string(),
             subtoken_regex,
             link_regex,
-            tagger: PerceptronTagger::new(weights_json, classes_txt, tags_json),
+            #[cfg(feature = "perceptron-tagger")]
+            tagger: PerceptronTagger::new(
+                include_str!("resources/tagger/weights.json"),
+                include_str!("resources/tagger/classes.txt"),
+                include_str!("resources/tagger/tags.json"),
+            ),
             // The ported spaCy tagger. Kept alongside the perceptron rather
             // than replacing it so the old one stays available for comparison.
             spacy_tagger: crate::spacy_tagger::Tagger::load(),
