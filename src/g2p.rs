@@ -1461,7 +1461,8 @@ impl G2P {
 
     fn is_number(&self, word: &str) -> bool {
         let clean = word.replace(",", "");
-        clean.parse::<i64>().is_ok()
+        // misaki takes digits only; Rust's parser also takes a leading '+'.
+        !clean.starts_with('+') && clean.parse::<i64>().is_ok()
     }
 
     /// Reduce a num2words string to the word sequence misaki feeds the lexicon.
@@ -1819,6 +1820,21 @@ mod tests {
         let (words, _) = g2p.g2p("Version zero twelve one").unwrap();
         let normalize = |text: String| text.split_whitespace().collect::<Vec<_>>().join(" ");
         assert_eq!(normalize(version), normalize(words));
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_plus_sign_before_a_number_is_read() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            (
+                "Call +1 555 123 4567.",
+                "kˈɔl plˈʌs wˈʌn fˈIv hˈʌndɹəd fˈɪfti fˈIv wˈʌn hˈʌndɹəd twˈɛnti θɹˈi fˈɔɹTi fˈIv sˈɪksti sˈɛvən.",
+            ),
+            ("It is +5 degrees.", "ˌɪt ɪz plˈʌs fˈIv dəɡɹˈiz."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     #[test]
