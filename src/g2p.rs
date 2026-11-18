@@ -2130,6 +2130,18 @@ mod tests {
         }
     }
 
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_degree_unit_keeps_the_full_stop() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("It is 20 °C.", "ˌɪt ɪz twˈɛnti ❓ sˈi."),
+            ("It is 72 °F.", "ˌɪt ɪz sˈɛvənti tˈu ❓ ˈɛf."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
     #[test]
     fn test_casing_and_special_chars() {
         let g2p = G2P::new(Language::EnglishUS);

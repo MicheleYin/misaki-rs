@@ -7,7 +7,8 @@
 //! misaki 0.9.4.
 //!
 //! Extracted verbatim from `spacy.load("en_core_web_sm").tokenizer.rules`
-//! (the `.`-terminated, alphabetic subset), so this is data, not a guess.
+//! (the `.`-terminated rules that keep the period; the rule for `°C.` splits
+//! it off), so this is data, not a guess.
 //! Matching is CASE-SENSITIVE, as spaCy's rules are: the list carries `E.g.`
 //! and `E.G.` as separate entries.
 
@@ -149,12 +150,6 @@ pub const PERIOD_ABBREVIATIONS: &[&str] = &[
     "x.",
     "y.",
     "z.",
-    "°C.",
-    "°F.",
-    "°K.",
-    "°c.",
-    "°f.",
-    "°k.",
     "ä.",
     "ö.",
     "ü.",
