@@ -1205,8 +1205,11 @@ impl G2P {
                         }
                     }
                     if let Some(fallback) = &self.fallback {
+                        // As misaki's `should_fallback`: a piece the per-token
+                        // pass already read (the `37` of `37%`) is not missing.
                         let needs_fallback = res.iter().enumerate().any(|(i, part)| {
                             part.is_none()
+                                && group[i].phonemes.is_none()
                                 && !group[i].text.is_empty()
                                 && !group[i]
                                     .text
@@ -1848,6 +1851,83 @@ mod tests {
 
         assert_eq!(phonemes, "whole-word-fallback");
         assert_eq!(tokens[0].phonemes.as_deref(), Some("whole-word-fallback"));
+    }
+
+    /// Records every word it is asked, and answers with a fixed marker.
+    struct RecordingFallback {
+        asked: std::sync::Arc<std::sync::Mutex<Vec<String>>>,
+    }
+
+    impl Fallback for RecordingFallback {
+        fn phonemize(&self, word: &str) -> Result<String, FallbackError> {
+            self.asked.lock().unwrap().push(word.to_string());
+            Ok("FALLBACK".to_string())
+        }
+    }
+
+    type Pairs = Vec<(String, Option<String>)>;
+
+    /// Phonemes, per-token pairs and the words the fallback was asked.
+    fn g2p_recording(text: &str) -> (String, Pairs, Vec<String>) {
+        let asked = std::sync::Arc::new(std::sync::Mutex::new(Vec::new()));
+        let fallback = RecordingFallback {
+            asked: asked.clone(),
+        };
+        let mut g2p = G2P::with_fallback(Language::EnglishUS, Some(Box::new(fallback)));
+        g2p.unk = String::new();
+        let (ps, tokens) = g2p.g2p(text).unwrap();
+        let pairs = tokens
+            .iter()
+            .map(|t| (t.text.clone(), t.phonemes.clone()))
+            .collect();
+        let asked = asked.lock().unwrap().clone();
+        (ps, pairs, asked)
+    }
+
+    // Expected strings in both tests are misaki 0.9.4's output.
+    #[test]
+    fn test_multi_piece_word_with_phonemes_skips_fallback() {
+        let mut none = G2P::with_fallback(Language::EnglishUS, None);
+        none.unk = String::new();
+        for (text, want) in [
+            (
+                "The download is 37% done.",
+                "ðə dˈWnlˌOd ɪz θˈɜɹTi sˈɛvən pəɹsˈɛnt dˈʌn.",
+            ),
+            (
+                "It was modified on 11/17/2026.",
+                "ˌɪt wʌz mˈɑdəfˌId ˌɔn əlˈɛvᵊn sˌɛvəntˈin twˈɛnti twˈɛnti sˈɪks.",
+            ),
+        ] {
+            let (ps, pairs, asked) = g2p_recording(text);
+            let (none_ps, none_tokens) = none.g2p(text).unwrap();
+            let none_pairs: Pairs = none_tokens
+                .iter()
+                .map(|t| (t.text.clone(), t.phonemes.clone()))
+                .collect();
+
+            assert!(asked.is_empty(), "{text:?} asked the fallback {asked:?}");
+            assert_eq!(ps, want);
+            assert_eq!(ps, none_ps);
+            assert_eq!(pairs, none_pairs);
+        }
+    }
+
+    #[test]
+    fn test_multi_piece_word_without_phonemes_reaches_fallback() {
+        for (text, word, want) in [
+            ("Press Ctrl+S to save.", "Ctrl+S", "pɹˈɛs FALLBACK tə sˈAv."),
+            (
+                "Your meeting is at 3:45 PM.",
+                "3:45",
+                "jˌʊɹ mˈiTɪŋ ɪz æt FALLBACK pˌiˈɛm.",
+            ),
+        ] {
+            let (ps, _, asked) = g2p_recording(text);
+
+            assert_eq!(asked, [word]);
+            assert_eq!(ps, want);
+        }
     }
 
     #[cfg(feature = "espeak")]
