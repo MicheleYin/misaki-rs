@@ -2152,19 +2152,26 @@ mod tests {
         // em-dash — (U+2014) and hyphen -
         let (dash, _) = g2p.g2p("word - word — word").unwrap();
         println!("Dash: {}", dash);
-        // misaki 0.9.4 gives exactly this, verified against the oracle:
-        //
-        //     "word - word — word" -> wˈɜɹd ❓ wˈɜɹd — wˈɜɹd
-        //
         // The two dashes are NOT alike. spaCy tags the em-dash `:`, which puts
         // it in PUNCT_TAGS and renders it —; it tags the plain hyphen HYPH,
-        // which is not punctuation, so the lexicon misses it and it comes back
-        // unresolved and prints as `unk`. This assertion used to forbid `unk`
-        // altogether, which was the pre-fork behaviour.
+        // which is not punctuation, so the lexicon misses it.
+        //
+        // misaki 0.9.4 (verified):
+        //   fallback=None   -> wˈɜɹd ❓ wˈɜɹd — wˈɜɹd  (HYPH stays unresolved)
+        //   EspeakFallback  -> wˈɜɹd  wˈɜɹd — wˈɜɹd   (espeak returns "")
+        //
+        // G2P::new enables espeak when the feature is on, so the expected
+        // string depends on that.
         assert!(dash.contains('—'), "em-dash dropped: {dash}");
+        #[cfg(feature = "espeak")]
+        assert_eq!(
+            dash, "wˈɜɹd  wˈɜɹd — wˈɜɹd",
+            "does not match misaki 0.9.4 with espeak fallback"
+        );
+        #[cfg(not(feature = "espeak"))]
         assert_eq!(
             dash, "wˈɜɹd ❓ wˈɜɹd — wˈɜɹd",
-            "does not match misaki 0.9.4"
+            "does not match misaki 0.9.4 with fallback=None"
         );
     }
 
