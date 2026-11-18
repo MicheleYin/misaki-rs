@@ -920,70 +920,66 @@ impl G2P {
                     }
                 }
 
-                if tokens[i].phonemes.is_none() {
-                    if word.chars().count() > 1 {
-                        // Python applies fallback after resolving the whole
-                        // adjacency group, not to an unresolved subtoken.
-                        if !is_subtoken_group[i] {
-                            if let Some(ref fallback) = self.fallback {
-                                match fallback.phonemize(&word) {
-                                    Ok(ps) => tokens[i].phonemes = Some(ps),
-                                    Err(e) => {
-                                        log::error!("fallback error for '{}': {}", word, e);
-                                        return Err(G2PError::Fallback(e));
-                                    }
-                                }
-                            }
-                        }
+                if tokens[i].phonemes.is_none() && word.chars().count() == 1 {
+                    // Try to normalize the character or leave unresolved.
+                    let normalized: String = word
+                        .chars()
+                        .map(|c| match c {
+                            'é' | 'è' | 'ê' | 'ë' => 'e',
+                            'á' | 'à' | 'â' | 'ä' | 'ã' | 'å' => 'a',
+                            'í' | 'ì' | 'î' | 'ï' => 'i',
+                            'ó' | 'ò' | 'ô' | 'ö' | 'õ' => 'o',
+                            'ú' | 'ù' | 'û' | 'ü' => 'u',
+                            'ñ' => 'n',
+                            'ç' => 'c',
+                            // NB: em/en dashes are NOT mapped away here.
+                            // U+2014 is in misaki's PUNCTS and survives as
+                            // itself; mapping it to a space sent it down the
+                            // renormalise path and silently dropped it.
+                            _ => c,
+                        })
+                        .collect();
 
-                        // Leave it unresolved for the group merge or final
-                        // unknown marker. Misaki does not spell OOV words out.
+                    if normalized != word {
+                        let (p, _) = self.g2p(&normalized)?;
+                        tokens[i].phonemes = Some(p);
                     } else {
-                        // Try to normalize the character or return unknown
-                        let normalized: String = word
-                            .chars()
-                            .map(|c| match c {
-                                'é' | 'è' | 'ê' | 'ë' => 'e',
-                                'á' | 'à' | 'â' | 'ä' | 'ã' | 'å' => 'a',
-                                'í' | 'ì' | 'î' | 'ï' => 'i',
-                                'ó' | 'ò' | 'ô' | 'ö' | 'õ' => 'o',
-                                'ú' | 'ù' | 'û' | 'ü' => 'u',
-                                'ñ' => 'n',
-                                'ç' => 'c',
-                                // NB: em/en dashes are NOT mapped away here.
-                                // U+2014 is in misaki's PUNCTS and survives as
-                                // itself; mapping it to a space sent it down the
-                                // renormalise path and silently dropped it.
-                                _ => c,
-                            })
-                            .collect();
+                        // Punctuation, as misaki resolves it (`en.py:598-599`):
+                        //
+                        //     elif tk.tag in PUNCT_TAGS and not all(97 <= ord(c.lower()) <= 122 ...):
+                        //         tk.phonemes = PUNCT_TAG_PHONEMES.get(
+                        //             tk.tag, ''.join(c for c in tk.text if c in PUNCTS))
+                        //
+                        // with PUNCTS = ';:,.!?\u2014\u2026"\u201c\u201d' and PUNCT_TAG_PHONEMES
+                        // mapping spaCy's quote/paren tags: `` -> \u201c, '' -> \u201d,
+                        // -LRB- -> (, -RRB- -> ).
+                        //
+                        // The punctuation pre-pass above already handled
+                        // every token misaki calls punctuation, by TAG. A
+                        // non-alphanumeric token that gets here is therefore
+                        // one spaCy did NOT tag as punctuation -- `[` is
+                        // tagged XX, not -LRB- -- and misaki leaves it
+                        // unresolved when fallback is None, so it contributes
+                        // nothing when merged into the following word.
+                        //
+                        // SUBTOKEN_JUNKS still resolve to the empty string
+                        // (resolve_tokens), which the merge pass applies.
+                        tokens[i].phonemes = None;
+                    }
+                }
 
-                        if normalized != word {
-                            let (p, _) = self.g2p(&normalized)?;
-                            tokens[i].phonemes = Some(p);
-                        } else {
-                            // Punctuation, as misaki resolves it (`en.py:598-599`):
-                            //
-                            //     elif tk.tag in PUNCT_TAGS and not all(97 <= ord(c.lower()) <= 122 ...):
-                            //         tk.phonemes = PUNCT_TAG_PHONEMES.get(
-                            //             tk.tag, ''.join(c for c in tk.text if c in PUNCTS))
-                            //
-                            // with PUNCTS = ';:,.!?\u2014\u2026"\u201c\u201d' and PUNCT_TAG_PHONEMES
-                            // mapping spaCy's quote/paren tags: `` -> \u201c, '' -> \u201d,
-                            // -LRB- -> (, -RRB- -> ).
-                            //
-                            // The punctuation pre-pass above already handled
-                            // every token misaki calls punctuation, by TAG. A
-                            // non-alphanumeric token that gets here is therefore
-                            // one spaCy did NOT tag as punctuation -- `[` is
-                            // tagged XX, not -LRB- -- and misaki leaves it
-                            // unresolved, so it contributes nothing when merged
-                            // into the following word. `[Illustration` is
-                            // ˌɪləstrˈAʃən, not `( ˌɪləstrˈAʃən`.
-                            //
-                            // SUBTOKEN_JUNKS still resolve to the empty string
-                            // (resolve_tokens), which the merge pass applies.
-                            tokens[i].phonemes = None;
+                // misaki: any still-unresolved non-group token goes to fallback
+                // (`en.py`: `if w.phonemes is None and self.fallback is not None`),
+                // including single-character symbols (`-`, `#`, `©`, emoji).
+                // Multi-piece groups defer to the merge-pass `should_fallback`.
+                if tokens[i].phonemes.is_none() && !is_subtoken_group[i] {
+                    if let Some(ref fallback) = self.fallback {
+                        match fallback.phonemize(&word) {
+                            Ok(ps) => tokens[i].phonemes = Some(ps),
+                            Err(e) => {
+                                log::error!("fallback error for '{}': {}", word, e);
+                                return Err(G2PError::Fallback(e));
+                            }
                         }
                     }
                 }

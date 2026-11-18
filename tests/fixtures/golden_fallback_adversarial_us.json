@@ -1,0 +1,3505 @@
+{
+  "misaki_version": "0.9.4",
+  "lang": "a",
+  "british": false,
+  "fallback": "recording:FALLBACK",
+  "oracle": "misaki",
+  "unk": "",
+  "n": 84,
+  "cases": [
+    {
+      "text": "[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.",
+      "asked": [],
+      "ps": "misˈɑki ɪz ɐ ʤˈitəpˈi ˈɛnʤən dəzˈInd fɔɹ kˈOkəɹO mˈɑdᵊlz.",
+      "tokens": [
+        [
+          "Misaki",
+          "misˈɑki"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "G",
+          "ʤˈi"
+        ],
+        [
+          "2",
+          "tə"
+        ],
+        [
+          "P",
+          "pˈi"
+        ],
+        [
+          "engine",
+          "ˈɛnʤən"
+        ],
+        [
+          "designed",
+          "dəzˈInd"
+        ],
+        [
+          "for",
+          "fɔɹ"
+        ],
+        [
+          "Kokoro",
+          "kˈOkəɹO"
+        ],
+        [
+          "models",
+          "mˈɑdᵊlz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Please read the report I read yesterday.",
+      "asked": [],
+      "ps": "plˈiz ɹˈid ðə ɹəpˈɔɹt ˌI ɹˈɛd jˈɛstəɹdˌA.",
+      "tokens": [
+        [
+          "Please",
+          "plˈiz"
+        ],
+        [
+          "read",
+          "ɹˈid"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "report",
+          "ɹəpˈɔɹt"
+        ],
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "read",
+          "ɹˈɛd"
+        ],
+        [
+          "yesterday",
+          "jˈɛstəɹdˌA"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He will lead the team with a lead pipe.",
+      "asked": [],
+      "ps": "hˌi wɪl lˈid ðə tˈim wɪð ɐ lˈid pˈIp.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "will",
+          "wɪl"
+        ],
+        [
+          "lead",
+          "lˈid"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "team",
+          "tˈim"
+        ],
+        [
+          "with",
+          "wɪð"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "lead",
+          "lˈid"
+        ],
+        [
+          "pipe",
+          "pˈIp"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "They record a record every week.",
+      "asked": [],
+      "ps": "ðˌA ɹəkˈɔɹd ɐ ɹˈɛkəɹd ˈɛvəɹi wˈik.",
+      "tokens": [
+        [
+          "They",
+          "ðˌA"
+        ],
+        [
+          "record",
+          "ɹəkˈɔɹd"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "record",
+          "ɹˈɛkəɹd"
+        ],
+        [
+          "every",
+          "ˈɛvəɹi"
+        ],
+        [
+          "week",
+          "wˈik"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "We live near a live volcano.",
+      "asked": [],
+      "ps": "wˌi lˈɪv nˌɪɹ ɐ lˈIv vɑlkˈAnO.",
+      "tokens": [
+        [
+          "We",
+          "wˌi"
+        ],
+        [
+          "live",
+          "lˈɪv"
+        ],
+        [
+          "near",
+          "nˌɪɹ"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "live",
+          "lˈIv"
+        ],
+        [
+          "volcano",
+          "vɑlkˈAnO"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The bandage was wound around the wound.",
+      "asked": [],
+      "ps": "ðə bˈændɪʤ wʌz wˈWnd əɹˈWnd ðə wˈund.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "bandage",
+          "bˈændɪʤ"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "wound",
+          "wˈWnd"
+        ],
+        [
+          "around",
+          "əɹˈWnd"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "wound",
+          "wˈund"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The dove dove into the bushes.",
+      "asked": [],
+      "ps": "ðə dˈʌv dˈOv ˈɪntu ðə bˈʊʃᵻz.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "dove",
+          "dˈʌv"
+        ],
+        [
+          "dove",
+          "dˈOv"
+        ],
+        [
+          "into",
+          "ˈɪntu"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "bushes",
+          "bˈʊʃᵻz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "I object to that object.",
+      "asked": [],
+      "ps": "ˌI əbʤˈɛkt tə ðˈæt ˈɑbʤəkt.",
+      "tokens": [
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "object",
+          "əbʤˈɛkt"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "that",
+          "ðˈæt"
+        ],
+        [
+          "object",
+          "ˈɑbʤəkt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The farm was used to produce produce.",
+      "asked": [],
+      "ps": "ðə fˈɑɹm wʌz jˈuzd tə pɹədˈus pɹˈOdˌus.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "farm",
+          "fˈɑɹm"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "used",
+          "jˈuzd"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "produce",
+          "pɹədˈus"
+        ],
+        [
+          "produce",
+          "pɹˈOdˌus"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He did not desert his comrades in the desert.",
+      "asked": [],
+      "ps": "hˌi dˈɪd nˌɑt dəzˈɜɹt hɪz kˈɑmɹˌædz ɪn ðə dˈɛzəɹt.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "did",
+          "dˈɪd"
+        ],
+        [
+          "not",
+          "nˌɑt"
+        ],
+        [
+          "desert",
+          "dəzˈɜɹt"
+        ],
+        [
+          "his",
+          "hɪz"
+        ],
+        [
+          "comrades",
+          "kˈɑmɹˌædz"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "desert",
+          "dˈɛzəɹt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The soldier decided to desert in the desert.",
+      "asked": [],
+      "ps": "ðə sˈOlʤəɹ dəsˈIdᵻd tə dəzˈɜɹt ɪn ðə dˈɛzəɹt.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "soldier",
+          "sˈOlʤəɹ"
+        ],
+        [
+          "decided",
+          "dəsˈIdᵻd"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "desert",
+          "dəzˈɜɹt"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "desert",
+          "dˈɛzəɹt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "She was too close to the door to close it.",
+      "asked": [],
+      "ps": "ʃˌi wʌz tˈu klˈOs tə ðə dˈɔɹ tə klˈOz ɪt.",
+      "tokens": [
+        [
+          "She",
+          "ʃˌi"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "too",
+          "tˈu"
+        ],
+        [
+          "close",
+          "klˈOs"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "door",
+          "dˈɔɹ"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "close",
+          "klˈOz"
+        ],
+        [
+          "it",
+          "ɪt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The buck does funny things when the does are present.",
+      "asked": [],
+      "ps": "ðə bˈʌk dˈʌz fˈʌni θˈɪŋz wˌɛn ðə dˈʌz ɑɹ pɹˈɛzᵊnt.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "buck",
+          "bˈʌk"
+        ],
+        [
+          "does",
+          "dˈʌz"
+        ],
+        [
+          "funny",
+          "fˈʌni"
+        ],
+        [
+          "things",
+          "θˈɪŋz"
+        ],
+        [
+          "when",
+          "wˌɛn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "does",
+          "dˈʌz"
+        ],
+        [
+          "are",
+          "ɑɹ"
+        ],
+        [
+          "present",
+          "pɹˈɛzᵊnt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "A bass was painted on the bass drum.",
+      "asked": [],
+      "ps": "ɐ bˈæs wʌz pˈAntᵻd ˌɔn ðə bˈæs dɹˈʌm.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "bass",
+          "bˈæs"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "painted",
+          "pˈAntᵻd"
+        ],
+        [
+          "on",
+          "ˌɔn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "bass",
+          "bˈæs"
+        ],
+        [
+          "drum",
+          "dɹˈʌm"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "They were too separate to separate the pieces.",
+      "asked": [],
+      "ps": "ðˌA wɜɹ tˈu sˈɛpəɹət tə sˈɛpəɹˌAt ðə pˈisᵻz.",
+      "tokens": [
+        [
+          "They",
+          "ðˌA"
+        ],
+        [
+          "were",
+          "wɜɹ"
+        ],
+        [
+          "too",
+          "tˈu"
+        ],
+        [
+          "separate",
+          "sˈɛpəɹət"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "separate",
+          "sˈɛpəɹˌAt"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "pieces",
+          "pˈisᵻz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The insurance was invalid for the invalid.",
+      "asked": [],
+      "ps": "ði ɪnʃˈʊɹəns wʌz ɪnvˈælɪd fɔɹ ði ˈɪnvəlɪd.",
+      "tokens": [
+        [
+          "The",
+          "ði"
+        ],
+        [
+          "insurance",
+          "ɪnʃˈʊɹəns"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "invalid",
+          "ɪnvˈælɪd"
+        ],
+        [
+          "for",
+          "fɔɹ"
+        ],
+        [
+          "the",
+          "ði"
+        ],
+        [
+          "invalid",
+          "ˈɪnvəlɪd"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "I had to subject the subject to a test.",
+      "asked": [],
+      "ps": "ˌI hæd tə səbʤˈɛkt ðə sˈʌbʤɛkt tə ɐ tˈɛst.",
+      "tokens": [
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "had",
+          "hæd"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "subject",
+          "səbʤˈɛkt"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "subject",
+          "sˈʌbʤɛkt"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "test",
+          "tˈɛst"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The wind was too strong to wind the sail.",
+      "asked": [],
+      "ps": "ðə wˈɪnd wʌz tˈu stɹˈɔŋ tə wˈInd ðə sˈAl.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "wind",
+          "wˈɪnd"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "too",
+          "tˈu"
+        ],
+        [
+          "strong",
+          "stɹˈɔŋ"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "wind",
+          "wˈInd"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "sail",
+          "sˈAl"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He wound the clock after the wound healed.",
+      "asked": [],
+      "ps": "hˌi wˈWnd ðə klˈɑk ˈæftəɹ ðə wˈund hˈild.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "wound",
+          "wˈWnd"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "clock",
+          "klˈɑk"
+        ],
+        [
+          "after",
+          "ˈæftəɹ"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "wound",
+          "wˈund"
+        ],
+        [
+          "healed",
+          "hˈild"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Do not refuse to take out the refuse.",
+      "asked": [],
+      "ps": "dˈu nˌɑt ɹəfjˈuz tə tˈAk ˈWt ðə ɹˈɛfjˌus.",
+      "tokens": [
+        [
+          "Do",
+          "dˈu"
+        ],
+        [
+          "not",
+          "nˌɑt"
+        ],
+        [
+          "refuse",
+          "ɹəfjˈuz"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "take",
+          "tˈAk"
+        ],
+        [
+          "out",
+          "ˈWt"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "refuse",
+          "ɹˈɛfjˌus"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The contract did not contract as expected.",
+      "asked": [],
+      "ps": "ðə kˈɑntɹˌækt dˈɪd nˌɑt kəntɹˈækt æz ɪkspˈɛktᵻd.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "contract",
+          "kˈɑntɹˌækt"
+        ],
+        [
+          "did",
+          "dˈɪd"
+        ],
+        [
+          "not",
+          "nˌɑt"
+        ],
+        [
+          "contract",
+          "kəntɹˈækt"
+        ],
+        [
+          "as",
+          "æz"
+        ],
+        [
+          "expected",
+          "ɪkspˈɛktᵻd"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The apple and the pear were on the table.",
+      "asked": [],
+      "ps": "ði ˈæpᵊl ænd ðə pˈɛɹ wɜɹ ˌɔn ðə tˈAbᵊl.",
+      "tokens": [
+        [
+          "The",
+          "ði"
+        ],
+        [
+          "apple",
+          "ˈæpᵊl"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "pear",
+          "pˈɛɹ"
+        ],
+        [
+          "were",
+          "wɜɹ"
+        ],
+        [
+          "on",
+          "ˌɔn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "table",
+          "tˈAbᵊl"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The elephant ate the entire thing.",
+      "asked": [],
+      "ps": "ði ˈɛləfənt ˈAt ði əntˈIəɹ θˈɪŋ.",
+      "tokens": [
+        [
+          "The",
+          "ði"
+        ],
+        [
+          "elephant",
+          "ˈɛləfənt"
+        ],
+        [
+          "ate",
+          "ˈAt"
+        ],
+        [
+          "the",
+          "ði"
+        ],
+        [
+          "entire",
+          "əntˈIəɹ"
+        ],
+        [
+          "thing",
+          "θˈɪŋ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "I want to eat and to sleep.",
+      "asked": [],
+      "ps": "ˌI wˈɑnt tʊ ˈit ænd tə slˈip.",
+      "tokens": [
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "want",
+          "wˈɑnt"
+        ],
+        [
+          "to",
+          "tʊ"
+        ],
+        [
+          "eat",
+          "ˈit"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "sleep",
+          "slˈip"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "She went to Ohio to open an account.",
+      "asked": [],
+      "ps": "ʃˌi wˈɛnt tʊ OhˈIO tʊ ˈOpᵊn ɐn əkˈWnt.",
+      "tokens": [
+        [
+          "She",
+          "ʃˌi"
+        ],
+        [
+          "went",
+          "wˈɛnt"
+        ],
+        [
+          "to",
+          "tʊ"
+        ],
+        [
+          "Ohio",
+          "OhˈIO"
+        ],
+        [
+          "to",
+          "tʊ"
+        ],
+        [
+          "open",
+          "ˈOpᵊn"
+        ],
+        [
+          "an",
+          "ɐn"
+        ],
+        [
+          "account",
+          "əkˈWnt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "A unicorn and an umbrella.",
+      "asked": [],
+      "ps": "ɐ jˈunəkˌɔɹn ænd ɐn ˌʌmbɹˈɛlə.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "unicorn",
+          "jˈunəkˌɔɹn"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "an",
+          "ɐn"
+        ],
+        [
+          "umbrella",
+          "ˌʌmbɹˈɛlə"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "A hour is not an hour.",
+      "asked": [],
+      "ps": "ɐ ˈWəɹ ɪz nˌɑt ɐn ˈWəɹ.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "hour",
+          "ˈWəɹ"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "not",
+          "nˌɑt"
+        ],
+        [
+          "an",
+          "ɐn"
+        ],
+        [
+          "hour",
+          "ˈWəɹ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "I have three PDFs and two URLs to send you.",
+      "asked": [],
+      "ps": "ˌI hæv θɹˈi pˌidˌiˈɛfs ænd tˈu jˌuˌɑɹˈɛlz tə sˈɛnd ju.",
+      "tokens": [
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "have",
+          "hæv"
+        ],
+        [
+          "three",
+          "θɹˈi"
+        ],
+        [
+          "PDFs",
+          "pˌidˌiˈɛfs"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "two",
+          "tˈu"
+        ],
+        [
+          "URLs",
+          "jˌuˌɑɹˈɛlz"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "send",
+          "sˈɛnd"
+        ],
+        [
+          "you",
+          "ju"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The CEOs of several NGOs met.",
+      "asked": [],
+      "ps": "ðə sˌiˌiˈOz ʌv sˈɛvəɹəl ˌɛnʤˌiˈOz mˈɛt.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "CEOs",
+          "sˌiˌiˈOz"
+        ],
+        [
+          "of",
+          "ʌv"
+        ],
+        [
+          "several",
+          "sˈɛvəɹəl"
+        ],
+        [
+          "NGOs",
+          "ˌɛnʤˌiˈOz"
+        ],
+        [
+          "met",
+          "mˈɛt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He bought two CDs and three DVDs.",
+      "asked": [],
+      "ps": "hˌi bˈɔt tˈu sˌidˈiz ænd θɹˈi dˌivˌidˈiz.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "bought",
+          "bˈɔt"
+        ],
+        [
+          "two",
+          "tˈu"
+        ],
+        [
+          "CDs",
+          "sˌidˈiz"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "three",
+          "θɹˈi"
+        ],
+        [
+          "DVDs",
+          "dˌivˌidˈiz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "NASA and the FBI and the CIA.",
+      "asked": [],
+      "ps": "nˈæsə ænd ði ˌɛfbˌiˈI ænd ðə sˌiˌIˈA.",
+      "tokens": [
+        [
+          "NASA",
+          "nˈæsə"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "the",
+          "ði"
+        ],
+        [
+          "FBI",
+          "ˌɛfbˌiˈI"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "CIA",
+          "sˌiˌIˈA"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "An API, two APIs, and some APIs' documentation.",
+      "asked": [],
+      "ps": "ɐn ˌApˌiˈI, tˈu ˌApˌiˈIz, ænd sˌʌm ˌApˌiˈIz dˌɑkjəməntˈAʃən.",
+      "tokens": [
+        [
+          "An",
+          "ɐn"
+        ],
+        [
+          "API",
+          "ˌApˌiˈI"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "two",
+          "tˈu"
+        ],
+        [
+          "APIs",
+          "ˌApˌiˈIz"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "some",
+          "sˌʌm"
+        ],
+        [
+          "APIs'",
+          "ˌApˌiˈIz"
+        ],
+        [
+          "documentation",
+          "dˌɑkjəməntˈAʃən"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The GPUs cost more than the CPUs.",
+      "asked": [],
+      "ps": "ðə ʤˌipˌijˈuz kˈɔst mˈɔɹ ðən ðə sˌipˌijˈuz.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "GPUs",
+          "ʤˌipˌijˈuz"
+        ],
+        [
+          "cost",
+          "kˈɔst"
+        ],
+        [
+          "more",
+          "mˈɔɹ"
+        ],
+        [
+          "than",
+          "ðən"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "CPUs",
+          "sˌipˌijˈuz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Chapter 12 begins on page 347 in 1999.",
+      "asked": [],
+      "ps": "ʧˈæptəɹ twˈɛlv bəɡˈɪnz ˌɔn pˈAʤ θɹˈi hˈʌndɹəd fˈɔɹTi sˈɛvən ɪn nˌIntˈin nˈIndi nˈIn.",
+      "tokens": [
+        [
+          "Chapter",
+          "ʧˈæptəɹ"
+        ],
+        [
+          "12",
+          "twˈɛlv"
+        ],
+        [
+          "begins",
+          "bəɡˈɪnz"
+        ],
+        [
+          "on",
+          "ˌɔn"
+        ],
+        [
+          "page",
+          "pˈAʤ"
+        ],
+        [
+          "347",
+          "θɹˈi hˈʌndɹəd fˈɔɹTi sˈɛvən"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "1999",
+          "nˌIntˈin nˈIndi nˈIn"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "It cost $1,250.75 and weighed 3.5 kg.",
+      "asked": [
+        "kg"
+      ],
+      "ps": "ˌɪt kˈɔst wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd fˈɪfti dˈɑləɹz ænd sˈɛvənti fˈIv sˈɛnts ænd wˈAd θɹˈi pYnt fˈIv FALLBACK.",
+      "tokens": [
+        [
+          "It",
+          "ˌɪt"
+        ],
+        [
+          "cost",
+          "kˈɔst"
+        ],
+        [
+          "$",
+          ""
+        ],
+        [
+          "1,250.75",
+          "wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd fˈɪfti dˈɑləɹz ænd sˈɛvənti fˈIv sˈɛnts"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "weighed",
+          "wˈAd"
+        ],
+        [
+          "3.5",
+          "θɹˈi pYnt fˈIv"
+        ],
+        [
+          "kg",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Dr. Smith met Mr. Jones at 5:30 p.m. on Jan. 3rd.",
+      "asked": [
+        "Jan.",
+        "5:30"
+      ],
+      "ps": "dˈɑktəɹ smˈɪθ mˈɛt mˈɪstəɹ ʤˈOnz æt FALLBACK pˌiˈɛm ˌɔn FALLBACK θˈɜɹd.",
+      "tokens": [
+        [
+          "Dr.",
+          "dˈɑktəɹ"
+        ],
+        [
+          "Smith",
+          "smˈɪθ"
+        ],
+        [
+          "met",
+          "mˈɛt"
+        ],
+        [
+          "Mr.",
+          "mˈɪstəɹ"
+        ],
+        [
+          "Jones",
+          "ʤˈOnz"
+        ],
+        [
+          "at",
+          "æt"
+        ],
+        [
+          "5:30",
+          "FALLBACK"
+        ],
+        [
+          "p.m.",
+          "pˌiˈɛm"
+        ],
+        [
+          "on",
+          "ˌɔn"
+        ],
+        [
+          "Jan.",
+          "FALLBACK"
+        ],
+        [
+          "3rd",
+          "θˈɜɹd"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "She finished 1st, he finished 2nd, and I was 23rd.",
+      "asked": [],
+      "ps": "ʃˌi fˈɪnəʃt fˈɜɹst, hi fˈɪnəʃt sˈɛkənd, ænd ˌI wʌz twˈɛnti θˈɜɹd.",
+      "tokens": [
+        [
+          "She",
+          "ʃˌi"
+        ],
+        [
+          "finished",
+          "fˈɪnəʃt"
+        ],
+        [
+          "1st",
+          "fˈɜɹst"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "he",
+          "hi"
+        ],
+        [
+          "finished",
+          "fˈɪnəʃt"
+        ],
+        [
+          "2nd",
+          "sˈɛkənd"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "23rd",
+          "twˈɛnti θˈɜɹd"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "In 1776 and again in 1812 and once more in 2026.",
+      "asked": [],
+      "ps": "ɪn sˌɛvəntˈin sˈɛvənti sˈɪks ænd əɡˈɛn ɪn ˌAtˈin twˈɛlv ænd wˈʌns mˈɔɹ ɪn twˈɛnti twˈɛnti sˈɪks.",
+      "tokens": [
+        [
+          "In",
+          "ɪn"
+        ],
+        [
+          "1776",
+          "sˌɛvəntˈin sˈɛvənti sˈɪks"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "again",
+          "əɡˈɛn"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "1812",
+          "ˌAtˈin twˈɛlv"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "once",
+          "wˈʌns"
+        ],
+        [
+          "more",
+          "mˈɔɹ"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "2026",
+          "twˈɛnti twˈɛnti sˈɪks"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The temperature was -40 degrees.",
+      "asked": [],
+      "ps": "ðə tˈɛmpɹəʧəɹ wʌz mˈInəs fˈɔɹTi dəɡɹˈiz.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "temperature",
+          "tˈɛmpɹəʧəɹ"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "-40",
+          "mˈInəs fˈɔɹTi"
+        ],
+        [
+          "degrees",
+          "dəɡɹˈiz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Add 1/2 cup and 3/4 teaspoon.",
+      "asked": [],
+      "ps": "ˈæd wˈʌn tˈu kˈʌp ænd θɹˈi fˈɔɹ tˈispˌun.",
+      "tokens": [
+        [
+          "Add",
+          "ˈæd"
+        ],
+        [
+          "1/2",
+          "wˈʌn tˈu"
+        ],
+        [
+          "cup",
+          "kˈʌp"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "3/4",
+          "θɹˈi fˈɔɹ"
+        ],
+        [
+          "teaspoon",
+          "tˈispˌun"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "It is 100% certain that 50% will fail.",
+      "asked": [],
+      "ps": "ˌɪt ɪz wˈʌn hˈʌndɹəd pəɹsˈɛnt sˈɜɹtn ðæt fˈɪfti pəɹsˈɛnt wɪl fˈAl.",
+      "tokens": [
+        [
+          "It",
+          "ˌɪt"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "100%",
+          "wˈʌn hˈʌndɹəd pəɹsˈɛnt"
+        ],
+        [
+          "certain",
+          "sˈɜɹtn"
+        ],
+        [
+          "that",
+          "ðæt"
+        ],
+        [
+          "50%",
+          "fˈɪfti pəɹsˈɛnt"
+        ],
+        [
+          "will",
+          "wɪl"
+        ],
+        [
+          "fail",
+          "fˈAl"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Call 555-1234 or 1-800-555-0199.",
+      "asked": [],
+      "ps": "kˈɔl fˈIv hˈʌndɹəd fˈɪfti fˈIvtwˌɛlv θˌɜɹTi fˌɔɹ ɔɹ wˌʌnˌAt hˌʌndɹədfˈIv fˈɪfti fˈIvwˈʌn nˈIndi nˈIn.",
+      "tokens": [
+        [
+          "Call",
+          "kˈɔl"
+        ],
+        [
+          "555-1234",
+          "fˈIv hˈʌndɹəd fˈɪfti fˈIvtwˌɛlv θˌɜɹTi fˌɔɹ"
+        ],
+        [
+          "or",
+          "ɔɹ"
+        ],
+        [
+          "1-800-555-0199",
+          "wˌʌnˌAt hˌʌndɹədfˈIv fˈɪfti fˈIvwˈʌn nˈIndi nˈIn"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The price rose from £5 to €7 to $9.",
+      "asked": [],
+      "ps": "ðə pɹˈIs ɹˈOz fɹʌm fˈIv pˈWndz tə sˈɛvən jˈʊɹOz tə nˈIn dˈɑləɹz.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "price",
+          "pɹˈIs"
+        ],
+        [
+          "rose",
+          "ɹˈOz"
+        ],
+        [
+          "from",
+          "fɹʌm"
+        ],
+        [
+          "£",
+          ""
+        ],
+        [
+          "5",
+          "fˈIv pˈWndz"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "€",
+          ""
+        ],
+        [
+          "7",
+          "sˈɛvən jˈʊɹOz"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "$",
+          ""
+        ],
+        [
+          "9",
+          "nˈIn dˈɑləɹz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He ran 26.2 miles in 3:42:15.",
+      "asked": [
+        "3:42:15"
+      ],
+      "ps": "hˌi ɹˈæn twˈɛnti sˈɪks pYnt tˈu mˈIlz ɪn FALLBACK.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "ran",
+          "ɹˈæn"
+        ],
+        [
+          "26.2",
+          "twˈɛnti sˈɪks pYnt tˈu"
+        ],
+        [
+          "miles",
+          "mˈIlz"
+        ],
+        [
+          "in",
+          "ɪn"
+        ],
+        [
+          "3:42:15",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Room 101 on the 4th floor of building 7A.",
+      "asked": [],
+      "ps": "ɹˈum wˈʌn hˈʌndɹəd wˈʌn ˌɔn ðə fˈɔɹθ flˈɔɹ ʌv bˈɪldɪŋ sˈɛvən ˈA",
+      "tokens": [
+        [
+          "Room",
+          "ɹˈum"
+        ],
+        [
+          "101",
+          "wˈʌn hˈʌndɹəd wˈʌn"
+        ],
+        [
+          "on",
+          "ˌɔn"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "4th",
+          "fˈɔɹθ"
+        ],
+        [
+          "floor",
+          "flˈɔɹ"
+        ],
+        [
+          "of",
+          "ʌv"
+        ],
+        [
+          "building",
+          "bˈɪldɪŋ"
+        ],
+        [
+          "7A.",
+          "sˈɛvən ˈA"
+        ]
+      ]
+    },
+    {
+      "text": "She said \"don't go\" and then left.",
+      "asked": [],
+      "ps": "ʃˌi sˈɛd “dˈOnt ɡˌO” ænd ðˈɛn lˈɛft.",
+      "tokens": [
+        [
+          "She",
+          "ʃˌi"
+        ],
+        [
+          "said",
+          "sˈɛd"
+        ],
+        [
+          "\"",
+          "“"
+        ],
+        [
+          "don't",
+          "dˈOnt"
+        ],
+        [
+          "go",
+          "ɡˌO"
+        ],
+        [
+          "\"",
+          "”"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "then",
+          "ðˈɛn"
+        ],
+        [
+          "left",
+          "lˈɛft"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "It was -- how shall I say it -- unexpected.",
+      "asked": [],
+      "ps": "ˌɪt wʌz  hˌW ʃˌæl ˌI sˈA ɪt  ˌʌnəkspˈɛktᵻd.",
+      "tokens": [
+        [
+          "It",
+          "ˌɪt"
+        ],
+        [
+          "was",
+          "wʌz"
+        ],
+        [
+          "--",
+          ""
+        ],
+        [
+          "how",
+          "hˌW"
+        ],
+        [
+          "shall",
+          "ʃˌæl"
+        ],
+        [
+          "I",
+          "ˌI"
+        ],
+        [
+          "say",
+          "sˈA"
+        ],
+        [
+          "it",
+          "ɪt"
+        ],
+        [
+          "--",
+          ""
+        ],
+        [
+          "unexpected",
+          "ˌʌnəkspˈɛktᵻd"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Wait... what? No! Really?",
+      "asked": [],
+      "ps": "wˈAt... wˌʌt? nˈO! ɹˈiᵊli?",
+      "tokens": [
+        [
+          "Wait",
+          "wˈAt"
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          "what",
+          "wˌʌt"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "No",
+          "nˈO"
+        ],
+        [
+          "!",
+          "!"
+        ],
+        [
+          "Really",
+          "ɹˈiᵊli"
+        ],
+        [
+          "?",
+          "?"
+        ]
+      ]
+    },
+    {
+      "text": "The cat's toys; the dogs' bones.",
+      "asked": [],
+      "ps": "ðə kˈæts tˈYz; ðə dˈɔɡz bˈOnz.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "cat's",
+          "kˈæts"
+        ],
+        [
+          "toys",
+          "tˈYz"
+        ],
+        [
+          ";",
+          ";"
+        ],
+        [
+          "the",
+          "ðə"
+        ],
+        [
+          "dogs'",
+          "dˈɔɡz"
+        ],
+        [
+          "bones",
+          "bˈOnz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "(Parenthetical) [bracketed] {braced}",
+      "asked": [
+        "[bracketed"
+      ],
+      "ps": "(pˌɛɹənθˈɛTəkᵊl) FALLBACK) (bɹˈAst)",
+      "tokens": [
+        [
+          "(",
+          "("
+        ],
+        [
+          "Parenthetical",
+          "pˌɛɹənθˈɛTəkᵊl"
+        ],
+        [
+          ")",
+          ")"
+        ],
+        [
+          "[bracketed",
+          "FALLBACK"
+        ],
+        [
+          "]",
+          ")"
+        ],
+        [
+          "{",
+          "("
+        ],
+        [
+          "braced",
+          "bɹˈAst"
+        ],
+        [
+          "}",
+          ")"
+        ]
+      ]
+    },
+    {
+      "text": "A semicolon; a colon: and a comma, too.",
+      "asked": [],
+      "ps": "ɐ sˈɛmikˌOlən; ɐ kˈOlən: ænd ɐ kˈɑmə, tˈu.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "semicolon",
+          "sˈɛmikˌOlən"
+        ],
+        [
+          ";",
+          ";"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "colon",
+          "kˈOlən"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "comma",
+          "kˈɑmə"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "too",
+          "tˈu"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Hyphenated-words and re-entry and co-operate.",
+      "asked": [],
+      "ps": "hˈIfənˌATᵻdwˌɜɹdz ænd ɹiˈɛntɹi ænd kˌOˈɑpəɹˌAt.",
+      "tokens": [
+        [
+          "Hyphenated-words",
+          "hˈIfənˌATᵻdwˌɜɹdz"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "re-entry",
+          "ɹiˈɛntɹi"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "co-operate",
+          "kˌOˈɑpəɹˌAt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "'Single quotes' and “curly doubles” and ‘curly singles’.",
+      "asked": [],
+      "ps": "“sˈɪŋɡᵊl kwˈOts” ænd “kˈɜɹli dˈʌbᵊlz” ænd “kˈɜɹli sˈɪŋɡᵊlz”.",
+      "tokens": [
+        [
+          "'",
+          "“"
+        ],
+        [
+          "Single",
+          "sˈɪŋɡᵊl"
+        ],
+        [
+          "quotes",
+          "kwˈOts"
+        ],
+        [
+          "'",
+          "”"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "“",
+          "“"
+        ],
+        [
+          "curly",
+          "kˈɜɹli"
+        ],
+        [
+          "doubles",
+          "dˈʌbᵊlz"
+        ],
+        [
+          "”",
+          "”"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "‘",
+          "“"
+        ],
+        [
+          "curly",
+          "kˈɜɹli"
+        ],
+        [
+          "singles",
+          "sˈɪŋɡᵊlz"
+        ],
+        [
+          "’",
+          "”"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Is this, perhaps, working? Yes, it is! Absolutely.",
+      "asked": [],
+      "ps": "ˌɪz ðˈɪs, pəɹhˈæps, wˈɜɹkɪŋ? jˈɛs, ɪt ɪz! ˈæbsəlˌutli.",
+      "tokens": [
+        [
+          "Is",
+          "ˌɪz"
+        ],
+        [
+          "this",
+          "ðˈɪs"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "perhaps",
+          "pəɹhˈæps"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "working",
+          "wˈɜɹkɪŋ"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "Yes",
+          "jˈɛs"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "it",
+          "ɪt"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "!",
+          "!"
+        ],
+        [
+          "Absolutely",
+          "ˈæbsəlˌutli"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Wait?! Really... no, really?!",
+      "asked": [],
+      "ps": "wˈAt?! ɹˈiᵊli... nˈO, ɹˈiᵊli?!",
+      "tokens": [
+        [
+          "Wait",
+          "wˈAt"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "!",
+          "!"
+        ],
+        [
+          "Really",
+          "ɹˈiᵊli"
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          "no",
+          "nˈO"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "really",
+          "ɹˈiᵊli"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "!",
+          "!"
+        ]
+      ]
+    },
+    {
+      "text": "A hyphen - an en dash – and an em dash —.",
+      "asked": [
+        "-"
+      ],
+      "ps": "ɐ hˈIfən FALLBACK ɐn ˈɛn dˈæʃ — ænd ɐn ˈɛm dˈæʃ —.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "hyphen",
+          "hˈIfən"
+        ],
+        [
+          "-",
+          "FALLBACK"
+        ],
+        [
+          "an",
+          "ɐn"
+        ],
+        [
+          "en",
+          "ˈɛn"
+        ],
+        [
+          "dash",
+          "dˈæʃ"
+        ],
+        [
+          "–",
+          "—"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "an",
+          "ɐn"
+        ],
+        [
+          "em",
+          "ˈɛm"
+        ],
+        [
+          "dash",
+          "dˈæʃ"
+        ],
+        [
+          "—",
+          "—"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Well-known, re-entry, state-of-the-art, and twenty-one.",
+      "asked": [],
+      "ps": "wˌɛlnˈOn, ɹiˈɛntɹi, stˈAtʌvðiˈɑɹt, ænd twˌɛntiwˈʌn.",
+      "tokens": [
+        [
+          "Well-known",
+          "wˌɛlnˈOn"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "re-entry",
+          "ɹiˈɛntɹi"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "state-of-the-art",
+          "stˈAtʌvðiˈɑɹt"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "twenty-one",
+          "twˌɛntiwˈʌn"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Version 0.12.1; release 1.100.0; decimal .5.",
+      "asked": [],
+      "ps": "vˈɜɹʒən zˈɪɹO twˈɛlv wˈʌn; ɹəlˈis wˈʌn wˈʌn hˈʌndɹəd zˈɪɹO; dˈɛsəməl pYnt fˈIv.",
+      "tokens": [
+        [
+          "Version",
+          "vˈɜɹʒən"
+        ],
+        [
+          "0.12.1",
+          "zˈɪɹO twˈɛlv wˈʌn"
+        ],
+        [
+          ";",
+          ";"
+        ],
+        [
+          "release",
+          "ɹəlˈis"
+        ],
+        [
+          "1.100.0",
+          "wˈʌn wˈʌn hˈʌndɹəd zˈɪɹO"
+        ],
+        [
+          ";",
+          ";"
+        ],
+        [
+          "decimal",
+          "dˈɛsəməl"
+        ],
+        [
+          ".5",
+          "pYnt fˈIv"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Numbers: 1,234.50, 1,000,000, and 12,34.",
+      "asked": [],
+      "ps": "nˈʌmbəɹz: wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd θˈɜɹTi fˈɔɹ pYnt fˈIv, wˈʌn mˈɪljᵊn, ænd wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd θˈɜɹTi fˈɔɹ.",
+      "tokens": [
+        [
+          "Numbers",
+          "nˈʌmbəɹz"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "1,234.50",
+          "wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd θˈɜɹTi fˈɔɹ pYnt fˈIv"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "1,000,000",
+          "wˈʌn mˈɪljᵊn"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "12,34",
+          "wˈʌn θˈWzᵊnd tˈu hˈʌndɹəd θˈɜɹTi fˈɔɹ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Currency: $0.99, £1.50, €12.00, and ¥500.",
+      "asked": [
+        "¥500"
+      ],
+      "ps": "kˈɜɹənsi: nˈIndi nˈIn sˈɛnts, wˈʌn pˈWnd ænd fˈɪfti pˈɛns, twˈɛlv jˈʊɹOz, ænd FALLBACK.",
+      "tokens": [
+        [
+          "Currency",
+          "kˈɜɹənsi"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "$",
+          ""
+        ],
+        [
+          "0.99",
+          "nˈIndi nˈIn sˈɛnts"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "£",
+          ""
+        ],
+        [
+          "1.50",
+          "wˈʌn pˈWnd ænd fˈɪfti pˈɛns"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "€",
+          ""
+        ],
+        [
+          "12.00",
+          "twˈɛlv jˈʊɹOz"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "¥500",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Costs fell from $10 to £8, then to €7.25.",
+      "asked": [],
+      "ps": "kˈɔsts fˈɛl fɹʌm tˈɛn dˈɑləɹz tʊ ˈAt pˈWndz, ðˈɛn tə sˈɛvən jˈʊɹOz ænd twˈɛnti fˈIv sˈɛnts.",
+      "tokens": [
+        [
+          "Costs",
+          "kˈɔsts"
+        ],
+        [
+          "fell",
+          "fˈɛl"
+        ],
+        [
+          "from",
+          "fɹʌm"
+        ],
+        [
+          "$",
+          ""
+        ],
+        [
+          "10",
+          "tˈɛn dˈɑləɹz"
+        ],
+        [
+          "to",
+          "tʊ"
+        ],
+        [
+          "£",
+          ""
+        ],
+        [
+          "8",
+          "ˈAt pˈWndz"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "then",
+          "ðˈɛn"
+        ],
+        [
+          "to",
+          "tə"
+        ],
+        [
+          "€",
+          ""
+        ],
+        [
+          "7.25",
+          "sˈɛvən jˈʊɹOz ænd twˈɛnti fˈIv sˈɛnts"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Uh, um, erm, ehm... hmm? Well, okay!",
+      "asked": [
+        "ehm",
+        "erm"
+      ],
+      "ps": "ˈʌ, ˈʌm, FALLBACK, FALLBACK... hmm? wˈɛl, ˌOkˈA!",
+      "tokens": [
+        [
+          "Uh",
+          "ˈʌ"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "um",
+          "ˈʌm"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "erm",
+          "FALLBACK"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "ehm",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          "hmm",
+          "hmm"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "Well",
+          "wˈɛl"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "okay",
+          "ˌOkˈA"
+        ],
+        [
+          "!",
+          "!"
+        ]
+      ]
+    },
+    {
+      "text": "© 2026 Misaki™: café, naïve, résumé, déjà vu.",
+      "asked": [
+        "vu",
+        "déjà",
+        "résumé",
+        "naïve",
+        "café",
+        "Misaki™",
+        "©"
+      ],
+      "ps": "FALLBACK twˈɛnti twˈɛnti sˈɪks FALLBACK: FALLBACK, FALLBACK, FALLBACK, FALLBACK FALLBACK.",
+      "tokens": [
+        [
+          "©",
+          "FALLBACK"
+        ],
+        [
+          "2026",
+          "twˈɛnti twˈɛnti sˈɪks"
+        ],
+        [
+          "Misaki™",
+          "FALLBACK"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "café",
+          "FALLBACK"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "naïve",
+          "FALLBACK"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "résumé",
+          "FALLBACK"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "déjà",
+          "FALLBACK"
+        ],
+        [
+          "vu",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Quotes: \"Wait,\" she said. ‘Really?’ he asked!",
+      "asked": [],
+      "ps": "kwˈOts: “wˈAt,” ʃi sˈɛd. “ɹˈiᵊli?” hi ˈæskt!",
+      "tokens": [
+        [
+          "Quotes",
+          "kwˈOts"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "\"",
+          "“"
+        ],
+        [
+          "Wait",
+          "wˈAt"
+        ],
+        [
+          ",",
+          ","
+        ],
+        [
+          "\"",
+          "”"
+        ],
+        [
+          "she",
+          "ʃi"
+        ],
+        [
+          "said",
+          "sˈɛd"
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          "‘",
+          "“"
+        ],
+        [
+          "Really",
+          "ɹˈiᵊli"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "’",
+          "”"
+        ],
+        [
+          "he",
+          "hi"
+        ],
+        [
+          "asked",
+          "ˈæskt"
+        ],
+        [
+          "!",
+          "!"
+        ]
+      ]
+    },
+    {
+      "text": "Specials: @ # $ % ^ & * + = / \\ | ~.",
+      "asked": [
+        "|",
+        "\\",
+        "/",
+        "=",
+        "^",
+        "#"
+      ],
+      "ps": "spˈɛʃᵊlz: æt FALLBACK  pəɹsˈɛnt FALLBACK ænd  plˈʌs FALLBACK FALLBACK FALLBACK FALLBACK .",
+      "tokens": [
+        [
+          "Specials",
+          "spˈɛʃᵊlz"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "@",
+          "æt"
+        ],
+        [
+          "#",
+          "FALLBACK"
+        ],
+        [
+          "$",
+          ""
+        ],
+        [
+          "%",
+          "pəɹsˈɛnt"
+        ],
+        [
+          "^",
+          "FALLBACK"
+        ],
+        [
+          "&",
+          "ænd"
+        ],
+        [
+          "*",
+          ""
+        ],
+        [
+          "+",
+          "plˈʌs"
+        ],
+        [
+          "=",
+          "FALLBACK"
+        ],
+        [
+          "/",
+          "FALLBACK"
+        ],
+        [
+          "\\",
+          "FALLBACK"
+        ],
+        [
+          "|",
+          "FALLBACK"
+        ],
+        [
+          "~",
+          ""
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Emoji: 😊 and ☕; should punctuation stay right?!",
+      "asked": [
+        "☕",
+        "😊"
+      ],
+      "ps": "ɪmˈOʤi: FALLBACK ænd FALLBACK; ʃˌʊd pˌʌŋkʧəwˈAʃən stˈA ɹˈIt?!",
+      "tokens": [
+        [
+          "Emoji",
+          "ɪmˈOʤi"
+        ],
+        [
+          ":",
+          ":"
+        ],
+        [
+          "😊",
+          "FALLBACK"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "☕",
+          "FALLBACK"
+        ],
+        [
+          ";",
+          ";"
+        ],
+        [
+          "should",
+          "ʃˌʊd"
+        ],
+        [
+          "punctuation",
+          "pˌʌŋkʧəwˈAʃən"
+        ],
+        [
+          "stay",
+          "stˈA"
+        ],
+        [
+          "right",
+          "ɹˈIt"
+        ],
+        [
+          "?",
+          "?"
+        ],
+        [
+          "!",
+          "!"
+        ]
+      ]
+    },
+    {
+      "text": "ALL CAPS SENTENCE HERE.",
+      "asked": [],
+      "ps": "ˈɔl kˈæps sˈɛntᵊns hˈɪɹ.",
+      "tokens": [
+        [
+          "ALL",
+          "ˈɔl"
+        ],
+        [
+          "CAPS",
+          "kˈæps"
+        ],
+        [
+          "SENTENCE",
+          "sˈɛntᵊns"
+        ],
+        [
+          "HERE",
+          "hˈɪɹ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "iPhone and eBay and McDonald's.",
+      "asked": [],
+      "ps": "ˈIfˌOn ænd ˈibˌA ænd məkdˈɑnəldz.",
+      "tokens": [
+        [
+          "iPhone",
+          "ˈIfˌOn"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "eBay",
+          "ˈibˌA"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "McDonald's",
+          "məkdˈɑnəldz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "e.g. and i.e. and etc. and vs.",
+      "asked": [],
+      "ps": "ˌiʤˈi ænd ˌIˈi ænd ɛtsˈɛTəɹə ænd vˈɜɹsəs",
+      "tokens": [
+        [
+          "e.g.",
+          "ˌiʤˈi"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "i.e.",
+          "ˌIˈi"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "etc.",
+          "ɛtsˈɛTəɹə"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "vs.",
+          "vˈɜɹsəs"
+        ]
+      ]
+    },
+    {
+      "text": "The naive cafe served souffle.",
+      "asked": [],
+      "ps": "ðə nɑˈiv kæfˈA sˈɜɹvd sˈufəl.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "naive",
+          "nɑˈiv"
+        ],
+        [
+          "cafe",
+          "kæfˈA"
+        ],
+        [
+          "served",
+          "sˈɜɹvd"
+        ],
+        [
+          "souffle",
+          "sˈufəl"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Mr O'Brien and Mrs McCarthy-Jones.",
+      "asked": [
+        "O'Brien"
+      ],
+      "ps": "mˈɪstəɹ FALLBACK ænd mˈɪsɪz məkˈɑɹθiʤˌOnz.",
+      "tokens": [
+        [
+          "Mr",
+          "mˈɪstəɹ"
+        ],
+        [
+          "O'Brien",
+          "FALLBACK"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "Mrs",
+          "mˈɪsɪz"
+        ],
+        [
+          "McCarthy-Jones",
+          "məkˈɑɹθiʤˌOnz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "A well-known fact about ice cream.",
+      "asked": [],
+      "ps": "ɐ wˌɛlnˈOn fˈækt əbˈWt ˈIs kɹˈim.",
+      "tokens": [
+        [
+          "A",
+          "ɐ"
+        ],
+        [
+          "well-known",
+          "wˌɛlnˈOn"
+        ],
+        [
+          "fact",
+          "fˈækt"
+        ],
+        [
+          "about",
+          "əbˈWt"
+        ],
+        [
+          "ice",
+          "ˈIs"
+        ],
+        [
+          "cream",
+          "kɹˈim"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The New York Times said so.",
+      "asked": [],
+      "ps": "ðə nˈu jˈɔɹk tˈImz sˈɛd sˌO.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "New",
+          "nˈu"
+        ],
+        [
+          "York",
+          "jˈɔɹk"
+        ],
+        [
+          "Times",
+          "tˈImz"
+        ],
+        [
+          "said",
+          "sˈɛd"
+        ],
+        [
+          "so",
+          "sˌO"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He is a self-made man.",
+      "asked": [],
+      "ps": "hˌi ɪz ɐ sˌɛlfmˈAd mˈæn.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "a",
+          "ɐ"
+        ],
+        [
+          "self-made",
+          "sˌɛlfmˈAd"
+        ],
+        [
+          "man",
+          "mˈæn"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "[Kokoro](/kˈOkəɹO/) is fast.",
+      "asked": [],
+      "ps": "kˈOkəɹO ɪz fˈæst.",
+      "tokens": [
+        [
+          "Kokoro",
+          "kˈOkəɹO"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "fast",
+          "fˈæst"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "[hello](+2) and [hello](-1) and [hello](0.5).",
+      "asked": [],
+      "ps": "həlˈO ænd həlˌO ænd həlˈO.",
+      "tokens": [
+        [
+          "hello",
+          "həlˈO"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "hello",
+          "həlˌO"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "hello",
+          "həlˈO"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "A.",
+      "asked": [],
+      "ps": "ˈA",
+      "tokens": [
+        [
+          "A.",
+          "ˈA"
+        ]
+      ]
+    },
+    {
+      "text": "I",
+      "asked": [],
+      "ps": "ˌI",
+      "tokens": [
+        [
+          "I",
+          "ˌI"
+        ]
+      ]
+    },
+    {
+      "text": "...",
+      "asked": [],
+      "ps": "...",
+      "tokens": [
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "a",
+      "asked": [],
+      "ps": "ɐ",
+      "tokens": [
+        [
+          "a",
+          "ɐ"
+        ]
+      ]
+    },
+    {
+      "text": "The",
+      "asked": [],
+      "ps": "ðə",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ]
+      ]
+    },
+    {
+      "text": "Hmm.",
+      "asked": [],
+      "ps": "hmm.",
+      "tokens": [
+        [
+          "Hmm",
+          "hmm"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Shhh!",
+      "asked": [
+        "Shhh"
+      ],
+      "ps": "FALLBACK!",
+      "tokens": [
+        [
+          "Shhh",
+          "FALLBACK"
+        ],
+        [
+          "!",
+          "!"
+        ]
+      ]
+    },
+    {
+      "text": "Ok.",
+      "asked": [],
+      "ps": "ˈOkˌA.",
+      "tokens": [
+        [
+          "Ok",
+          "ˈOkˌA"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    }
+  ]
+}
