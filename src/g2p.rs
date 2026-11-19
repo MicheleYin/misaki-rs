@@ -1047,11 +1047,11 @@ impl G2P {
                     // Without this the word-internal ’ in `it’s` kept the ”
                     // that the standalone-quote path gives it, producing
                     // ɪt”ˈɛs instead of ɪts.
-                    let part_of = |tk: &MToken| -> String {
+                    let part_of = |tk: &MToken| -> Option<String> {
                         if !tk.text.is_empty() && tk.text.chars().all(|c| SUBTOKEN_JUNKS.contains(c)) {
-                            String::new()
+                            Some(String::new())
                         } else {
-                            tk.phonemes.clone().unwrap_or_else(|| self.unk.clone())
+                            tk.phonemes.clone()
                         }
                     };
 
@@ -1248,15 +1248,15 @@ impl G2P {
                         // `stress_weight` counts diphthongs double, which is what
                         // decides WHICH part is demoted: ɹˈAs weighs 5 (A is a
                         // diphthong) against kˈɔkəs's 6, so Race loses its primary.
-                        let mut parts: Vec<String> = res
+                        // None stays None until the join, where misaki's
+                        // `merge_tokens` writes `unk` with no space before it.
+                        let mut parts: Vec<Option<String>> = res
                             .iter()
                             .enumerate()
                             .map(|(i, r)| match r {
-                                Some(ps) => ps.clone(),
-                                // Unresolved: misaki writes `unk`, which our
-                                // pipeline sets to the empty string. Fall back to
-                                // whatever the per-token pass found only for a
-                                // token the span loop never reached.
+                                Some(ps) => Some(ps.clone()),
+                                // Fall back to whatever the per-token pass found
+                                // only for a token the span loop never reached.
                                 None => part_of(&group[i]),
                             })
                             .collect();
@@ -1281,34 +1281,44 @@ impl G2P {
                             let mut idx: Vec<(bool, usize, usize)> = parts
                                 .iter()
                                 .enumerate()
+                                .filter_map(|(i, p)| p.as_deref().map(|p| (i, p)))
                                 .filter(|(_, p)| !p.is_empty())
                                 .map(|(i, p)| (p.contains(PRIMARY), weight(p), i))
                                 .collect();
                             let n_primary = idx.iter().filter(|(b, _, _)| *b).count();
+                            let demote = |p: &mut Option<String>| {
+                                if let Some(ps) = p {
+                                    *ps = self.lexicon.apply_stress(ps, Some(-0.5));
+                                }
+                            };
                             if idx.len() == 2
                                 && group[idx[0].2].text.chars().count() == 1
                             {
-                                let i = idx[1].2;
-                                parts[i] = self.lexicon.apply_stress(&parts[i], Some(-0.5));
+                                demote(&mut parts[idx[1].2]);
                             } else if idx.len() >= 2 && n_primary > (idx.len() + 1) / 2 {
                                 idx.sort();
                                 let half = idx.len() / 2;
                                 for (_, _, i) in idx.into_iter().take(half) {
-                                    parts[i] = self.lexicon.apply_stress(&parts[i], Some(-0.5));
+                                    demote(&mut parts[i]);
                                 }
                             }
                         }
 
                         let mut out = String::new();
                         for part in parts {
-                            if prespace
-                                && !out.is_empty()
-                                && !out.ends_with(char::is_whitespace)
-                                && !part.is_empty()
-                            {
-                                out.push(' ');
+                            match part {
+                                Some(part) => {
+                                    if prespace
+                                        && !out.is_empty()
+                                        && !out.ends_with(char::is_whitespace)
+                                        && !part.is_empty()
+                                    {
+                                        out.push(' ');
+                                    }
+                                    out.push_str(&part);
+                                }
+                                None => out.push_str(&self.unk),
                             }
-                            out.push_str(&part);
                         }
                         Some(out)
                     });
@@ -2063,6 +2073,20 @@ mod tests {
             phonemes
         );
         println!("eBook (without espeak): {}", phonemes);
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_unknown_marker_inside_a_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Read pages 5–7.", "ɹˈid pˈAʤᵻz fˈIv❓ sˈɛvən."),
+            ("Set it to 60Hz.", "sˈɛt ɪt tə sˈɪksti❓."),
+            ("Press ⇧⌘4.", "pɹˈɛs ❓❓ fˈɔɹ."),
+            ("Dana's TikTok-ish", "❓s tˈɪk❓ˌɪʃ"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     // #[test]
