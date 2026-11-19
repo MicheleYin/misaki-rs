@@ -10,7 +10,6 @@ pub mod unicode_numeric_data;
 pub mod spacy_tokenizer_data;
 pub mod spacy_tokenizer;
 pub mod spacy_tagger;
-pub mod tagger;
 pub mod g2p;
 pub mod fallback;
 
