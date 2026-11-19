@@ -48,6 +48,38 @@ fn capitalize(lower: &str) -> String {
     }
 }
 
+/// Python `len(s)` is a character count. Prefer these over byte `.len()` when
+/// mirroring misaki's stem/`is_known` gates.
+fn char_len(s: &str) -> usize {
+    s.chars().count()
+}
+
+/// Python `s[:-n]` — drop the last `n` Unicode scalars.
+fn drop_last_chars(s: &str, n: usize) -> &str {
+    if n == 0 {
+        return s;
+    }
+    match s.char_indices().nth_back(n - 1) {
+        Some((i, _)) => &s[..i],
+        None => "",
+    }
+}
+
+/// `r'([bcdgklmnprstvxz])\1ing$|cking$'` — doubled consonant or `ck` before `ing`.
+fn matches_doubled_ing(word: &str) -> bool {
+    let chars: Vec<char> = word.chars().collect();
+    if chars.len() < 5 || !word.ends_with("ing") {
+        return false;
+    }
+    if word.ends_with("cking") {
+        return true;
+    }
+    // …XXing where XX is the same consonant from the set immediately before `ing`.
+    let c0 = chars[chars.len() - 5];
+    let c1 = chars[chars.len() - 4];
+    c0 == c1 && "bcdgklmnprstvxz".contains(c0)
+}
+
 pub struct Lexicon {
     pub lang: Language,
     pub cap_stresses: (f64, f64),
@@ -325,28 +357,28 @@ impl Lexicon {
         // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
         // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
         // since it ends in 'S' rather than 's'.
-        let lower = word.to_string();
-        if lower.len() < 3 || !lower.ends_with('s') {
+        // Python `len(word)` / `word[:-n]` are character counts, not bytes.
+        if char_len(word) < 3 || !word.ends_with('s') {
             return None;
         }
 
-        let stem = if !lower.ends_with("ss") && self.is_known(&lower[..lower.len() - 1], tag) {
-            &lower[..lower.len() - 1]
-        } else if (lower.ends_with("'s")
-            || (lower.len() > 4 && lower.ends_with("es") && !lower.ends_with("ies")))
-            && self.is_known(&lower[..lower.len() - 2], tag)
+        let stem = if !word.ends_with("ss") && self.is_known(drop_last_chars(word, 1), tag) {
+            drop_last_chars(word, 1).to_string()
+        } else if (word.ends_with("'s")
+            || (char_len(word) > 4 && word.ends_with("es") && !word.ends_with("ies")))
+            && self.is_known(drop_last_chars(word, 2), tag)
         {
-            &lower[..lower.len() - 2]
-        } else if lower.len() > 4
-            && lower.ends_with("ies")
-            && self.is_known(&(lower[..lower.len() - 3].to_string() + "y"), tag)
+            drop_last_chars(word, 2).to_string()
+        } else if char_len(word) > 4
+            && word.ends_with("ies")
+            && self.is_known(&(drop_last_chars(word, 3).to_string() + "y"), tag)
         {
-            &(lower[..lower.len() - 3].to_string() + "y")
+            drop_last_chars(word, 3).to_string() + "y"
         } else {
             return None;
         };
 
-        let (stem_ps, rating) = self.lookup(stem, tag, stress, ctx)?;
+        let (stem_ps, rating) = self.lookup(&stem, tag, stress, ctx)?;
         Some((self.append_s(&stem_ps), rating))
     }
 
@@ -372,31 +404,23 @@ impl Lexicon {
         stress: Option<f64>,
         ctx: Option<&TokenContext>,
     ) -> Option<(String, i32)> {
-        // misaki stems the word AS GIVEN -- `stem_s`, `stem_ed` and `stem_ing`
-        // all read `word`, never `word.lower()`. Lowercasing first destroys the
-        // all-caps acronym rule in `is_known`, whose last line is
-        // `word[1:] == word[1:].upper()`: is_known("PDF") is true, is_known("pdf")
-        // is false. So "PDFs" failed to stem at all and resolved to nothing,
-        // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
-        // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
-        // since it ends in 'S' rather than 's'.
-        let lower = word.to_string();
-        if lower.len() < 4 || !lower.ends_with('d') {
+        // misaki stems the word AS GIVEN -- see `stem_s`. Character lengths.
+        if char_len(word) < 4 || !word.ends_with('d') {
             return None;
         }
-        let stem = if !lower.ends_with("dd") && self.is_known(&lower[..lower.len() - 1], tag) {
-            &lower[..lower.len() - 1]
-        } else if lower.len() > 4
-            && lower.ends_with("ed")
-            && !lower.ends_with("eed")
-            && self.is_known(&lower[..lower.len() - 2], tag)
+        let stem = if !word.ends_with("dd") && self.is_known(drop_last_chars(word, 1), tag) {
+            drop_last_chars(word, 1).to_string()
+        } else if char_len(word) > 4
+            && word.ends_with("ed")
+            && !word.ends_with("eed")
+            && self.is_known(drop_last_chars(word, 2), tag)
         {
-            &lower[..lower.len() - 2]
+            drop_last_chars(word, 2).to_string()
         } else {
             return None;
         };
 
-        let (stem_ps, rating) = self.lookup(stem, tag, stress, ctx)?;
+        let (stem_ps, rating) = self.lookup(&stem, tag, stress, ctx)?;
         Some((self.append_ed(&stem_ps), rating))
     }
 
@@ -412,16 +436,13 @@ impl Lexicon {
             format!("{}{}d", stem, if british { "ɪ" } else { "ᵻ" })
         } else if last != 't' {
             format!("{}d", stem)
-        } else if british || stem.len() < 2 {
+        } else if british || char_len(stem) < 2 {
             format!("{}ɪd", stem)
         } else {
             // Check if second-to-last char is in US_TAUS
             let chars: Vec<char> = stem.chars().collect();
             if chars.len() >= 2 && US_TAUS.contains(chars[chars.len() - 2]) {
-                format!(
-                    "{}ɾᵻd",
-                    &stem[..stem.len() - chars[chars.len() - 1].len_utf8()]
-                )
+                format!("{}ɾᵻd", drop_last_chars(stem, 1))
             } else {
                 format!("{}ᵻd", stem)
             }
@@ -442,16 +463,13 @@ impl Lexicon {
         }
 
         // US: check for 't' followed by US_TAUS vowel
-        if !british && stem.len() > 1 {
+        if !british && char_len(stem) > 1 {
             let chars: Vec<char> = stem.chars().collect();
             if chars[chars.len() - 1] == 't'
                 && chars.len() >= 2
                 && US_TAUS.contains(chars[chars.len() - 2])
             {
-                return Some(format!(
-                    "{}ɾɪŋ",
-                    &stem[..stem.len() - chars[chars.len() - 1].len_utf8()]
-                ));
+                return Some(format!("{}ɾɪŋ", drop_last_chars(stem, 1)));
             }
         }
 
@@ -465,43 +483,22 @@ impl Lexicon {
         stress: Option<f64>,
         ctx: Option<&TokenContext>,
     ) -> Option<(String, i32)> {
-        // misaki stems the word AS GIVEN -- `stem_s`, `stem_ed` and `stem_ing`
-        // all read `word`, never `word.lower()`. Lowercasing first destroys the
-        // all-caps acronym rule in `is_known`, whose last line is
-        // `word[1:] == word[1:].upper()`: is_known("PDF") is true, is_known("pdf")
-        // is false. So "PDFs" failed to stem at all and resolved to nothing,
-        // instead of lookup("PDF") -> pˌidˌiˈɛf then _s -> pˌidˌiˈɛfs.
-        // Keeping the case also keeps misaki's quirk that "DOGS" does NOT stem,
-        // since it ends in 'S' rather than 's'.
-        let lower = word.to_string();
-        if lower.len() < 5 || !lower.ends_with("ing") {
+        // misaki stems the word AS GIVEN -- see `stem_s`. Character lengths.
+        // Doubled-consonant branch mirrors
+        // `re.search(r'([bcdgklmnprstvxz])\1ing$|cking$', word)`.
+        if char_len(word) < 5 || !word.ends_with("ing") {
             return None;
         }
 
-        let stem = if lower.len() > 5 && self.is_known(&lower[..lower.len() - 3], tag) {
-            lower[..lower.len() - 3].to_string()
-        } else if self.is_known(&(lower[..lower.len() - 3].to_string() + "e"), tag) {
-            lower[..lower.len() - 3].to_string() + "e"
-        } else if lower.len() > 5 {
-            // Python regex: r'([bcdgklmnprstvxz])\1ing$|cking$'
-            let stem_candidate = &lower[..lower.len() - 4];
-            if self.is_known(stem_candidate, tag) {
-                // Check for doubled consonants or 'ck'
-                let chars: Vec<char> = stem_candidate.chars().collect();
-                if chars.len() >= 2 {
-                    let last = chars[chars.len() - 1];
-                    let second_last = chars[chars.len() - 2];
-                    if (last == second_last && "bcdgklmnprstvxz".contains(last))
-                        || (last == 'k' && second_last == 'c')
-                    {
-                        return Some((
-                            self.append_ing(stem_candidate)?,
-                            self.lookup(stem_candidate, tag, stress, ctx)?.1,
-                        ));
-                    }
-                }
-            }
-            return None;
+        let stem = if char_len(word) > 5 && self.is_known(drop_last_chars(word, 3), tag) {
+            drop_last_chars(word, 3).to_string()
+        } else if self.is_known(&(drop_last_chars(word, 3).to_string() + "e"), tag) {
+            drop_last_chars(word, 3).to_string() + "e"
+        } else if char_len(word) > 5
+            && matches_doubled_ing(word)
+            && self.is_known(drop_last_chars(word, 4), tag)
+        {
+            drop_last_chars(word, 4).to_string()
         } else {
             return None;
         };
@@ -537,7 +534,7 @@ impl Lexicon {
             // instead sent every abbreviation down the spell-it-out path, which
             // read "Mr." as ˌɛmˈɑɹ ("em-arr") rather than mˈɪstəɹ. 29 occurrences
             // in the prose corpus, the single largest remaining divergence.
-            let max_len = word.split('.').map(|s| s.len()).max().unwrap_or(0);
+            let max_len = word.split('.').map(char_len).max().unwrap_or(0);
             if max_len < 3 {
                 return self.get_nnp(word);
             }
@@ -641,7 +638,7 @@ impl Lexicon {
             return false;
         }
 
-        if word.len() == 1 {
+        if char_len(word) == 1 {
             return true;
         }
 
@@ -650,7 +647,7 @@ impl Lexicon {
         }
 
         // Check for mixed case like "iPhone" (word[1:] == word[1:].upper())
-        if word.len() > 1 {
+        if char_len(word) > 1 {
             let rest: String = word.chars().skip(1).collect();
             if rest == rest.to_uppercase() {
                 return true;
@@ -676,10 +673,10 @@ impl Lexicon {
         let mut current_word = word;
 
         // Python logic: convert to lowercase if conditions met
-        if word.len() > 1
+        if char_len(word) > 1
             && word.replace("'", "").chars().all(|c| c.is_alphabetic())
             && word != wl
-            && (tag != "NNP" || word.len() > 7)
+            && (tag != "NNP" || char_len(word) > 7)
             && !self.has(word)
             && (word == word.to_uppercase() || {
                 let rest: String = word.chars().skip(1).collect();
@@ -708,19 +705,19 @@ impl Lexicon {
         // word, and lets the span loop resolve `dogs` + `'` separately, which
         // gives dˈɔɡz and nothing.
         if current_word.ends_with("s'")
-            && self.is_known(&format!("{}'s", &current_word[..current_word.len() - 2]), tag)
+            && self.is_known(&format!("{}'s", drop_last_chars(current_word, 2)), tag)
         {
             return self.lookup(
-                &format!("{}'s", &current_word[..current_word.len() - 2]),
+                &format!("{}'s", drop_last_chars(current_word, 2)),
                 tag,
                 stress,
                 ctx,
             );
         }
         if current_word.ends_with("'")
-            && self.is_known(&current_word[..current_word.len() - 1], tag)
+            && self.is_known(drop_last_chars(current_word, 1), tag)
         {
-            return self.lookup(&current_word[..current_word.len() - 1], tag, stress, ctx);
+            return self.lookup(drop_last_chars(current_word, 1), tag, stress, ctx);
         }
 
         // Try stemming
@@ -804,5 +801,28 @@ mod tests {
         let lexicon = Lexicon::new(Language::EnglishUS);
         assert_eq!(lexicon.golds.len(), data::load_us_gold().len());
         assert_eq!(lexicon.silvers.len(), data::load_us_silver().len());
+    }
+
+    #[test]
+    fn stem_ing_doubled_consonant_matches_python_regex() {
+        let lexicon = Lexicon::new(Language::EnglishUS);
+        let (ps, _) = lexicon
+            .stem_ing("tipping", "VBG", None, None)
+            .expect("tipping stems");
+        assert!(ps.ends_with("ɪŋ"), "got {ps}");
+        assert!(ps.contains('p') || ps.contains('ɾ'), "got {ps}");
+        let (ps, _) = lexicon
+            .stem_ing("frolicking", "VBG", None, None)
+            .expect("frolicking stems");
+        assert!(ps.ends_with("ɪŋ"), "got {ps}");
+    }
+
+    #[test]
+    fn stem_ing_multibyte_before_ing_does_not_panic() {
+        let lexicon = Lexicon::new(Language::EnglishUS);
+        // Stock often returns None for these; the contract is no panic.
+        let _ = lexicon.stem_ing("sautéing", "VBG", None, None);
+        let _ = lexicon.stem_ing("caféing", "VBG", None, None);
+        let _ = lexicon.get_word("sautéing", "VBG", None, None);
     }
 }

@@ -5,7 +5,7 @@
   "fallback": "recording:FALLBACK",
   "oracle": "misaki",
   "unk": "",
-  "n": 103,
+  "n": 122,
   "cases": [
     {
       "text": "[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.",
@@ -3913,6 +3913,35 @@
       ]
     },
     {
+      "text": "Set it to 60Hz.",
+      "asked": [
+        "60Hz"
+      ],
+      "ps": "sˈɛt ɪt tu FALLBACK.",
+      "tokens": [
+        [
+          "Set",
+          "sˈɛt"
+        ],
+        [
+          "it",
+          "ɪt"
+        ],
+        [
+          "to",
+          "tu"
+        ],
+        [
+          "60Hz",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
       "text": "Dana's TikTok-ish",
       "asked": [
         "TikTok-ish",
@@ -3988,6 +4017,340 @@
         [
           "1.55",
           "wˈʌn dˈɑləɹ ænd fˈɪfti fˈIv sˈɛnts"
+        ]
+      ]
+    },
+    {
+      "text": "This is sautéing onions.",
+      "asked": [
+        "sautéing"
+      ],
+      "ps": "ðˌɪs ɪz FALLBACK ˈʌnjᵊnz.",
+      "tokens": [
+        [
+          "This",
+          "ðˌɪs"
+        ],
+        [
+          "is",
+          "ɪz"
+        ],
+        [
+          "sautéing",
+          "FALLBACK"
+        ],
+        [
+          "onions",
+          "ˈʌnjᵊnz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "It's Wed. now.",
+      "asked": [],
+      "ps": "ˌɪts wˈɛd nˈW.",
+      "tokens": [
+        [
+          "It's",
+          "ˌɪts"
+        ],
+        [
+          "Wed.",
+          "wˈɛd"
+        ],
+        [
+          "now",
+          "nˈW"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "On Wed.",
+      "asked": [],
+      "ps": "ˌɔn wˈɛd",
+      "tokens": [
+        [
+          "On",
+          "ˌɔn"
+        ],
+        [
+          "Wed.",
+          "wˈɛd"
+        ]
+      ]
+    },
+    {
+      "text": "well-I'm sure.",
+      "asked": [],
+      "ps": "wˈɛlˌIm ʃˈʊɹ.",
+      "tokens": [
+        [
+          "well-I'm",
+          "wˈɛlˌIm"
+        ],
+        [
+          "sure",
+          "ʃˈʊɹ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "yes-don't.",
+      "asked": [],
+      "ps": "jˌɛsdˈOnt.",
+      "tokens": [
+        [
+          "yes-don't",
+          "jˌɛsdˈOnt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "Open from 10am-noon.",
+      "asked": [],
+      "ps": "ˈOpᵊn fɹʌm tˈɛn ɐm nˈun.",
+      "tokens": [
+        [
+          "Open",
+          "ˈOpᵊn"
+        ],
+        [
+          "from",
+          "fɹʌm"
+        ],
+        [
+          "10am-noon",
+          "tˈɛn ɐm nˈun"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "The 21st-century and 4th-grade art.",
+      "asked": [],
+      "ps": "ðə twˈɛnti fˈɜɹst sˈɛnʧəɹi ænd fˈɔɹθ ɡɹˈAd ˈɑɹt.",
+      "tokens": [
+        [
+          "The",
+          "ðə"
+        ],
+        [
+          "21st-century",
+          "twˈɛnti fˈɜɹst sˈɛnʧəɹi"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "4th-grade",
+          "fˈɔɹθ ɡɹˈAd"
+        ],
+        [
+          "art",
+          "ˈɑɹt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "He finished 5th/6th.",
+      "asked": [],
+      "ps": "hˌi fˈɪnəʃt fˈɪfθ sˈɪksθ.",
+      "tokens": [
+        [
+          "He",
+          "hˌi"
+        ],
+        [
+          "finished",
+          "fˈɪnəʃt"
+        ],
+        [
+          "5th/6th",
+          "fˈɪfθ sˈɪksθ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "5TH place",
+      "asked": [],
+      "ps": "fˈIv tˌiˈAʧ plˈAs",
+      "tokens": [
+        [
+          "5TH",
+          "fˈIv tˌiˈAʧ"
+        ],
+        [
+          "place",
+          "plˈAs"
+        ]
+      ]
+    },
+    {
+      "text": "-1990s.",
+      "asked": [],
+      "ps": "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIndiz.",
+      "tokens": [
+        [
+          "-1990s",
+          "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIndiz"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "No.5",
+      "asked": [],
+      "ps": "nˈO fˈIv",
+      "tokens": [
+        [
+          "No.5",
+          "nˈO fˈIv"
+        ]
+      ]
+    },
+    {
+      "text": "x5.00",
+      "asked": [],
+      "ps": "ˈɛks fˈIv zˈɪɹO zˈɪɹO",
+      "tokens": [
+        [
+          "x5.00",
+          "ˈɛks fˈIv zˈɪɹO zˈɪɹO"
+        ]
+      ]
+    },
+    {
+      "text": "$-5",
+      "asked": [],
+      "ps": "mˈInəs fˈIv dˈɑləɹz",
+      "tokens": [
+        [
+          "$",
+          ""
+        ],
+        [
+          "-5",
+          "mˈInəs fˈIv dˈɑləɹz"
+        ]
+      ]
+    },
+    {
+      "text": "[hello](/hɛlO/) there.",
+      "asked": [],
+      "ps": "hɛlO ðˈɛɹ.",
+      "tokens": [
+        [
+          "hello",
+          "hɛlO"
+        ],
+        [
+          "there",
+          "ðˈɛɹ"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "[the](+2) cat.",
+      "asked": [],
+      "ps": "ðˈə kˈæt.",
+      "tokens": [
+        [
+          "the",
+          "ðˈə"
+        ],
+        [
+          "cat",
+          "kˈæt"
+        ],
+        [
+          ".",
+          "."
+        ]
+      ]
+    },
+    {
+      "text": "１２３",
+      "asked": [],
+      "ps": "wˈʌn hˈʌndɹəd twˈɛnti θɹˈi",
+      "tokens": [
+        [
+          "１２３",
+          "wˈʌn hˈʌndɹəd twˈɛnti θɹˈi"
+        ]
+      ]
+    },
+    {
+      "text": "x² and H₂O",
+      "asked": [],
+      "ps": "ˈɛks tˈu ænd ˈAʧ tˈu ˈO",
+      "tokens": [
+        [
+          "x²",
+          "ˈɛks tˈu"
+        ],
+        [
+          "and",
+          "ænd"
+        ],
+        [
+          "H₂O",
+          "ˈAʧ tˈu ˈO"
+        ]
+      ]
+    },
+    {
+      "text": "Hello  world.",
+      "asked": [
+        " world"
+      ],
+      "ps": "həlˈO FALLBACK.",
+      "tokens": [
+        [
+          "Hello",
+          "həlˈO"
+        ],
+        [
+          " world",
+          "FALLBACK"
+        ],
+        [
+          ".",
+          "."
         ]
       ]
     }

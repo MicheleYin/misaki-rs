@@ -135,7 +135,7 @@ The original misaki project had very few words and some were not pronunced corre
 
 ## Misaki parity
 
-The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 71 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,623 tokens across 771 sentences.
+The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 122 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,959 tokens across 822 sentences.
 
 Run the parity suite with:
 

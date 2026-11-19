@@ -33,6 +33,7 @@ fancy-regex = "0.13"
 language-tokenizer = { version = "0.1", features = ["snowball"] }
 espeak-rs = { version = "0.1.9", optional = true }
 thiserror = "2.0"
+unicode-normalization = "0.1"
 
 [dev-dependencies]
 env_logger = "0.11"

@@ -58,11 +58,11 @@ needed to *run* the tests.
 ## Status: exact
 
 ```
-adversarial   103/103  (100.0%)    tests/parity.rs
+adversarial   122/122  (100.0%)    tests/parity.rs
 real prose    700/700  (100.0%)    tests/parity.rs
 held-out      900/900  (100.0%)    tests/heldout.rs
-tagger      20885/20885 tokens, 803/803 sentences
-tokenizer   20885/20885 tokens, 803/803 sentences
+tagger      20959/20959 tokens, 822/822 sentences
+tokenizer   20959/20959 tokens, 822/822 sentences
 ```
 
 All three corpora match misaki 0.9.4 **byte for byte**, on the phoneme string

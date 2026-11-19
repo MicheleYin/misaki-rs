@@ -4,7 +4,7 @@
  "british": false,
  "fallback": null,
  "unk": "",
- "n": 103,
+ "n": 122,
  "cases": [
   {
    "text": "[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.",
@@ -4759,6 +4759,39 @@
    ]
   },
   {
+   "text": "Set it to 60Hz.",
+   "ps": "sˈɛt ɪt tə sˈɪksti.",
+   "tokens": [
+    [
+     "Set",
+     "sˈɛt"
+    ],
+    [
+     "it",
+     "ɪt"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "60Hz",
+     "sˈɪksti"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "PRP",
+    "IN",
+    "CD",
+    "."
+   ]
+  },
+  {
    "text": "Dana's TikTok-ish",
    "ps": "s tˈɪkˌɪʃ",
    "tokens": [
@@ -4848,6 +4881,405 @@
    "tags": [
     "$",
     "CD"
+   ]
+  },
+  {
+   "text": "This is sautéing onions.",
+   "ps": "ðˌɪs ɪz  ˈʌnjᵊnz.",
+   "tokens": [
+    [
+     "This",
+     "ðˌɪs"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "sautéing",
+     null
+    ],
+    [
+     "onions",
+     "ˈʌnjᵊnz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "VBZ",
+    "VBG",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "It's Wed. now.",
+   "ps": "ˌɪts wˈɛd nˈW.",
+   "tokens": [
+    [
+     "It's",
+     "ˌɪts"
+    ],
+    [
+     "Wed.",
+     "wˈɛd"
+    ],
+    [
+     "now",
+     "nˈW"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "PRP",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "On Wed.",
+   "ps": "ˌɔn wˈɛd",
+   "tokens": [
+    [
+     "On",
+     "ˌɔn"
+    ],
+    [
+     "Wed.",
+     "wˈɛd"
+    ]
+   ],
+   "tags": [
+    "IN",
+    "PRP"
+   ]
+  },
+  {
+   "text": "well-I'm sure.",
+   "ps": "wˈɛlˌIm ʃˈʊɹ.",
+   "tokens": [
+    [
+     "well-I'm",
+     "wˈɛlˌIm"
+    ],
+    [
+     "sure",
+     "ʃˈʊɹ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "RB",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "yes-don't.",
+   "ps": "jˌɛsdˈOnt.",
+   "tokens": [
+    [
+     "yes-don't",
+     "jˌɛsdˈOnt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Open from 10am-noon.",
+   "ps": "ˈOpᵊn fɹʌm tˈɛn ɐm nˈun.",
+   "tokens": [
+    [
+     "Open",
+     "ˈOpᵊn"
+    ],
+    [
+     "from",
+     "fɹʌm"
+    ],
+    [
+     "10am-noon",
+     "tˈɛn ɐm nˈun"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "JJ",
+    "IN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The 21st-century and 4th-grade art.",
+   "ps": "ðə twˈɛnti fˈɜɹst sˈɛnʧəɹi ænd fˈɔɹθ ɡɹˈAd ˈɑɹt.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "21st-century",
+     "twˈɛnti fˈɜɹst sˈɛnʧəɹi"
+    ],
+    [
+     "and",
+     "ænd"
+    ],
+    [
+     "4th-grade",
+     "fˈɔɹθ ɡɹˈAd"
+    ],
+    [
+     "art",
+     "ˈɑɹt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "CC",
+    "NN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "He finished 5th/6th.",
+   "ps": "hˌi fˈɪnəʃt fˈɪfθ sˈɪksθ.",
+   "tokens": [
+    [
+     "He",
+     "hˌi"
+    ],
+    [
+     "finished",
+     "fˈɪnəʃt"
+    ],
+    [
+     "5th/6th",
+     "fˈɪfθ sˈɪksθ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "5TH place",
+   "ps": "fˈIv tˌiˈAʧ plˈAs",
+   "tokens": [
+    [
+     "5TH",
+     "fˈIv tˌiˈAʧ"
+    ],
+    [
+     "place",
+     "plˈAs"
+    ]
+   ],
+   "tags": [
+    "NNS",
+    "NN"
+   ]
+  },
+  {
+   "text": "-1990s.",
+   "ps": "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIndiz.",
+   "tokens": [
+    [
+     "-1990s",
+     "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIndiz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "No.5",
+   "ps": "nˈO fˈIv",
+   "tokens": [
+    [
+     "No.5",
+     "nˈO fˈIv"
+    ]
+   ],
+   "tags": [
+    "NNP"
+   ]
+  },
+  {
+   "text": "x5.00",
+   "ps": "ˈɛks fˈIv zˈɪɹO zˈɪɹO",
+   "tokens": [
+    [
+     "x5.00",
+     "ˈɛks fˈIv zˈɪɹO zˈɪɹO"
+    ]
+   ],
+   "tags": [
+    "NNP"
+   ]
+  },
+  {
+   "text": "$-5",
+   "ps": "mˈInəs fˈIv dˈɑləɹz",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "-5",
+     "mˈInəs fˈIv dˈɑləɹz"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
+   ]
+  },
+  {
+   "text": "[hello](/hɛlO/) there.",
+   "ps": "hɛlO ðˈɛɹ.",
+   "tokens": [
+    [
+     "hello",
+     "hɛlO"
+    ],
+    [
+     "there",
+     "ðˈɛɹ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "[the](+2) cat.",
+   "ps": "ðˈə kˈæt.",
+   "tokens": [
+    [
+     "the",
+     "ðˈə"
+    ],
+    [
+     "cat",
+     "kˈæt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "１２３",
+   "ps": "wˈʌn hˈʌndɹəd twˈɛnti θɹˈi",
+   "tokens": [
+    [
+     "１２３",
+     "wˈʌn hˈʌndɹəd twˈɛnti θɹˈi"
+    ]
+   ],
+   "tags": [
+    "CD"
+   ]
+  },
+  {
+   "text": "x² and H₂O",
+   "ps": "ˈɛks tˈu ænd ˈAʧ tˈu ˈO",
+   "tokens": [
+    [
+     "x²",
+     "ˈɛks tˈu"
+    ],
+    [
+     "and",
+     "ænd"
+    ],
+    [
+     "H₂O",
+     "ˈAʧ tˈu ˈO"
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "CC",
+    "NNP"
+   ]
+  },
+  {
+   "text": "Hello  world.",
+   "ps": "həlˈO wˈɜɹld.",
+   "tokens": [
+    [
+     "Hello",
+     "həlˈO"
+    ],
+    [
+     " world",
+     "wˈɜɹld"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "NN",
+    "."
    ]
   }
  ]
