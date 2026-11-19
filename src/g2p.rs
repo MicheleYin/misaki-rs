@@ -720,6 +720,8 @@ impl G2P {
                 is_subtoken_group[g.clone()].fill(true);
             }
         }
+        #[cfg(feature = "fixes")]
+        crate::fixes::perfect_participles(&mut tokens, &head_groups);
 
         // misaki's currency state machine (`retokenize`):
         //
