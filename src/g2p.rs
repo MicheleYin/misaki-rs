@@ -2171,7 +2171,7 @@ mod tests {
         assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
-    // Expected strings match misaki with the "&"+capital suffix rule (PR #25).
+    // Expected strings are misaki 0.9.4's output with the same suffix rule.
     #[test]
     fn test_full_stop_after_ampersand_name() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
