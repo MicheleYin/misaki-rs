@@ -333,26 +333,6 @@ impl G2P {
         let mut open = false; // is the last group still extensible?
         for i in 0..tokens.len() {
             if is_standalone(&tokens[i], i + 1 == tokens.len()) {
-                // ... unless joining it to the open group spells an
-                // abbreviation spaCy would never have split. Our tokenizer
-                // splits on the period unconditionally, so `Mr` + `.` must be
-                // put back together; spaCy's own exception list decides.
-                let rejoin = tokens[i].text == "." && open;
-                if rejoin {
-                    let g = groups.last().unwrap().clone();
-                    let mut candidate = String::new();
-                    for tk in &tokens[g.clone()] {
-                        candidate.push_str(&tk.text);
-                        candidate.push_str(&tk.whitespace);
-                    }
-                    candidate.push('.');
-                    if crate::abbrev::is_period_abbreviation(candidate.trim()) {
-                        let g = groups.last_mut().unwrap();
-                        *g = g.start..i + 1;
-                        open = tokens[i].whitespace.is_empty();
-                        continue;
-                    }
-                }
                 groups.push(i..i + 1);
                 open = false;
                 continue;
@@ -2103,6 +2083,20 @@ mod tests {
         let (stripped, markers) = g2p.preprocess_links("say [hello](=) please");
         assert_eq!(stripped, "say hello please");
         assert!(markers.is_empty(), "unknown feature should yield no marker");
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_full_stop_after_ampersand_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Call AT&T.", "kˈɔl ˈættˈi."),
+            ("AT&T. Then more.", "ˈættˈi. ðˈɛn mˈɔɹ."),
+            ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
+            ("The Q&A.", "ðə kjˈu ænd ˈA"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     /// With espeak feature: "eBook" is phonemized by espeak fallback (not in lexicon).
