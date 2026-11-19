@@ -2030,6 +2030,20 @@ mod tests {
         assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
+    // Expected strings are misaki 0.9.4's output with the same suffix rule.
+    #[test]
+    fn test_full_stop_after_ampersand_name() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Call AT&T.", "kˈɔl ˌAtˈi ænd tˈi."),
+            ("Ask H&M.", "ˈæsk ˈAʧ ænd ˈɛm."),
+            ("R&D. Then more.", "ˈɑɹ ænd dˈi. ðˈɛn mˈɔɹ."),
+            ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
     /// With espeak feature: "eBook" is phonemized by espeak fallback (not in lexicon).
     #[test]
     #[cfg(feature = "espeak")]

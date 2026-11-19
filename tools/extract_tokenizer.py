@@ -23,6 +23,7 @@ are written as raw strings rather than rebuilt.
 import sys
 
 import spacy
+from spacy.lang.char_classes import ALPHA_UPPER
 from spacy.symbols import NORM, ORTH
 
 
@@ -44,7 +45,8 @@ def main():
     tk = nlp.tokenizer
 
     prefix = tk.prefix_search.__self__.pattern
-    suffix = tk.suffix_search.__self__.pattern
+    # misaki adds one suffix rule: a full stop after "&" and one capital ("AT&T.").
+    suffix = tk.suffix_search.__self__.pattern + "|" + rf"(?<=&[{ALPHA_UPPER}])\.$"
     infix = tk.infix_finditer.__self__.pattern
     url = tk.url_match.__self__.pattern if tk.url_match else None
 
