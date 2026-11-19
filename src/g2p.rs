@@ -309,10 +309,11 @@ impl G2P {
     ///         words.append(tk if tk.whitespace else [tk])
     /// ```
     ///
-    /// This is what lets a finer tokenizer than spaCy's stay correct: `Mr` `.`
-    /// and `It` `’` `s` and `five` `-` `storied` are each adjacent runs, so they
-    /// merge back into `Mr.`, `It’s` and `five-storied`. Returns index ranges
-    /// into `tokens`.
+    /// Adjacent non-punctuation runs merge into one word (`It’s`,
+    /// `five-storied`). Punctuation stands alone, matching misaki: spaCy
+    /// exceptions already keep `Mr.` / `Dr.` as a single token, so a period
+    /// is never rejoined into the open group (that used to eat the stop in
+    /// `AT&T.` and `°C.`). Returns index ranges into `tokens`.
     fn group_by_adjacency(tokens: &[MToken]) -> Vec<std::ops::Range<usize>> {
         // misaki's FIRST branch takes precedence over adjacency:
         //
@@ -2094,6 +2095,19 @@ mod tests {
             ("AT&T. Then more.", "ˈættˈi. ðˈɛn mˈɔɹ."),
             ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
             ("The Q&A.", "ðə kjˈu ænd ˈA"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
+    // Expected strings are misaki 0.9.4's output. Covered by the same
+    // no-rejoin rule as AT&T. (PR #25); kept as an explicit °C/°F regression.
+    #[test]
+    fn test_degree_unit_keeps_the_full_stop() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("It is 20 °C.", "ˌɪt ɪz twˈɛnti ❓ sˈi."),
+            ("It is 72 °F.", "ˌɪt ɪz sˈɛvənti tˈu ❓ ˈɛf."),
         ] {
             assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
