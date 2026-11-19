@@ -1,3 +1,5 @@
+// Parity with misaki 0.9.4 holds with the `fixes` feature off.
+#![cfg(not(feature = "fixes"))]
 //! Recording-fallback parity against misaki 0.9.4.
 //!
 //! Lexicon parity fixtures use `fallback=None`, so they cannot catch
