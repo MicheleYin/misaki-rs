@@ -58,12 +58,11 @@ needed to *run* the tests.
 ## Status: exact
 
 ```
-adversarial    71/71   (100.0%)    tests/parity.rs
+adversarial   122/122  (100.0%)    tests/parity.rs
 real prose    700/700  (100.0%)    tests/parity.rs
 held-out      900/900  (100.0%)    tests/heldout.rs
-tagger      20623/20623 tokens, 771/771 sentences
-tokenizer   20623/20623 tokens, 771/771 sentences
-lib                24 tests        doctests 0 failures
+tagger      20959/20959 tokens, 822/822 sentences
+tokenizer   20959/20959 tokens, 822/822 sentences
 ```
 
 All three corpora match misaki 0.9.4 **byte for byte**, on the phoneme string
@@ -71,6 +70,11 @@ and on the per-token `(text, phonemes)` attribution that the word timestamps
 are derived from. The second half is not redundant: three separate
 bugs produced identical audio with the attribution shifted, and only the
 token-pair check saw them.
+
+The oracle is **stock** misaki 0.9.4 (and stock spaCy tokenizer patterns). A
+proposed ampersand suffix that peels `.` after `&`+capital (so `AT&T.` reads
+as a name) is deliberately **out of scope** until upstream 0.9.4 ships it;
+Rust keeps stock letter-read behaviour for those forms.
 
 ## How it was done
 

@@ -285,11 +285,18 @@ impl G2P {
                 .map(|c| if c.to_lowercase().next() == Some(c) { 1 } else { 2 })
                 .sum()
         };
-        let tag = group
-            .iter()
-            .max_by_key(|tk| weight(&tk.text))
-            .map(|tk| tk.tag.clone())
-            .unwrap_or_default();
+        // Python `max` keeps the FIRST maximum; Rust `max_by_key` keeps the last.
+        let tag = {
+            let mut best: Option<(&MToken, usize)> = None;
+            for tk in group {
+                let w = weight(&tk.text);
+                match best {
+                    Some((_, bw)) if w <= bw => {}
+                    _ => best = Some((tk, w)),
+                }
+            }
+            best.map(|(tk, _)| tk.tag.clone()).unwrap_or_default()
+        };
 
         let ws = group[group.len() - 1].whitespace.clone();
         (text, tag, ws)
@@ -309,10 +316,11 @@ impl G2P {
     ///         words.append(tk if tk.whitespace else [tk])
     /// ```
     ///
-    /// This is what lets a finer tokenizer than spaCy's stay correct: `Mr` `.`
-    /// and `It` `’` `s` and `five` `-` `storied` are each adjacent runs, so they
-    /// merge back into `Mr.`, `It’s` and `five-storied`. Returns index ranges
-    /// into `tokens`.
+    /// Adjacent non-punctuation runs merge into one word (`It’s`,
+    /// `five-storied`). Punctuation stands alone, matching misaki: spaCy
+    /// exceptions already keep `Mr.` / `Dr.` as a single token, so a period
+    /// is never rejoined into the open group (that used to eat the sentence
+    /// stop after forms like `AT&T.`). Returns index ranges into `tokens`.
     fn group_by_adjacency(tokens: &[MToken]) -> Vec<std::ops::Range<usize>> {
         // misaki's FIRST branch takes precedence over adjacency:
         //
@@ -325,34 +333,19 @@ impl G2P {
         // to be here could not tell `_like` from `_it`.
         let is_standalone = |tk: &MToken, _is_last: bool| -> bool {
             // misaki's first branch is `if tk._.alias is not None or
-            // tk.phonemes is not None`, so an aliased token stands alone too.
-            tk.underscore().alias.is_some() || Self::is_punct_token(tk)
+            // tk.phonemes is not None` during *retokenize*, when only links,
+            // currency and punctuation have phonemes. After the lexicon pass
+            // almost every token has phonemes, so we key off `rating` (set for
+            // those early assignments) plus alias / punct tags.
+            tk.underscore().alias.is_some()
+                || tk.underscore().rating.is_some()
+                || Self::is_punct_token(tk)
         };
 
         let mut groups: Vec<std::ops::Range<usize>> = Vec::new();
         let mut open = false; // is the last group still extensible?
         for i in 0..tokens.len() {
             if is_standalone(&tokens[i], i + 1 == tokens.len()) {
-                // ... unless joining it to the open group spells an
-                // abbreviation spaCy would never have split. Our tokenizer
-                // splits on the period unconditionally, so `Mr` + `.` must be
-                // put back together; spaCy's own exception list decides.
-                let rejoin = tokens[i].text == "." && open;
-                if rejoin {
-                    let g = groups.last().unwrap().clone();
-                    let mut candidate = String::new();
-                    for tk in &tokens[g.clone()] {
-                        candidate.push_str(&tk.text);
-                        candidate.push_str(&tk.whitespace);
-                    }
-                    candidate.push('.');
-                    if crate::abbrev::is_period_abbreviation(candidate.trim()) {
-                        let g = groups.last_mut().unwrap();
-                        *g = g.start..i + 1;
-                        open = tokens[i].whitespace.is_empty();
-                        continue;
-                    }
-                }
                 groups.push(i..i + 1);
                 open = false;
                 continue;
@@ -371,16 +364,26 @@ impl G2P {
         groups
     }
 
-    /// misaki's lookup-key normalisation (`Lexicon.__call__`): curly single
-    /// quotes become straight ones, then NFKC. The lexicons are keyed with
-    /// straight apostrophes.
+    /// misaki's lookup-key normalisation (`Lexicon.__call__`):
     ///
-    /// NFKC is not applied wholesale, but the trademark sign is expanded to
-    /// its compatibility form because it is a common standalone lexicon key.
+    /// ```text
+    /// word = (...).replace(chr(8216), "'").replace(chr(8217), "'")
+    /// word = unicodedata.normalize('NFKC', word)
+    /// word = ''.join(Lexicon.numeric_if_needed(c) for c in word)
+    /// ```
     fn normalize_lookup(text: &str) -> String {
-        text.replace('\u{2122}', "TM")
-            .replace('\u{2018}', "'")
-            .replace('\u{2019}', "'")
+        use unicode_normalization::UnicodeNormalization;
+        let straightened = text.replace('\u{2018}', "'").replace('\u{2019}', "'");
+        let nfkc: String = straightened.nfkc().collect();
+        let mut out = String::with_capacity(nfkc.len());
+        for c in nfkc.chars() {
+            if let Some(d) = crate::unicode_numeric_data::numeric_if_needed(c) {
+                out.push_str(d);
+            } else {
+                out.push(c);
+            }
+        }
+        out
     }
 
     /// misaki's punctuation phonemes (`en.py:598-599`): the PUNCT_TAG_PHONEMES
@@ -518,6 +521,8 @@ impl G2P {
     }
 
     pub fn g2p(&self, text: &str) -> Result<(String, Vec<MToken>), G2PError> {
+        // misaki `G2P.preprocess`: `text = text.lstrip()` before tokenization.
+        let text = text.trim_start();
         // Parse `[text](feature)` markers and attach them to the subtokens
         // whose byte range falls inside the marker span. Mirrors the
         // `Lexicon.tokenize` feature-application pass in misaki/en.py.
@@ -612,10 +617,15 @@ impl G2P {
         // each is `token + trailing whitespace`, in order.
         let mut rebuilt: Vec<MToken> = Vec::with_capacity(tokens.len());
         let mut tags: Vec<String> = Vec::new();
+        // misaki's `j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD')`:
+        // the last piece of a spaCy token not followed by a number.
+        let mut ends_number: Vec<bool> = Vec::with_capacity(tokens.len());
+        let mut phoneme_heads = std::collections::HashSet::new();
         let mut pos = 0usize;
         for (si, st) in spacy_tokens.iter().enumerate() {
             let (stext, sws) = (&st.text, &st.whitespace);
             let tag = group_tags.get(si).copied().unwrap_or("NN").to_string();
+            let next_not_cd = group_tags.get(si + 1).is_none_or(|t| *t != "CD");
             let subs: Vec<String> = self
                 .subtoken_regex
                 .find_iter(stext)
@@ -660,20 +670,25 @@ impl G2P {
                     }
                 }
 
-                let mut first_in_span = true;
-                for marker in &markers {
+                for (mi, marker) in markers.iter().enumerate() {
                     if start >= marker.byte_start && end <= marker.byte_end {
                         match &marker.feature {
                             LinkFeature::Stress(st) => {
                                 tk.underscore_mut().stress = Some(*st);
                             }
                             LinkFeature::Phonemes(ph) => {
-                                // Only the head subtoken takes the override;
-                                // the rest are blanked so the loop skips them
-                                // (`phonemes = v.lstrip('/') if i == 0 else ''`).
-                                tk.phonemes =
-                                    Some(if first_in_span { ph.clone() } else { String::new() });
-                                first_in_span = false;
+                                // Across the whole marker span, only the first
+                                // subtoken is the head (`en.py` tokenize: `i == 0`).
+                                let is_head = phoneme_heads.insert(mi);
+                                if is_head {
+                                    tk.phonemes = Some(ph.clone());
+                                    tk.underscore_mut().rating = Some(5);
+                                    tk.underscore_mut().is_head = true;
+                                } else {
+                                    tk.phonemes = Some(String::new());
+                                    tk.underscore_mut().rating = Some(5);
+                                    tk.underscore_mut().is_head = false;
+                                }
                             }
                             LinkFeature::NumFlags(f) => {
                                 tk.underscore_mut().num_flags = f.clone();
@@ -683,15 +698,21 @@ impl G2P {
                 }
                 rebuilt.push(tk);
                 tags.push(tag.clone());
+                ends_number.push(j + 1 == n && next_not_cd);
             }
         }
-        tokens = rebuilt;
+        // Align tags onto rebuilt tokens, then fold non-head link pieces.
+        for (tk, tag) in rebuilt.iter_mut().zip(tags.iter()) {
+            tk.tag = tag.clone();
+        }
+        let (folded, folded_ends) = Self::fold_left(rebuilt, ends_number);
+        tokens = folded;
+        ends_number = folded_ends;
 
         log::debug!(
-            "g2p '{}' -> {} tokens, {} tags",
+            "g2p '{}' -> {} tokens",
             text,
             tokens.len(),
-            tags.len()
         );
         for (i, tk) in tokens.iter().enumerate() {
             log::debug!("token[{}]: '{}'", i, tk.text);
@@ -700,11 +721,6 @@ impl G2P {
         // Process tokens in reverse order (like Python) to build context
         let mut contexts: Vec<crate::lexicon::TokenContext> =
             vec![crate::lexicon::TokenContext::default(); tokens.len()];
-
-        // First, set tags
-        for (tk, tag) in tokens.iter_mut().zip(tags.iter()) {
-            tk.tag = tag.clone();
-        }
 
         // `is_head` per subtoken. misaki sets `tk._.is_head = False` on any
         // subtoken that JOINS an open group, and `get_number` branches on it:
@@ -727,36 +743,43 @@ impl G2P {
         //
         //     elif tk.tag == '$' and tk.text in CURRENCIES:
         //         currency = tk.text; tk.phonemes = ''; tk._.rating = 4
-        //     ...
-        //     elif j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD'):
-        //         tk._.currency = currency
+        //     elif <a dash or punctuation>: ...
+        //     elif currency is not None:
+        //         if tk.tag != 'CD':
+        //             currency = None
+        //         elif j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD'):
+        //             tk._.currency = currency
         //
         // The symbol becomes its own silent token and the unit is spoken by the
-        // number after it: `$9` is [('$', ''), ('9', 'nˈIn dˈɑləɹz')]. Measured,
-        // it reaches only the IMMEDIATELY following number -- `$9 and 5 more`
-        // leaves the 5 bare.
+        // LAST number of the amount: `$9` is [('$', ''), ('9', 'nˈIn dˈɑləɹz')],
+        // `$2 billion` is "two billion dollars", and `$9 and 5 more` leaves the
+        // 5 bare.
         //
         // This has to be a separate pass because spaCy tokenizes the symbol
         // away from the digits, so the two are never in one group.
-        let mut currency_of: Vec<Option<char>> = vec![None; tokens.len()];
         {
-            let mut pending: Option<char> = None;
+            let mut currency: Option<char> = None;
             for i in 0..tokens.len() {
-                let c1 = {
-                    let t = &tokens[i].text;
-                    if t.chars().count() == 1 { t.chars().next() } else { None }
-                };
-                if tokens[i].tag == "$" {
-                    if let Some(c) = c1 {
-                        if matches!(c, '$' | '\u{a3}' | '\u{20ac}') {
-                            pending = Some(c);
-                            tokens[i].phonemes = Some(String::new());
-                            continue;
-                        }
-                    }
+                if tokens[i].phonemes.is_some() {
+                    continue;
                 }
-                if let Some(c) = pending.take() {
-                    currency_of[i] = Some(c);
+                let mut cs = tokens[i].text.chars();
+                let symbol = match (cs.next(), cs.next()) {
+                    (Some(c), None) if Self::currency_units(c).is_some() => Some(c),
+                    _ => None,
+                };
+                if tokens[i].tag == "$" && symbol.is_some() {
+                    currency = symbol;
+                    tokens[i].phonemes = Some(String::new());
+                    tokens[i].underscore_mut().rating = Some(4);
+                } else if Self::is_punct_token(&tokens[i]) {
+                    // punctuation leaves the amount open
+                } else if let Some(c) = currency {
+                    if tokens[i].tag != "CD" {
+                        currency = None;
+                    } else if ends_number[i] {
+                        tokens[i].underscore_mut().currency = Some(c.to_string());
+                    }
                 }
             }
         }
@@ -790,11 +813,13 @@ impl G2P {
             // its first two numbers together.
             if tokens[i].tag == ":" && (tokens[i].text == "-" || tokens[i].text == "\u{2013}") {
                 tokens[i].phonemes = Some("\u{2014}".to_string());
+                tokens[i].underscore_mut().rating = Some(3);
                 continue;
             }
             if Self::is_punct_token(&tokens[i]) {
                 let tg = tokens[i].tag.clone();
                 tokens[i].phonemes = Some(Self::punct_phonemes(&tokens[i].text, &tg));
+                tokens[i].underscore_mut().rating = Some(4);
             }
         }
 
@@ -815,23 +840,22 @@ impl G2P {
             // it happens HERE rather than in a pre-pass so the lookup sees the
             // rolling context: `to` is tə before a consonant and tu before a
             // vowel, and in `G2P` the `P` that follows is a consonant.
+            // Python normalises alias and text the same way.
             let word = match tokens[i].underscore().alias.clone() {
-                Some(a) => a,
+                Some(a) => Self::normalize_lookup(&a),
                 None => Self::normalize_lookup(&tokens[i].text),
             };
             let tag = tokens[i].tag.clone();
-            // An explicit `[word](+N)` marker takes precedence over
-            // capitalization-derived stress, matching Python misaki which
-            // writes `tk._.stress = v` before the lexicon lookup runs.
-            let stress = tokens[i].underscore().stress.or_else(|| {
-                if word == word.to_lowercase() {
-                    None
-                } else if word == word.to_uppercase() {
-                    Some(self.lexicon.cap_stresses.1)
-                } else {
-                    Some(self.lexicon.cap_stresses.0)
-                }
-            });
+            // Cap stress goes into `get_word`; link stress is applied AFTER
+            // (`en.py` Lexicon.__call__: `apply_stress(..., tk._.stress)`).
+            let cap_stress = if word == word.to_lowercase() {
+                None
+            } else if word == word.to_uppercase() {
+                Some(self.lexicon.cap_stresses.1)
+            } else {
+                Some(self.lexicon.cap_stresses.0)
+            };
+            let link_stress = tokens[i].underscore().stress;
 
             // NOTE: `contexts[i]` was already filled by iteration i+1 from that
             // token's RESOLVED PHONEMES -- see the `token_context` call at the
@@ -846,8 +870,9 @@ impl G2P {
                 let ctx = Some(&contexts[i]);
 
                 // Use get_word which handles special cases, lookup, and stemming
-                if let Some((ps, _)) = self.lexicon.get_word(&word, &tag, stress, ctx) {
-                    tokens[i].phonemes = Some(ps);
+                if let Some((ps, _)) = self.lexicon.get_word(&word, &tag, cap_stress, ctx) {
+                    let ps = self.append_currency(ps, Self::currency_of(&tokens[i]));
+                    tokens[i].phonemes = Some(self.lexicon.apply_stress(&ps, link_stress));
                 }
 
                 if tokens[i].phonemes.is_none() {
@@ -856,14 +881,13 @@ impl G2P {
                     // this port -- and letting it win meant a signed number was
                     // split on its own sign: `-40` became "" + "forty" and the
                     // minus was simply lost, where misaki says mˈInəs fˈɔɹTi.
-                    if self.is_number_like(&word) && word.starts_with('-') {
-                        let spoken = self.convert_number(&word);
-                        if spoken != word {
-                            if let Some(p) = self.number_phonemes(&spoken) {
-                                tokens[i].phonemes = Some(p);
-                            } else if let Ok((p, _)) = self.g2p(&spoken) {
-                                tokens[i].phonemes = Some(p.trim_end().to_string());
-                            }
+                    if self.is_number(&word, is_head[i]) {
+                        let flags = tokens[i].underscore().num_flags.clone();
+                        let cur = Self::currency_of(&tokens[i]);
+                        if let Some(p) =
+                            self.get_number_phonemes(&word, cur, is_head[i], &flags)
+                        {
+                            tokens[i].phonemes = Some(p);
                         }
                     } else if word.contains('-') && word.len() > 1 {
                         // Handle hyphenated words like "twenty-one"
@@ -874,43 +898,6 @@ impl G2P {
                             sub_ps.push(p);
                         }
                         tokens[i].phonemes = Some(sub_ps.join(" "));
-                    } else if let Some(spoken) = currency_of[i]
-                        .filter(|_| {
-                            let c = word.replace(',', "");
-                            !c.is_empty() && c.chars().all(|ch| ch.is_ascii_digit() || ch == '.')
-                        })
-                        .and_then(|sym| self.currency_words(sym, &word))
-                    {
-                        // A number carrying a currency from the symbol before
-                        // it. This is handled here as well as in the merge pass
-                        // because spaCy puts the symbol in its own token, so a
-                        // bare `$9` never forms a multi-token group at all.
-                        if let Some(p) = self.number_phonemes(&spoken) {
-                            tokens[i].phonemes = Some(p);
-                        } else if let Ok((p, _)) = self.g2p(&spoken) {
-                            tokens[i].phonemes = Some(p.trim_end().to_string());
-                        }
-                    } else if let Some(spoken) = (!is_head[i])
-                        .then(|| self.nonhead_number(&word))
-                        .flatten()
-                    {
-                        // A numeric group that is not the head of its word.
-                        if let Some(p) = self.number_phonemes(&spoken) {
-                            tokens[i].phonemes = Some(p);
-                        } else if let Ok((p, _)) = self.g2p(&spoken) {
-                            tokens[i].phonemes = Some(p.trim_end().to_string());
-                        }
-                    } else if self.is_number_like(&word) {
-                        let spoken = self.convert_number(&word);
-                        if spoken != word {
-                            // Word by word, so "point" keeps its -2 stress.
-                            if let Some(p) = self.number_phonemes(&spoken) {
-                                tokens[i].phonemes = Some(p);
-                            } else {
-                                let (p, _) = self.g2p(&spoken)?;
-                                tokens[i].phonemes = Some(p.trim_end().to_string());
-                            }
-                        }
                     }
                 }
 
@@ -974,10 +961,16 @@ impl G2P {
                 // Multi-piece groups defer to the merge-pass `should_fallback`.
                 if tokens[i].phonemes.is_none() && !is_subtoken_group[i] {
                     if let Some(ref fallback) = self.fallback {
-                        match fallback.phonemize(&word) {
+                        // Python passes the original token text to fallback,
+                        // not the NFKC-normalised lookup key.
+                        let raw = tokens[i].text.clone();
+                        match fallback.phonemize(&raw) {
+                            // `Ok("")` is successful silence (Python HYPH `-` →
+                            // `('', 2)`). Soft-fail is `Err(NoPhonemes)`.
                             Ok(ps) => tokens[i].phonemes = Some(ps),
+                            Err(crate::fallback::FallbackError::NoPhonemes { .. }) => {}
                             Err(e) => {
-                                log::error!("fallback error for '{}': {}", word, e);
+                                log::error!("fallback error for '{}': {}", raw, e);
                                 return Err(G2PError::Fallback(e));
                             }
                         }
@@ -1025,14 +1018,23 @@ impl G2P {
         // i.e. a space, a slash, or a MIX of character classes once the junk
         // characters are ignored. `five-storied` is all-alpha once `-` is
         // dropped, so it joins tight: fˌIv + stˈɔɹid -> fˌIvstˈɔɹid.
+        // Parallel to `tokens` after merge: phonemes fed to re-resolve
+        // `token_context`. `None` means "do not advance rolling" (Python
+        // `should_fallback` with no prior span hit). `Some(None)` means use
+        // the token's own phonemes. `Some(Some(ps))` means a partial span hit
+        // updated ctx before `should_fallback` overwrote the word (e.g. `15`
+        // of `3:42:15` → `in` stays unstressed).
+        let mut ctx_feed: Vec<Option<Option<String>>> = vec![Some(None); tokens.len()];
         {
             const SUBTOKEN_JUNKS: &str = "',-._\u{2018}\u{2019}/";
             let groups = Self::group_by_adjacency(&tokens);
             if groups.len() != tokens.len() {
                 let mut merged: Vec<MToken> = Vec::with_capacity(groups.len());
+                let mut feeds: Vec<Option<Option<String>>> = Vec::with_capacity(groups.len());
                 for g in groups {
                     if g.len() == 1 {
                         merged.push(tokens[g.start].clone());
+                        feeds.push(Some(None));
                         continue;
                     }
                     let group = &tokens[g.clone()];
@@ -1047,11 +1049,11 @@ impl G2P {
                     // Without this the word-internal ’ in `it’s` kept the ”
                     // that the standalone-quote path gives it, producing
                     // ɪt”ˈɛs instead of ɪts.
-                    let part_of = |tk: &MToken| -> String {
+                    let part_of = |tk: &MToken| -> Option<String> {
                         if !tk.text.is_empty() && tk.text.chars().all(|c| SUBTOKEN_JUNKS.contains(c)) {
-                            String::new()
+                            Some(String::new())
                         } else {
-                            tk.phonemes.clone().unwrap_or_else(|| self.unk.clone())
+                            tk.phonemes.clone()
                         }
                     };
 
@@ -1111,42 +1113,21 @@ impl G2P {
                     //   $0.50     -> fifty cents        (the zero major is dropped)
                     //   $1,250.75 -> one thousand two hundred fifty dollars
                     //                and seventy five cents
-                    if let Some(spoken) = currency_of[g.start]
-                        .filter(|_| {
-                            let c = text.replace(',', "");
-                            !c.is_empty() && c.chars().all(|ch| ch.is_ascii_digit() || ch == '.')
-                        })
-                        .and_then(|sym| self.currency_words(sym, &text))
-                    {
-                        if let Ok((p, _)) = self.g2p(&spoken) {
-                            // The symbol is already its own token, silenced by
-                            // the pass above, so only the number is emitted here.
+                    if self.is_number(&text, true) {
+                        let cur = group.iter().find_map(Self::currency_of);
+                        let flags = group
+                            .iter()
+                            .map(|t| t.underscore().num_flags.as_str())
+                            .collect::<String>();
+                        if let Some(p) = self.get_number_phonemes(&text, cur, true, &flags) {
                             let mut tk = group[0].clone();
                             tk.text = text;
                             tk.tag = tag;
                             tk.whitespace = ws;
                             tk.phonemes = Some(p);
                             merged.push(tk);
+                            feeds.push(Some(None));
                             continue;
-                        }
-                    }
-
-                    if self.is_number_like(&text) {
-                        let spoken = self.convert_number(&text);
-                        if spoken != text {
-                            // Word by word, so "point" keeps its -2 stress; the
-                            // phrase path is only a fallback.
-                            if let Some(p) = self.number_phonemes(&spoken).or_else(|| {
-                                self.g2p(&spoken).ok().map(|(p, _)| p.trim_end().to_string())
-                            }) {
-                                let mut tk = group[0].clone();
-                                tk.text = text;
-                                tk.tag = tag;
-                                tk.whitespace = ws;
-                                tk.phonemes = Some(p);
-                                merged.push(tk);
-                                continue;
-                            }
                         }
                     }
 
@@ -1154,6 +1135,11 @@ impl G2P {
                     let mut res: Vec<Option<String>> = vec![None; n];
                     let mut left = 0usize;
                     let mut right = n;
+                    // Last phonemes that updated ctx in the span loop (Python
+                    // `ctx = token_context(ctx, ps, tk)` on each hit). Survives
+                    // `should_fallback`, which does not itself update ctx.
+                    let mut last_ctx_ps: Option<String> = None;
+                    let mut should_fallback = false;
                     while left < right {
                         // misaki only merges a span none of whose members has
                         // resolved yet.
@@ -1176,11 +1162,23 @@ impl G2P {
                             // what follows the whole word.
                             self.lexicon
                                 .get_word(&k, &tg, st, Some(&contexts[g.start + left]))
-                                .map(|(ps, _)| ps)
+                                .map(|(ps, _)| {
+                                    self.append_currency(ps, sub.iter().find_map(Self::currency_of))
+                                })
+                                .or_else(|| self.number_with_ending(&k, sub, left == 0))
+                                .or_else(|| {
+                                    // Non-head / ordinal / dotted pieces inside a
+                                    // multi-piece group (e.g. `.5` of `No.5`).
+                                    if !self.is_number(&k, left == 0) {
+                                        return None;
+                                    }
+                                    self.get_number_phonemes(&k, None, left == 0, "")
+                                })
                         } else {
                             None
                         };
                         if let Some(ps) = hit {
+                            last_ctx_ps = Some(ps.clone());
                             res[left] = Some(ps);
                             for k in left + 1..right {
                                 res[k] = Some(String::new());
@@ -1193,16 +1191,50 @@ impl G2P {
                             right -= 1;
                             if res[right].is_none() {
                                 let t = &tokens[g.start + right].text;
-                                if !t.is_empty() && t.chars().all(|c| SUBTOKEN_JUNKS.contains(c)) {
+                                // Span shrink only blanks SUBTOKEN_JUNKS (`.`, `-`,
+                                // …). NON_QUOTE last-piece rule lives in
+                                // resolve_tokens *after* this loop; if JUNKS
+                                // already set `''`, NON_QUOTE must not override.
+                                if !t.is_empty()
+                                    && t.chars().all(|c| SUBTOKEN_JUNKS.contains(c))
+                                {
                                     res[right] = Some(String::new());
+                                } else if self.fallback.is_some()
+                                    && group[right].phonemes.is_none()
+                                    && !t.is_empty()
+                                {
+                                    // Python: unresolved non-JUNKS piece with
+                                    // fallback set → should_fallback; break
+                                    // without trying shorter head spans.
+                                    should_fallback = true;
+                                    break;
                                 }
                             }
                             left = 0;
                         }
                     }
-                    if let Some(fallback) = &self.fallback {
-                        // As misaki's `should_fallback`: a piece the per-token
-                        // pass already read (the `37` of `37%`) is not missing.
+                    if should_fallback {
+                        if let Some(fallback) = &self.fallback {
+                            match fallback.phonemize(&text) {
+                                Ok(ps) => {
+                                    let mut tk = group[0].clone();
+                                    tk.text = text;
+                                    tk.tag = tag;
+                                    tk.whitespace = ws;
+                                    tk.phonemes = Some(ps);
+                                    merged.push(tk);
+                                    // Feed partial-hit phonemes (if any), else skip.
+                                    feeds.push(last_ctx_ps.map(Some));
+                                    continue;
+                                }
+                                Err(crate::fallback::FallbackError::NoPhonemes { .. }) => {}
+                                Err(e) => return Err(G2PError::Fallback(e)),
+                            }
+                        }
+                    } else if let Some(fallback) = &self.fallback {
+                        // Residual: pieces still missing after a full resolve
+                        // (e.g. per-token already had phonemes that blocked a
+                        // free span). Same whole-group fallback policy.
                         let needs_fallback = res.iter().enumerate().any(|(i, part)| {
                             part.is_none()
                                 && group[i].phonemes.is_none()
@@ -1213,14 +1245,20 @@ impl G2P {
                                     .all(|c| SUBTOKEN_JUNKS.contains(c))
                         });
                         if needs_fallback {
-                            let ps = fallback.phonemize(&text)?;
-                            let mut tk = group[0].clone();
-                            tk.text = text;
-                            tk.tag = tag;
-                            tk.whitespace = ws;
-                            tk.phonemes = Some(ps);
-                            merged.push(tk);
-                            continue;
+                            match fallback.phonemize(&text) {
+                                Ok(ps) => {
+                                    let mut tk = group[0].clone();
+                                    tk.text = text;
+                                    tk.tag = tag;
+                                    tk.whitespace = ws;
+                                    tk.phonemes = Some(ps);
+                                    merged.push(tk);
+                                    feeds.push(last_ctx_ps.map(Some));
+                                    continue;
+                                }
+                                Err(crate::fallback::FallbackError::NoPhonemes { .. }) => {}
+                                Err(e) => return Err(G2PError::Fallback(e)),
+                            }
                         }
                     }
                     // Anything still unresolved stays unresolved, as misaki
@@ -1248,15 +1286,15 @@ impl G2P {
                         // `stress_weight` counts diphthongs double, which is what
                         // decides WHICH part is demoted: ɹˈAs weighs 5 (A is a
                         // diphthong) against kˈɔkəs's 6, so Race loses its primary.
-                        let mut parts: Vec<String> = res
+                        // None stays None until the join, where misaki's
+                        // `merge_tokens` writes `unk` with no space before it.
+                        let mut parts: Vec<Option<String>> = res
                             .iter()
                             .enumerate()
                             .map(|(i, r)| match r {
-                                Some(ps) => ps.clone(),
-                                // Unresolved: misaki writes `unk`, which our
-                                // pipeline sets to the empty string. Fall back to
-                                // whatever the per-token pass found only for a
-                                // token the span loop never reached.
+                                Some(ps) => Some(ps.clone()),
+                                // Fall back to whatever the per-token pass found
+                                // only for a token the span loop never reached.
                                 None => part_of(&group[i]),
                             })
                             .collect();
@@ -1281,34 +1319,44 @@ impl G2P {
                             let mut idx: Vec<(bool, usize, usize)> = parts
                                 .iter()
                                 .enumerate()
+                                .filter_map(|(i, p)| p.as_deref().map(|p| (i, p)))
                                 .filter(|(_, p)| !p.is_empty())
                                 .map(|(i, p)| (p.contains(PRIMARY), weight(p), i))
                                 .collect();
                             let n_primary = idx.iter().filter(|(b, _, _)| *b).count();
+                            let demote = |p: &mut Option<String>| {
+                                if let Some(ps) = p {
+                                    *ps = self.lexicon.apply_stress(ps, Some(-0.5));
+                                }
+                            };
                             if idx.len() == 2
                                 && group[idx[0].2].text.chars().count() == 1
                             {
-                                let i = idx[1].2;
-                                parts[i] = self.lexicon.apply_stress(&parts[i], Some(-0.5));
+                                demote(&mut parts[idx[1].2]);
                             } else if idx.len() >= 2 && n_primary > (idx.len() + 1) / 2 {
                                 idx.sort();
                                 let half = idx.len() / 2;
                                 for (_, _, i) in idx.into_iter().take(half) {
-                                    parts[i] = self.lexicon.apply_stress(&parts[i], Some(-0.5));
+                                    demote(&mut parts[i]);
                                 }
                             }
                         }
 
                         let mut out = String::new();
                         for part in parts {
-                            if prespace
-                                && !out.is_empty()
-                                && !out.ends_with(char::is_whitespace)
-                                && !part.is_empty()
-                            {
-                                out.push(' ');
+                            match part {
+                                Some(part) => {
+                                    if prespace
+                                        && !out.is_empty()
+                                        && !out.ends_with(char::is_whitespace)
+                                        && !part.is_empty()
+                                    {
+                                        out.push(' ');
+                                    }
+                                    out.push_str(&part);
+                                }
+                                None => out.push_str(&self.unk),
                             }
-                            out.push_str(&part);
                         }
                         Some(out)
                     });
@@ -1319,8 +1367,11 @@ impl G2P {
                     tk.whitespace = ws;
                     tk.phonemes = phonemes;
                     merged.push(tk);
+                    feeds.push(Some(None));
                 }
+                debug_assert_eq!(merged.len(), feeds.len());
                 tokens = merged;
+                ctx_feed = feeds;
             }
         }
 
@@ -1343,6 +1394,10 @@ impl G2P {
         // sees -- and the words whose pronunciation depends on that context are
         // resolved again against it.
         //
+        // `ctx_feed` mirrors Python's multipart ctx updates: whole-group
+        // fallback does not call `token_context` (skip), but a span hit before
+        // `should_fallback` does (override phonemes).
+        //
         // The re-resolution is deliberately narrow. It touches a token only
         // when it is a plain alphabetic word with no alias, already resolved by
         // the lexicon, and `get_word` under the new context returns something
@@ -1350,15 +1405,34 @@ impl G2P {
         // words are left exactly as they were.
         {
             let n = tokens.len();
+            debug_assert_eq!(n, ctx_feed.len());
             let mut ctxs = vec![crate::lexicon::TokenContext::default(); n];
             let mut rolling = crate::lexicon::TokenContext::default();
             for i in (0..n).rev() {
                 ctxs[i] = rolling.clone();
-                rolling =
-                    Self::token_context(&rolling, tokens[i].phonemes.as_deref(), &tokens[i]);
+                match &ctx_feed[i] {
+                    None => {
+                        // should_fallback with no prior span hit: leave rolling.
+                    }
+                    Some(None) => {
+                        rolling = Self::token_context(
+                            &rolling,
+                            tokens[i].phonemes.as_deref(),
+                            &tokens[i],
+                        );
+                    }
+                    Some(Some(ps)) => {
+                        rolling =
+                            Self::token_context(&rolling, Some(ps.as_str()), &tokens[i]);
+                    }
+                }
             }
             for i in 0..n {
-                if tokens[i].underscore().alias.is_some() {
+                if tokens[i].underscore().alias.is_some()
+                    || tokens[i].underscore().currency.is_some()
+                    || tokens[i].underscore().rating == Some(5)
+                {
+                    // rating 5 = link phoneme override — never clobber.
                     continue;
                 }
                 let text = tokens[i].text.clone();
@@ -1370,20 +1444,19 @@ impl G2P {
                     _ => continue,
                 }
                 let key = Self::normalize_lookup(&text);
-                let stress = tokens[i].underscore().stress.or_else(|| {
-                    if key == key.to_lowercase() {
-                        None
-                    } else if key == key.to_uppercase() {
-                        Some(self.lexicon.cap_stresses.1)
-                    } else {
-                        Some(self.lexicon.cap_stresses.0)
-                    }
-                });
+                let cap_stress = if key == key.to_lowercase() {
+                    None
+                } else if key == key.to_uppercase() {
+                    Some(self.lexicon.cap_stresses.1)
+                } else {
+                    Some(self.lexicon.cap_stresses.0)
+                };
+                let link_stress = tokens[i].underscore().stress;
                 let tag = tokens[i].tag.clone();
                 if let Some((ps, _)) =
-                    self.lexicon.get_word(&key, &tag, stress, Some(&ctxs[i]))
+                    self.lexicon.get_word(&key, &tag, cap_stress, Some(&ctxs[i]))
                 {
-                    tokens[i].phonemes = Some(ps);
+                    tokens[i].phonemes = Some(self.lexicon.apply_stress(&ps, link_stress));
                 }
             }
         }
@@ -1416,52 +1489,74 @@ impl G2P {
         Ok((result, tokens))
     }
 
-    /// Does this token go down misaki's number path?
-    ///
-    /// misaki's `Lexicon.is_number` peels an alphabetic suffix first, so `1st`,
-    /// `23rd` and `2nd` are numbers, not words. Testing only for all-digits
-    /// meant an ordinal never reached `get_number` and `1st` read as "one".
-    fn is_number_like(&self, word: &str) -> bool {
-        let clean = word.replace(',', "");
-        let lower = clean.to_lowercase();
-        for suf in ["st", "nd", "rd", "th"] {
-            if let Some(d) = lower.strip_suffix(suf) {
-                if !d.is_empty() && d.chars().all(|c| c.is_ascii_digit()) {
-                    return true;
-                }
-            }
-        }
-        if let Some(rest) = clean.strip_prefix('-') {
-            if !rest.is_empty() && rest.chars().all(|c| c.is_ascii_digit()) {
-                return true;
-            }
-        }
-        let unsigned = clean.strip_prefix('-').unwrap_or(&clean);
-        if unsigned.matches('.').count() > 1
-            && unsigned.chars().any(|c| c.is_ascii_digit())
-            && unsigned
-                .chars()
-                .all(|c| c.is_ascii_digit() || c == '.')
-        {
-            return true;
-        }
-        // A single decimal point, with an optional integer part.
-        if unsigned.matches('.').count() == 1 {
-            if let Some((a, b)) = unsigned.split_once('.') {
-                if (a.is_empty() || a.chars().all(|c| c.is_ascii_digit()))
-                    && !b.is_empty()
-                    && b.chars().all(|c| c.is_ascii_digit())
+    /// `G2P.fold_left`: merge tokens with `is_head == false` into the previous.
+    fn fold_left(tokens: Vec<MToken>, ends_number: Vec<bool>) -> (Vec<MToken>, Vec<bool>) {
+        let mut result: Vec<MToken> = Vec::with_capacity(tokens.len());
+        let mut ends: Vec<bool> = Vec::with_capacity(tokens.len());
+        for (i, tk) in tokens.into_iter().enumerate() {
+            let end_flag = ends_number.get(i).copied().unwrap_or(false);
+            if !result.is_empty() && !tk.underscore().is_head {
+                let prev = result.last_mut().unwrap();
+                prev.text.push_str(&tk.text);
+                prev.text.push_str(&tk.whitespace);
+                // Keep the trailing whitespace of the last merged piece.
+                prev.whitespace = tk.whitespace.clone();
+                if prev.underscore().num_flags.is_empty()
+                    && !tk.underscore().num_flags.is_empty()
                 {
-                    return true;
+                    prev.underscore_mut().num_flags = tk.underscore().num_flags.clone();
                 }
+                if prev.underscore().stress.is_none() {
+                    prev.underscore_mut().stress = tk.underscore().stress;
+                }
+                if let Some(last) = ends.last_mut() {
+                    *last = end_flag;
+                }
+            } else {
+                result.push(tk);
+                ends.push(end_flag);
             }
         }
-        self.is_number(word)
+        (result, ends)
     }
 
-    fn is_number(&self, word: &str) -> bool {
-        let clean = word.replace(",", "");
-        clean.parse::<i64>().is_ok()
+    /// Python `is_digit` in misaki/en.py: `re.match(r'^[0-9]+$', text)`.
+    fn ascii_digit_str(s: &str) -> bool {
+        !s.is_empty() && s.chars().all(|c| c.is_ascii_digit())
+    }
+
+    /// Case-sensitive suffix peel matching `Lexicon.get_number` /
+    /// `Lexicon.is_number` (`ing`, `'d`, `ed`, `'s`, ordinals, `s`).
+    fn peel_number_suffix(word: &str) -> (&str, Option<&str>) {
+        const SUFFIXES: &[&str] = &[
+            "ing", "'d", "ed", "'s", "st", "nd", "rd", "th", "s",
+        ];
+        for s in SUFFIXES {
+            if let Some(rest) = word.strip_suffix(s) {
+                return (rest, Some(*s));
+            }
+        }
+        (word, None)
+    }
+
+    /// Does this token go down misaki's number path?
+    ///
+    /// misaki's `Lexicon.is_number(word, is_head)` peels one case-sensitive
+    /// suffix first (`5TH` is NOT an ordinal), then requires at least one
+    /// ASCII digit and only digits / `,` / `.` / leading `-` (when head).
+    fn is_number_like(&self, word: &str) -> bool {
+        self.is_number(word, true)
+    }
+
+    /// misaki's `Lexicon.is_number(word, is_head)`.
+    fn is_number(&self, word: &str, is_head: bool) -> bool {
+        if !word.chars().any(|c| c.is_ascii_digit()) {
+            return false;
+        }
+        let (body, _) = Self::peel_number_suffix(word);
+        body.chars().enumerate().all(|(i, c)| {
+            c.is_ascii_digit() || c == ',' || c == '.' || (is_head && i == 0 && c == '-')
+        })
     }
 
     /// Reduce a num2words string to the word sequence misaki feeds the lexicon.
@@ -1509,49 +1604,51 @@ impl G2P {
         }
     }
 
-    /// A currency amount spelled out, or None if `word` is not one.
-    ///
-    /// See the call site for misaki's rules; the units come from its CURRENCIES
-    /// table.
+    /// misaki's CURRENCIES: the unit and its hundredth.
+    fn currency_units(sym: char) -> Option<(&'static str, &'static str)> {
+        match sym {
+            '$' => Some(("dollar", "cent")),
+            '\u{a3}' => Some(("pound", "pence")),
+            '\u{20ac}' => Some(("euro", "cent")),
+            _ => None,
+        }
+    }
+
+    /// misaki's `Lexicon.is_currency`.
+    fn is_currency_amount(word: &str) -> bool {
+        if !word.contains('.') {
+            return true;
+        }
+        let cleaned = word.replace(',', "");
+        let parts: Vec<&str> = cleaned.split('.').collect();
+        if parts.len() > 2 {
+            return false;
+        }
+        // Three or more cent digits → not currency (read as a plain number).
+        parts.get(1).map(|c| c.len() < 3).unwrap_or(true)
+    }
+
+    /// Thin wrapper kept for unit tests that exercise spoken forms without
+    /// currency / flags. Head = true, empty num_flags.
     fn currency_words(&self, sym: char, amount: &str) -> Option<String> {
-        let units: (&str, &str) = match sym {
-            '$' => ("dollar", "cent"),
-            '\u{a3}' => ("pound", "pence"),
-            '\u{20ac}' => ("euro", "cent"),
-            _ => return None,
-        };
-        let rest: String = amount.replace(',', "");
-        if rest.is_empty() || !rest.chars().all(|c| c.is_ascii_digit() || c == '.') {
-            return None;
+        let spoken = self.get_number_spoken(amount, Some(sym), true, "")?;
+        Some(spoken)
+    }
+
+    fn currency_of(tk: &MToken) -> Option<char> {
+        tk.underscore().currency.as_deref().and_then(|s| s.chars().next())
+    }
+
+    /// misaki's `append_currency`: a word that carries the currency, such as
+    /// "billion" in `$2 billion`, is followed by the plural unit.
+    fn append_currency(&self, ps: String, sym: Option<char>) -> String {
+        let unit = sym
+            .and_then(Self::currency_units)
+            .and_then(|(unit, _)| self.lexicon.stem_s(&format!("{unit}s"), "", None, None));
+        match unit {
+            Some((unit, _)) => format!("{ps} {unit}"),
+            None => ps,
         }
-        let mut parts: Vec<(i64, &str)> = Vec::new();
-        for (i, seg) in rest.split('.').enumerate().take(2) {
-            let n: i64 = if seg.is_empty() { 0 } else { seg.parse().ok()? };
-            parts.push((n, if i == 0 { units.0 } else { units.1 }));
-        }
-        // misaki drops a zero part rather than saying "zero dollars".
-        if parts.len() > 1 {
-            if parts[1].0 == 0 {
-                parts.truncate(1);
-            } else if parts[0].0 == 0 {
-                parts.remove(0);
-            }
-        }
-        let mut out: Vec<String> = Vec::new();
-        for (n, unit) in parts {
-            if !out.is_empty() {
-                out.push("and".to_string());
-            }
-            out.push(Self::normalize_num_words(
-                &Num2Words::new(n).to_words().ok()?,
-            ));
-            out.push(if n == 1 || unit == "pence" {
-                unit.to_string()
-            } else {
-                format!("{unit}s")
-            });
-        }
-        Some(out.join(" "))
     }
 
     /// Phonemes for a spoken number phrase, looked up word by word.
@@ -1580,8 +1677,7 @@ impl G2P {
         }
     }
 
-    /// A digit group as words, for the number paths that need a piece spelled
-    /// without going back through the full `convert_number`.
+    /// A digit group as words (cardinal), for digit-wise paths.
     fn spell(digits: &str) -> String {
         digits
             .parse::<i64>()
@@ -1591,172 +1687,230 @@ impl G2P {
             .unwrap_or_else(|| digits.to_string())
     }
 
-    /// misaki's non-head reading of a digit group (`Lexicon.get_number`):
-    ///
-    /// ```text
-    ///     elif not is_head and '.' not in word:
-    ///         if num[0] == '0' or len(num) > 3: digit by digit
-    ///         elif len(num) == 3 and not num.endswith('00'):
-    ///             num[0], then 'O' + num[2] if num[1]=='0' else num[1:]
-    ///         else: the whole as a cardinal
-    /// ```
-    ///
-    /// Returns None when the ordinary cardinal reading applies, including for
-    /// four digits -- those are caught earlier by the YEAR rule, which is why
-    /// 0199 reads "one ninety nine" and 1234 "twelve thirty four".
-    fn nonhead_number(&self, word: &str) -> Option<String> {
-        let num = word.replace(',', "");
-        if num.is_empty() || !num.chars().all(|c| c.is_ascii_digit()) {
+    /// misaki `extend_num` / `get_number` — returns the spoken word string
+    /// (space-separated lexicon keys), honouring `num_flags` for `and`/`a`/`n`.
+    fn get_number_spoken(
+        &self,
+        word: &str,
+        currency: Option<char>,
+        is_head: bool,
+        num_flags: &str,
+    ) -> Option<String> {
+        const ORDINALS: &[&str] = &["st", "nd", "rd", "th"];
+        let (body0, suffix) = Self::peel_number_suffix(word);
+        let mut body = body0.to_string();
+        let mut pieces: Vec<String> = Vec::new();
+
+        let extend_num = |num: &str, first: bool, escape: bool, pieces: &mut Vec<String>| {
+            let spoken = if escape {
+                num.to_string()
+            } else {
+                num.parse::<i64>()
+                    .ok()
+                    .and_then(|n| Num2Words::new(n).to_words().ok())
+                    .unwrap_or_else(|| num.to_string())
+            };
+            let splits: Vec<&str> = spoken
+                .split(|c: char| !c.is_ascii_lowercase())
+                .filter(|w| !w.is_empty())
+                .collect();
+            for (i, w) in splits.iter().enumerate() {
+                if *w != "and" || num_flags.contains('&') {
+                    if first && i == 0 && splits.len() > 1 && *w == "one" && num_flags.contains('a')
+                    {
+                        pieces.push("ə".to_string());
+                    } else {
+                        pieces.push((*w).to_string());
+                    }
+                } else if *w == "and" && num_flags.contains('n') && !pieces.is_empty() {
+                    let last = pieces.len() - 1;
+                    pieces[last].push_str("ən");
+                }
+            }
+        };
+
+        let mut result_started = false;
+        if let Some(rest) = body.strip_prefix('-').map(|s| s.to_string()) {
+            pieces.push("minus".to_string());
+            body = rest;
+            result_started = true;
+        }
+
+        let currency_key = currency.filter(|c| Self::currency_units(*c).is_some());
+
+        if Self::ascii_digit_str(&body) && suffix.is_some_and(|s| ORDINALS.contains(&s)) {
+            let n: i64 = body.parse().ok()?;
+            let spoken = Num2Words::new(n).ordinal().to_words().ok()?;
+            extend_num(&spoken, true, true, &mut pieces);
+        } else if !result_started
+            && body.len() == 4
+            && currency_key.is_none()
+            && Self::ascii_digit_str(&body)
+        {
+            let y: i64 = body.parse().ok()?;
+            let spoken = Self::year_words(y)?;
+            extend_num(&spoken, true, true, &mut pieces);
+        } else if !is_head && !body.contains('.') {
+            let num = body.replace(',', "");
+            if num.is_empty() || !Self::ascii_digit_str(&num) {
+                return None;
+            }
+                if num.starts_with('0') || num.len() > 3 {
+                for n in num.chars() {
+                    extend_num(&n.to_string(), false, false, &mut pieces);
+                }
+            } else if num.len() == 3 && !num.ends_with("00") {
+                extend_num(&num[..1], true, false, &mut pieces);
+                if num.as_bytes()[1] == b'0' {
+                    pieces.push("O".to_string());
+                    extend_num(&num[2..], false, false, &mut pieces);
+                } else {
+                    extend_num(&num[1..], false, false, &mut pieces);
+                }
+            } else {
+                extend_num(&num, true, false, &mut pieces);
+            }
+        } else if body.matches('.').count() > 1 || !is_head {
+            let mut first = true;
+            for num in body.replace(',', "").split('.') {
+                if num.is_empty() {
+                    continue;
+                }
+                if !num.chars().all(|c| c.is_ascii_digit()) {
+                    return None;
+                }
+                if num.starts_with('0')
+                    || (num.len() != 2 && num.chars().skip(1).any(|n| n != '0'))
+                {
+                    for n in num.chars() {
+                        extend_num(&n.to_string(), false, false, &mut pieces);
+                    }
+                } else {
+                    extend_num(num, first, false, &mut pieces);
+                }
+                first = false;
+            }
+        } else if let Some(sym) = currency_key.filter(|_| Self::is_currency_amount(&body)) {
+            let units = Self::currency_units(sym)?;
+            let mut pairs: Vec<(i64, &str)> = Vec::new();
+            for (i, seg) in body.replace(',', "").split('.').enumerate().take(2) {
+                let n: i64 = if seg.is_empty() {
+                    0
+                } else {
+                    seg.parse().ok()?
+                };
+                pairs.push((n, if i == 0 { units.0 } else { units.1 }));
+            }
+            if pairs.len() > 1 {
+                if pairs[1].0 == 0 {
+                    pairs.truncate(1);
+                } else if pairs[0].0 == 0 {
+                    pairs.remove(0);
+                }
+            }
+            for (i, (num, unit)) in pairs.iter().enumerate() {
+                if i > 0 {
+                    pieces.push("and".to_string());
+                }
+                extend_num(&num.to_string(), i == 0, false, &mut pieces);
+                if num.abs() != 1 && *unit != "pence" {
+                    pieces.push(format!("{unit}s"));
+                } else {
+                    pieces.push((*unit).to_string());
+                }
+            }
+        } else {
+            let spoken = if Self::ascii_digit_str(&body) {
+                let n: i64 = body.parse().ok()?;
+                Num2Words::new(n).to_words().ok()?
+            } else if !body.contains('.') {
+                let n: i64 = body.replace(',', "").parse().ok()?;
+                if suffix.is_some_and(|s| ORDINALS.contains(&s)) {
+                    Num2Words::new(n).ordinal().to_words().ok()?
+                } else {
+                    Num2Words::new(n).to_words().ok()?
+                }
+            } else {
+                let cleaned = body.replace(',', "");
+                if let Some(frac) = cleaned.strip_prefix('.') {
+                    let mut s = String::from("point");
+                    for n in frac.chars() {
+                        let w = Num2Words::new((n as u8 - b'0') as i64)
+                            .to_words()
+                            .ok()?;
+                        s.push(' ');
+                        s.push_str(&w);
+                    }
+                    s
+                } else {
+                    // float path — num2words(float) trims trailing zeros.
+                    // The Rust crate omits a leading "zero" for |x|<1; Python
+                    // num2words always keeps it (`0.05` → "zero point zero five").
+                    let f: f64 = cleaned.parse().ok()?;
+                    let mut spoken = Num2Words::new(f).to_words().ok()?;
+                    if cleaned.starts_with("0.") && !spoken.starts_with("zero") {
+                        spoken = format!("zero {spoken}");
+                    }
+                    spoken
+                }
+            };
+            extend_num(&spoken, true, true, &mut pieces);
+        }
+
+        if pieces.is_empty() {
             return None;
         }
-        if num.len() == 4 {
-            return None; // the year rule owns this
-        }
-        if num.starts_with('0') || num.len() > 3 {
-            return Some(
-                num.chars()
-                    .map(|c| Self::spell(&c.to_string()))
-                    .collect::<Vec<_>>()
-                    .join(" "),
-            );
-        }
-        if num.len() == 3 && !num.ends_with("00") {
-            let first = Self::spell(&num[..1]);
-            let rest = &num[1..];
-            return Some(if rest.starts_with('0') {
-                format!("{first} O {}", Self::spell(&rest[1..]))
+        Some(pieces.join(" "))
+    }
+
+    /// Phonemes for `Lexicon.get_number` (spoken lookup + optional ending).
+    fn get_number_phonemes(
+        &self,
+        word: &str,
+        currency: Option<char>,
+        is_head: bool,
+        num_flags: &str,
+    ) -> Option<String> {
+        let (_, suffix) = Self::peel_number_suffix(word);
+        let spoken = self.get_number_spoken(word, currency, is_head, num_flags)?;
+        let mut out: Vec<String> = Vec::new();
+        for w in spoken.split_whitespace() {
+            if w == "ə" {
+                out.push("ə".to_string());
+                continue;
+            }
+            let stress = if w == "point" || w == "O" {
+                Some(-2.0)
             } else {
-                format!("{first} {}", Self::spell(rest))
-            });
-        }
-        None
-    }
-
-    fn number_component(&self, part: &str) -> String {
-        let digit_wise =
-            part.starts_with('0') || (part.len() != 2 && part[1..].chars().any(|c| c != '0'));
-        if digit_wise {
-            part.chars()
-                .map(|digit| Self::spell(&digit.to_string()))
-                .collect::<Vec<_>>()
-                .join(" ")
-        } else {
-            Self::spell(part)
-        }
-    }
-
-    fn convert_number(&self, word: &str) -> String {
-        let clean = word.replace(",", "");
-
-        // misaki prefixes "minus" for a leading '-' (`Lexicon.get_number`):
-        //
-        //     if word.startswith('-'):
-        //         result.append(self.lookup('minus', ...))
-        //         word = word[1:]
-        //
-        // We were dropping the sign, so -40 read as "forty".
-        if let Some(rest) = clean.strip_prefix('-') {
-            if !rest.is_empty() && rest.chars().all(|c| c.is_ascii_digit() || c == '.') {
-                return format!("minus {}", self.convert_number(rest));
-            }
-        }
-
-        // Ordinals. misaki (`Lexicon.get_number`) peels an alphabetic suffix
-        // and, when it is one of ORDINALS = {st, nd, rd, th} and the rest is
-        // digits, reads the ORDINAL form:
-        //
-        //     if is_digit(word) and suffix in ORDINALS:
-        //         extend_num(num2words(int(word), to='ordinal'), escape=True)
-        //
-        // Without it "23rd" read as "twenty three" and "1st" as "one".
-        {
-            let lower = clean.to_lowercase();
-            for suf in ["st", "nd", "rd", "th"] {
-                if let Some(digits) = lower.strip_suffix(suf) {
-                    if !digits.is_empty() && digits.chars().all(|c| c.is_ascii_digit()) {
-                        if let Ok(n) = digits.parse::<i64>() {
-                            if let Ok(spoken) = Num2Words::new(n).ordinal().to_words() {
-                                return Self::normalize_num_words(&spoken);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Bare four-digit numbers read as years, per misaki's get_number.
-        if word.len() == 4 && word.chars().all(|c| c.is_ascii_digit()) {
-            if let Ok(y) = clean.parse::<i64>() {
-                if let Some(spoken) = Self::year_words(y) {
-                    return Self::normalize_num_words(&spoken);
-                }
-            }
-        }
-
-        if let Ok(val) = clean.parse::<i64>() {
-            let n2w = match self.lexicon.lang {
-                Language::EnglishUS | Language::EnglishGB => Num2Words::new(val),
-                // Language::Italian => Num2Words::new(val).lang(num2words::Lang::English),
+                None
             };
-            if let Ok(spoken) = n2w.to_words() {
-                return Self::normalize_num_words(&spoken);
-            }
+            let (ps, _) = self.lexicon.get_word(w, "NN", stress, None)?;
+            out.push(ps);
         }
-
-        // Dotted versions read each component independently.
-        if clean.matches('.').count() > 1 {
-            return clean
-                .split('.')
-                .filter(|part| !part.is_empty())
-                .map(|part| self.number_component(part))
-                .collect::<Vec<_>>()
-                .join(" ");
+        if out.is_empty() {
+            return None;
         }
-
-        // A single decimal point: the integer part as a cardinal, then "point",
-        // then each fractional DIGIT on its own. Verified against misaki:
-        //
-        //   3.5    -> three point five        3.75   -> three point seven five
-        //   1.25   -> one point two five      100.01 -> one hundred point zero one
-        if clean.matches('.').count() == 1 {
-            let (int_part, frac) = clean.split_once('.').unwrap();
-            let int_ok = int_part.is_empty() || int_part.chars().all(|c| c.is_ascii_digit());
-            let frac_ok = !frac.is_empty() && frac.chars().all(|c| c.is_ascii_digit());
-            if int_ok && frac_ok {
-                let head = if int_part.is_empty() {
-                    Some(String::new())
-                } else {
-                    int_part
-                        .parse::<i64>()
-                        .ok()
-                        .and_then(|iv| Num2Words::new(iv).to_words().ok())
-                };
-                if let Some(head) = head {
-                    let significant_frac = frac.trim_end_matches('0');
-                    if significant_frac.is_empty() {
-                        return if head.is_empty() {
-                            "zero".to_string()
-                        } else {
-                            Self::normalize_num_words(&head)
-                        };
-                    }
-                    let mut out = Vec::new();
-                    if !head.is_empty() {
-                        out.push(Self::normalize_num_words(&head));
-                    }
-                    out.push("point".to_string());
-                    for d in significant_frac.chars() {
-                        let dv = (d as u8 - b'0') as i64;
-                        if let Ok(w) = Num2Words::new(dv).to_words() {
-                            out.push(Self::normalize_num_words(&w));
-                        }
-                    }
-                    return out.join(" ");
-                }
-            }
+        let joined = out.join(" ");
+        match suffix {
+            Some("ing") => self.lexicon.append_ing(&joined),
+            Some("ed") | Some("'d") => Some(self.lexicon.append_ed(&joined)),
+            Some("s") | Some("'s") => Some(self.lexicon.append_s(&joined)),
+            _ => Some(joined),
         }
+    }
 
-        word.to_string()
+    /// Span-loop helper: number with ending / ordinal as one piece.
+    fn number_with_ending(&self, text: &str, _span: &[MToken], is_head: bool) -> Option<String> {
+        if !self.is_number(text, is_head) {
+            return None;
+        }
+        self.get_number_phonemes(text, None, is_head, "")
+    }
+
+    /// Legacy spoken-form helper for unit tests (head, no currency, no flags).
+    fn convert_number(&self, word: &str) -> String {
+        self.get_number_spoken(word, None, true, "")
+            .unwrap_or_else(|| word.to_string())
     }
 }
 
@@ -1819,6 +1973,40 @@ mod tests {
         let (words, _) = g2p.g2p("Version zero twelve one").unwrap();
         let normalize = |text: String| text.split_whitespace().collect::<Vec<_>>().join(" ");
         assert_eq!(normalize(version), normalize(words));
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_plus_sign_before_a_number_is_read() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            (
+                "Call +1 555 123 4567.",
+                "kˈɔl plˈʌs wˈʌn fˈIv hˈʌndɹəd fˈɪfti fˈIv wˈʌn hˈʌndɹəd twˈɛnti θɹˈi fˈɔɹTi fˈIv sˈɪksti sˈɛvən.",
+            ),
+            ("It is +5 degrees.", "ˌɪt ɪz plˈʌs fˈIv dəɡɹˈiz."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
+    #[test]
+    fn test_is_number_matches_misaki_digit_body() {
+        let g2p = G2P::new(Language::EnglishUS);
+        // Digits, commas, points, leading minus — not a leading plus.
+        assert!(g2p.is_number("1", true));
+        assert!(g2p.is_number("1,000", true));
+        assert!(g2p.is_number("-40", true));
+        assert!(g2p.is_number("3.5", true));
+        assert!(!g2p.is_number("+1", true));
+        assert!(!g2p.is_number("+5", true));
+        assert!(!g2p.is_number("", true));
+        assert!(!g2p.is_number("abc", true));
+        // Beyond i64: misaki still treats this as a number body.
+        assert!(g2p.is_number("99999999999999999999", true));
+        // Case-sensitive ordinals: `5TH` is not an ordinal ending.
+        assert!(g2p.is_number("5th", true));
+        assert!(!g2p.is_number("5TH", true));
     }
 
     #[test]
@@ -1926,6 +2114,22 @@ mod tests {
         }
     }
 
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_currency_goes_after_the_last_number() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("It costs $2 billion.", "ˌɪt kˈɔsts tˈu bˈɪljən dˈɑləɹz."),
+            ("They raised $1.5 million.", "ðˌA ɹˈAzd wˈʌn pYnt fˈIv mˈɪljᵊn dˈɑləɹz."),
+            ("It costs £20 million.", "ˌɪt kˈɔsts twˈɛnti mˈɪljᵊn pˈWndz."),
+            ("It costs $2billion.", "ˌɪt kˈɔsts tˈu bˈɪljən dˈɑləɹz."),
+            ("It costs $3/4.", "ˌɪt kˈɔsts θɹˈi fˈɔɹ."),
+            ("It costs $9 and 5 more.", "ˌɪt kˈɔsts nˈIn dˈɑləɹz ænd fˈIv mˈɔɹ."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
     #[cfg(feature = "espeak")]
     #[test]
     fn test_hyphenated_oov_matches_espeak_reference() {
@@ -1974,6 +2178,20 @@ mod tests {
         assert!(parse_link_feature("2.5").is_none());
         assert!(parse_link_feature("/foo").is_none());
         assert!(parse_link_feature("foo/").is_none());
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_three_cent_digits_read_as_a_number() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("$1.555", "wˈʌn pYnt fˈIv fˈIv fˈIv"),
+            ("It cost $1.555 each.", "ˌɪt kˈɔst wˈʌn pYnt fˈIv fˈIv fˈIv ˈiʧ."),
+            ("£2.125", "tˈu pYnt wˈʌn tˈu fˈIv"),
+            ("$1.55", "wˈʌn dˈɑləɹ ænd fˈɪfti fˈIv sˈɛnts"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     #[test]
@@ -2030,6 +2248,34 @@ mod tests {
         assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
+    // Expected strings are misaki 0.9.4's output (stock oracle).
+    #[test]
+    fn test_full_stop_after_ampersand_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Call AT&T.", "kˈɔl ˈættˈi."),
+            ("AT&T. Then more.", "ˈættˈi. ðˈɛn mˈɔɹ."),
+            ("Ask H&M.", "ˈæsk ˈAʧ ænd ˈɛm"),
+            ("R&D. Then more.", "ˈɑɹ ænd dˈi ðˈɛn mˈɔɹ."),
+            ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
+            ("The Q&A.", "ðə kjˈu ænd ˈA"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_degree_unit_keeps_the_full_stop() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("It is 20 °C.", "ˌɪt ɪz twˈɛnti ❓ sˈi."),
+            ("It is 72 °F.", "ˌɪt ɪz sˈɛvənti tˈu ❓ ˈɛf."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
+    }
+
     /// With espeak feature: "eBook" is phonemized by espeak fallback (not in lexicon).
     #[test]
     #[cfg(feature = "espeak")]
@@ -2063,6 +2309,20 @@ mod tests {
             phonemes
         );
         println!("eBook (without espeak): {}", phonemes);
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_unknown_marker_inside_a_word() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Read pages 5–7.", "ɹˈid pˈAʤᵻz fˈIv❓ sˈɛvən."),
+            ("Set it to 60Hz.", "sˈɛt ɪt tə sˈɪksti❓."),
+            ("Press ⇧⌘4.", "pɹˈɛs ❓❓ fˈɔɹ."),
+            ("Dana's TikTok-ish", "❓s tˈɪk❓ˌɪʃ"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     // #[test]
@@ -2227,6 +2487,23 @@ mod tests {
             let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             assert!(!p.is_empty(), "Failed for '{}'", text);
+        }
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_number_with_an_ending() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Music from the 1990s.", "mjˈuzɪk fɹʌm ðə nˌIntˈin nˈIndiz."),
+            ("Music from the 1990's.", "mjˈuzɪk fɹʌm ðə nˌIntˈin nˈIndiz."),
+            ("The '90s were fun.", "ðə nˈIndiz wɜɹ fˈʌn."),
+            ("In your 30s.", "ɪn jʊɹ θˈɜɹTiz."),
+            ("PS5s sold out.", "pˌiˈɛs fˈIvz sˈOld ˈWt."),
+            ("He 86ed it.", "hˌi ˈATi sˈɪkst ɪt."),
+            ("It was 100ing.", "ˌɪt wʌz wˈʌn hˈʌndɹədɪŋ."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
     }
 

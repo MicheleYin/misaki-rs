@@ -1,6 +1,6 @@
 [package]
 name = "misaki-rs"
-version = "0.10.0"
+version = "0.11.0"
 edition = "2024"
 license = "MIT"
 description = "A self-contained, POS-aware Grapheme-to-Phoneme (G2P) engine for Rust, optimized for TTS models like Kokoro."
@@ -33,6 +33,7 @@ fancy-regex = "0.13"
 language-tokenizer = { version = "0.1", features = ["snowball"] }
 espeak-rs = { version = "0.1.9", optional = true }
 thiserror = "2.0"
+unicode-normalization = "0.1"
 
 [dev-dependencies]
 env_logger = "0.11"

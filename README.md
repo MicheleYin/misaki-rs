@@ -70,20 +70,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.10.0"
+misaki-rs = "0.11.0"
 ```
 
 **Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
 
 ```toml
 [dependencies]
-misaki-rs = { version = "0.10.0", default-features = false }
+misaki-rs = { version = "0.11.0", default-features = false }
 ```
 
 To depend on misaki-rs without default features but still use espeak:
 
 ```toml
-misaki-rs = { version = "0.10.0", default-features = false, features = ["espeak"] }
+misaki-rs = { version = "0.11.0", default-features = false, features = ["espeak"] }
 ```
 
 ## Quick Start
@@ -135,7 +135,7 @@ The original misaki project had very few words and some were not pronunced corre
 
 ## Misaki parity
 
-The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 71 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,623 tokens across 771 sentences.
+The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 122 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,959 tokens across 822 sentences.
 
 Run the parity suite with:
 

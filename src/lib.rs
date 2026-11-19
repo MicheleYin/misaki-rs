@@ -6,6 +6,7 @@ pub mod abbrev;
 pub mod data;
 pub mod norms;
 pub mod symbols;
+pub mod unicode_numeric_data;
 pub mod spacy_tokenizer_data;
 pub mod spacy_tokenizer;
 pub mod spacy_tagger;

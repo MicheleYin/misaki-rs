@@ -109,13 +109,15 @@ fn shape_of(text: &str) -> String {
     let mut last = '\0';
     let mut run = 0usize;
     for c in text.chars() {
-        let m = if c.is_alphabetic() {
+        // spaCy uses Python `str.isalpha` / `str.isdigit`, not Rust's
+        // `is_alphabetic` / `is_numeric` (which also accept Nl/No etc.).
+        let m = if crate::unicode_numeric_data::is_alpha(c) {
             if c.is_uppercase() {
                 'X'
             } else {
                 'x'
             }
-        } else if c.is_numeric() {
+        } else if crate::unicode_numeric_data::is_digit(c) {
             'd'
         } else {
             c
