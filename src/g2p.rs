@@ -312,8 +312,8 @@ impl G2P {
     /// Adjacent non-punctuation runs merge into one word (`It’s`,
     /// `five-storied`). Punctuation stands alone, matching misaki: spaCy
     /// exceptions already keep `Mr.` / `Dr.` as a single token, so a period
-    /// is never rejoined into the open group (that used to eat the stop in
-    /// `AT&T.` and `°C.`). Returns index ranges into `tokens`.
+    /// is never rejoined into the open group (that used to eat the sentence
+    /// stop after forms like `AT&T.`). Returns index ranges into `tokens`.
     fn group_by_adjacency(tokens: &[MToken]) -> Vec<std::ops::Range<usize>> {
         // misaki's FIRST branch takes precedence over adjacency:
         //
@@ -2171,15 +2171,17 @@ mod tests {
         assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
-    // Expected strings are misaki 0.9.4's output with the same suffix rule.
+    // Expected strings are misaki 0.9.4's output (stock oracle).
     #[test]
-    fn test_full_stop_after_ampersand_name() {
+    fn test_full_stop_after_ampersand_word() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
         for (text, want) in [
-            ("Call AT&T.", "kˈɔl ˌAtˈi ænd tˈi."),
-            ("Ask H&M.", "ˈæsk ˈAʧ ænd ˈɛm."),
-            ("R&D. Then more.", "ˈɑɹ ænd dˈi. ðˈɛn mˈɔɹ."),
+            ("Call AT&T.", "kˈɔl ˈættˈi."),
+            ("AT&T. Then more.", "ˈættˈi. ðˈɛn mˈɔɹ."),
+            ("Ask H&M.", "ˈæsk ˈAʧ ænd ˈɛm"),
+            ("R&D. Then more.", "ˈɑɹ ænd dˈi ðˈɛn mˈɔɹ."),
             ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
+            ("The Q&A.", "ðə kjˈu ænd ˈA"),
         ] {
             assert_eq!(g2p.g2p(text).unwrap().0, want);
         }

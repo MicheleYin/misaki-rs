@@ -4,7 +4,7 @@
  "british": false,
  "fallback": null,
  "unk": "",
- "n": 84,
+ "n": 103,
  "cases": [
   {
    "text": "[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.",
@@ -4261,6 +4261,593 @@
    "tags": [
     "UH",
     "."
+   ]
+  },
+  {
+   "text": "Call AT&T.",
+   "ps": "kˈɔl ˈættˈi.",
+   "tokens": [
+    [
+     "Call",
+     "kˈɔl"
+    ],
+    [
+     "AT",
+     "ˈæt"
+    ],
+    [
+     "&",
+     ""
+    ],
+    [
+     "T",
+     "tˈi"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    ".",
+    ".",
+    ".",
+    "."
+   ]
+  },
+  {
+   "text": "AT&T. Then more.",
+   "ps": "ˈættˈi. ðˈɛn mˈɔɹ.",
+   "tokens": [
+    [
+     "AT",
+     "ˈæt"
+    ],
+    [
+     "&",
+     ""
+    ],
+    [
+     "T",
+     "tˈi"
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "Then",
+     "ðˈɛn"
+    ],
+    [
+     "more",
+     "mˈɔɹ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    ".",
+    ".",
+    ".",
+    ".",
+    "RB",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "Ask H&M.",
+   "ps": "ˈæsk ˈAʧ ænd ˈɛm",
+   "tokens": [
+    [
+     "Ask",
+     "ˈæsk"
+    ],
+    [
+     "H&M.",
+     "ˈAʧ ænd ˈɛm"
+    ]
+   ],
+   "tags": [
+    "VB",
+    "NNP"
+   ]
+  },
+  {
+   "text": "R&D. Then more.",
+   "ps": "ˈɑɹ ænd dˈi ðˈɛn mˈɔɹ.",
+   "tokens": [
+    [
+     "R&D.",
+     "ˈɑɹ ænd dˈi"
+    ],
+    [
+     "Then",
+     "ðˈɛn"
+    ],
+    [
+     "more",
+     "mˈɔɹ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "RB",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "The Q&A.",
+   "ps": "ðə kjˈu ænd ˈA",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "Q&A.",
+     "kjˈu ænd ˈA"
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNP"
+   ]
+  },
+  {
+   "text": "I met J. Smith.",
+   "ps": "ˌI mˈɛt ʤˈA smˈɪθ.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "met",
+     "mˈɛt"
+    ],
+    [
+     "J.",
+     "ʤˈA"
+    ],
+    [
+     "Smith",
+     "smˈɪθ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "NNP",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "It is 20 °C.",
+   "ps": "ˌɪt ɪz twˈɛnti sˈi.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "20",
+     "twˈɛnti"
+    ],
+    [
+     "°C",
+     "sˈi"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "CD",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "It is 72 °F.",
+   "ps": "ˌɪt ɪz sˈɛvənti tˈu ˈɛf.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "72",
+     "sˈɛvənti tˈu"
+    ],
+    [
+     "°F",
+     "ˈɛf"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "CD",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "It is +5 degrees.",
+   "ps": "ˌɪt ɪz plˈʌs fˈIv dəɡɹˈiz.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "+5",
+     "plˈʌs fˈIv"
+    ],
+    [
+     "degrees",
+     "dəɡɹˈiz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "RB",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "Call +1 555 123 4567.",
+   "ps": "kˈɔl plˈʌs wˈʌn fˈIv hˈʌndɹəd fˈɪfti fˈIv wˈʌn hˈʌndɹəd twˈɛnti θɹˈi fˈɔɹTi fˈIv sˈɪksti sˈɛvən.",
+   "tokens": [
+    [
+     "Call",
+     "kˈɔl"
+    ],
+    [
+     "+1",
+     "plˈʌs wˈʌn"
+    ],
+    [
+     "555",
+     "fˈIv hˈʌndɹəd fˈɪfti fˈIv"
+    ],
+    [
+     "123",
+     "wˈʌn hˈʌndɹəd twˈɛnti θɹˈi"
+    ],
+    [
+     "4567",
+     "fˈɔɹTi fˈIv sˈɪksti sˈɛvən"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "NNP",
+    "CD",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Music from the 1990s.",
+   "ps": "mjˈuzɪk fɹʌm ðə nˌIntˈin nˈIndiz.",
+   "tokens": [
+    [
+     "Music",
+     "mjˈuzɪk"
+    ],
+    [
+     "from",
+     "fɹʌm"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "1990s",
+     "nˌIntˈin nˈIndiz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "IN",
+    "DT",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "It costs $2 billion.",
+   "ps": "ˌɪt kˈɔsts tˈu bˈɪljən dˈɑləɹz.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "costs",
+     "kˈɔsts"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "2",
+     "tˈu"
+    ],
+    [
+     "billion",
+     "bˈɪljən dˈɑləɹz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "$",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "They raised $1.5 million.",
+   "ps": "ðˌA ɹˈAzd wˈʌn pYnt fˈIv mˈɪljᵊn dˈɑləɹz.",
+   "tokens": [
+    [
+     "They",
+     "ðˌA"
+    ],
+    [
+     "raised",
+     "ɹˈAzd"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.5",
+     "wˈʌn pYnt fˈIv"
+    ],
+    [
+     "million",
+     "mˈɪljᵊn dˈɑləɹz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "$",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "It costs $9 and 5 more.",
+   "ps": "ˌɪt kˈɔsts nˈIn dˈɑləɹz ænd fˈIv mˈɔɹ.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "costs",
+     "kˈɔsts"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "9",
+     "nˈIn dˈɑləɹz"
+    ],
+    [
+     "and",
+     "ænd"
+    ],
+    [
+     "5",
+     "fˈIv"
+    ],
+    [
+     "more",
+     "mˈɔɹ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "$",
+    "CD",
+    "CC",
+    "CD",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "Read pages 5–7.",
+   "ps": "ɹˈid pˈAʤᵻz fˈIv sˈɛvən.",
+   "tokens": [
+    [
+     "Read",
+     "ɹˈid"
+    ],
+    [
+     "pages",
+     "pˈAʤᵻz"
+    ],
+    [
+     "5–7",
+     "fˈIv sˈɛvən"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "NNS",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "Dana's TikTok-ish",
+   "ps": "s tˈɪkˌɪʃ",
+   "tokens": [
+    [
+     "Dana's",
+     "s"
+    ],
+    [
+     "TikTok-ish",
+     "tˈɪkˌɪʃ"
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "NNP"
+   ]
+  },
+  {
+   "text": "$1.555",
+   "ps": "wˈʌn pYnt fˈIv fˈIv fˈIv",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.555",
+     "wˈʌn pYnt fˈIv fˈIv fˈIv"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
+   ]
+  },
+  {
+   "text": "It cost $1.555 each.",
+   "ps": "ˌɪt kˈɔst wˈʌn pYnt fˈIv fˈIv fˈIv ˈiʧ.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "cost",
+     "kˈɔst"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.555",
+     "wˈʌn pYnt fˈIv fˈIv fˈIv"
+    ],
+    [
+     "each",
+     "ˈiʧ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "$",
+    "CD",
+    "DT",
+    "."
+   ]
+  },
+  {
+   "text": "$1.55",
+   "ps": "wˈʌn dˈɑləɹ ænd fˈɪfti fˈIv sˈɛnts",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.55",
+     "wˈʌn dˈɑləɹ ænd fˈɪfti fˈIv sˈɛnts"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
    ]
   }
  ]

@@ -51,6 +51,19 @@ The cat's toys; the dogs' bones.
 A semicolon; a colon: and a comma, too.
 Hyphenated-words and re-entry and co-operate.
 'Single quotes' and “curly doubles” and ‘curly singles’.
+Is this, perhaps, working? Yes, it is! Absolutely.
+Wait?! Really... no, really?!
+A hyphen - an en dash – and an em dash —.
+Well-known, re-entry, state-of-the-art, and twenty-one.
+Version 0.12.1; release 1.100.0; decimal .5.
+Numbers: 1,234.50, 1,000,000, and 12,34.
+Currency: $0.99, £1.50, €12.00, and ¥500.
+Costs fell from $10 to £8, then to €7.25.
+Uh, um, erm, ehm... hmm? Well, okay!
+© 2026 Misaki™: café, naïve, résumé, déjà vu.
+Quotes: "Wait," she said. ‘Really?’ he asked!
+Specials: @ # $ % ^ & * + = / \ | ~.
+Emoji: 😊 and ☕; should punctuation stay right?!
 ALL CAPS SENTENCE HERE.
 iPhone and eBay and McDonald's.
 e.g. and i.e. and etc. and vs.
@@ -69,6 +82,25 @@ The
 Hmm.
 Shhh!
 Ok.
+Call AT&T.
+AT&T. Then more.
+Ask H&M.
+R&D. Then more.
+The Q&A.
+I met J. Smith.
+It is 20 °C.
+It is 72 °F.
+It is +5 degrees.
+Call +1 555 123 4567.
+Music from the 1990s.
+It costs $2 billion.
+They raised $1.5 million.
+It costs $9 and 5 more.
+Read pages 5–7.
+Dana's TikTok-ish
+$1.555
+It cost $1.555 each.
+$1.55
 CHAPTER I On an exceptionally hot evening early in July a young man came out of the garret in which he lodged in S.
 Place and walked slowly, as though in hesitation, towards K.
 He had successfully avoided meeting his landlady on the staircase.

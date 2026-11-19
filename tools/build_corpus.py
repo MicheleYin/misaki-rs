@@ -111,6 +111,26 @@ ADVERSARIAL = [
     "Hmm.",
     "Shhh!",
     "Ok.",
+    # --- stock-misaki 0.9.4 parity: ampersand names, degrees, plus, currency ---
+    "Call AT&T.",
+    "AT&T. Then more.",
+    "Ask H&M.",
+    "R&D. Then more.",
+    "The Q&A.",
+    "I met J. Smith.",
+    "It is 20 °C.",
+    "It is 72 °F.",
+    "It is +5 degrees.",
+    "Call +1 555 123 4567.",
+    "Music from the 1990s.",
+    "It costs $2 billion.",
+    "They raised $1.5 million.",
+    "It costs $9 and 5 more.",
+    "Read pages 5–7.",
+    "Dana's TikTok-ish",
+    "$1.555",
+    "It cost $1.555 each.",
+    "$1.55",
 ]
 
 BOOKS = [
