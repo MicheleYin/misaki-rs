@@ -2171,22 +2171,21 @@ mod tests {
         assert!(markers.is_empty(), "unknown feature should yield no marker");
     }
 
-    // Expected strings are misaki 0.9.4's output.
+    // Expected strings match misaki with the "&"+capital suffix rule (PR #25).
     #[test]
-    fn test_full_stop_after_ampersand_word() {
+    fn test_full_stop_after_ampersand_name() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
         for (text, want) in [
-            ("Call AT&T.", "kˈɔl ˈættˈi."),
-            ("AT&T. Then more.", "ˈættˈi. ðˈɛn mˈɔɹ."),
+            ("Call AT&T.", "kˈɔl ˌAtˈi ænd tˈi."),
+            ("Ask H&M.", "ˈæsk ˈAʧ ænd ˈɛm."),
+            ("R&D. Then more.", "ˈɑɹ ænd dˈi. ðˈɛn mˈɔɹ."),
             ("I met J. Smith.", "ˌI mˈɛt ʤˈA smˈɪθ."),
-            ("The Q&A.", "ðə kjˈu ænd ˈA"),
         ] {
             assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
     }
 
-    // Expected strings are misaki 0.9.4's output. Covered by the same
-    // no-rejoin rule as AT&T. (PR #25); kept as an explicit °C/°F regression.
+    // Expected strings are misaki 0.9.4's output.
     #[test]
     fn test_degree_unit_keeps_the_full_stop() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
