@@ -1158,6 +1158,7 @@ impl G2P {
                             self.lexicon
                                 .get_word(&k, &tg, st, Some(&contexts[g.start + left]))
                                 .map(|(ps, _)| ps)
+                                .or_else(|| self.number_with_ending(&k, sub, left == 0))
                         } else {
                             None
                         };
@@ -1600,6 +1601,32 @@ impl G2P {
             .and_then(|n| Num2Words::new(n).to_words().ok())
             .map(|w| Self::normalize_num_words(&w))
             .unwrap_or_else(|| digits.to_string())
+    }
+
+    /// misaki reads a number with an ending as one word (`Lexicon.is_number`
+    /// and `get_number`): `1990s` is the number's phonemes plus the ending's.
+    /// The number must be the span's first piece, which the per-token pass
+    /// has already read.
+    fn number_with_ending(&self, text: &str, span: &[MToken], is_head: bool) -> Option<String> {
+        let (number, ending) = ["ing", "'d", "ed", "'s", "s"]
+            .into_iter()
+            .find_map(|e| Some((text.strip_suffix(e)?, e)))?;
+        let first = span.first()?;
+        let digits = number.chars().enumerate().all(|(i, c)| {
+            c.is_ascii_digit() || c == ',' || c == '.' || (is_head && i == 0 && c == '-')
+        });
+        if !digits
+            || !number.chars().any(|c| c.is_ascii_digit())
+            || Self::normalize_lookup(&first.text) != number
+        {
+            return None;
+        }
+        let ps = first.phonemes.as_deref().filter(|p| !p.is_empty())?;
+        match ending {
+            "ing" => self.lexicon.append_ing(ps),
+            "ed" | "'d" => Some(self.lexicon.append_ed(ps)),
+            _ => Some(self.lexicon.append_s(ps)),
+        }
     }
 
     /// misaki's non-head reading of a digit group (`Lexicon.get_number`):
@@ -2324,6 +2351,23 @@ mod tests {
             let (p, _) = g2p.g2p(text).unwrap();
             println!("'{}' -> '{}'", text, p);
             assert!(!p.is_empty(), "Failed for '{}'", text);
+        }
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_number_with_an_ending() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("Music from the 1990s.", "mjˈuzɪk fɹʌm ðə nˌIntˈin nˈIndiz."),
+            ("Music from the 1990's.", "mjˈuzɪk fɹʌm ðə nˌIntˈin nˈIndiz."),
+            ("The '90s were fun.", "ðə nˈIndiz wɜɹ fˈʌn."),
+            ("In your 30s.", "ɪn jʊɹ θˈɜɹTiz."),
+            ("PS5s sold out.", "pˌiˈɛs fˈIvz sˈOld ˈWt."),
+            ("He 86ed it.", "hˌi ˈATi sˈɪkst ɪt."),
+            ("It was 100ing.", "ˌɪt wʌz wˈʌn hˈʌndɹədɪŋ."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
     }
 
