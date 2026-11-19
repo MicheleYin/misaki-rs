@@ -1,3 +1,5 @@
+// Parity with misaki 0.9.4 holds with the `fixes` feature off.
+#![cfg(not(feature = "fixes"))]
 //! Does the ported spaCy tokenizer reproduce spaCy's tokenization?
 //!
 //! misaki tokenizes with spaCy and groups subtokens by the TAG of a spaCy
