@@ -593,10 +593,14 @@ impl G2P {
         // each is `token + trailing whitespace`, in order.
         let mut rebuilt: Vec<MToken> = Vec::with_capacity(tokens.len());
         let mut tags: Vec<String> = Vec::new();
+        // misaki's `j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD')`:
+        // the last piece of a spaCy token not followed by a number.
+        let mut ends_number: Vec<bool> = Vec::with_capacity(tokens.len());
         let mut pos = 0usize;
         for (si, st) in spacy_tokens.iter().enumerate() {
             let (stext, sws) = (&st.text, &st.whitespace);
             let tag = group_tags.get(si).copied().unwrap_or("NN").to_string();
+            let next_not_cd = group_tags.get(si + 1).is_none_or(|t| *t != "CD");
             let subs: Vec<String> = self
                 .subtoken_regex
                 .find_iter(stext)
@@ -664,6 +668,7 @@ impl G2P {
                 }
                 rebuilt.push(tk);
                 tags.push(tag.clone());
+                ends_number.push(j + 1 == n && next_not_cd);
             }
         }
         tokens = rebuilt;
@@ -708,36 +713,42 @@ impl G2P {
         //
         //     elif tk.tag == '$' and tk.text in CURRENCIES:
         //         currency = tk.text; tk.phonemes = ''; tk._.rating = 4
-        //     ...
-        //     elif j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD'):
-        //         tk._.currency = currency
+        //     elif <a dash or punctuation>: ...
+        //     elif currency is not None:
+        //         if tk.tag != 'CD':
+        //             currency = None
+        //         elif j+1 == len(tks) and (i+1 == len(tokens) or tokens[i+1].tag != 'CD'):
+        //             tk._.currency = currency
         //
         // The symbol becomes its own silent token and the unit is spoken by the
-        // number after it: `$9` is [('$', ''), ('9', 'nˈIn dˈɑləɹz')]. Measured,
-        // it reaches only the IMMEDIATELY following number -- `$9 and 5 more`
-        // leaves the 5 bare.
+        // LAST number of the amount: `$9` is [('$', ''), ('9', 'nˈIn dˈɑləɹz')],
+        // `$2 billion` is "two billion dollars", and `$9 and 5 more` leaves the
+        // 5 bare.
         //
         // This has to be a separate pass because spaCy tokenizes the symbol
         // away from the digits, so the two are never in one group.
-        let mut currency_of: Vec<Option<char>> = vec![None; tokens.len()];
         {
-            let mut pending: Option<char> = None;
+            let mut currency: Option<char> = None;
             for i in 0..tokens.len() {
-                let c1 = {
-                    let t = &tokens[i].text;
-                    if t.chars().count() == 1 { t.chars().next() } else { None }
-                };
-                if tokens[i].tag == "$" {
-                    if let Some(c) = c1 {
-                        if matches!(c, '$' | '\u{a3}' | '\u{20ac}') {
-                            pending = Some(c);
-                            tokens[i].phonemes = Some(String::new());
-                            continue;
-                        }
-                    }
+                if tokens[i].phonemes.is_some() {
+                    continue;
                 }
-                if let Some(c) = pending.take() {
-                    currency_of[i] = Some(c);
+                let mut cs = tokens[i].text.chars();
+                let symbol = match (cs.next(), cs.next()) {
+                    (Some(c), None) if Self::currency_units(c).is_some() => Some(c),
+                    _ => None,
+                };
+                if tokens[i].tag == "$" && symbol.is_some() {
+                    currency = symbol;
+                    tokens[i].phonemes = Some(String::new());
+                } else if Self::is_punct_token(&tokens[i]) {
+                    // punctuation leaves the amount open
+                } else if let Some(c) = currency {
+                    if tokens[i].tag != "CD" {
+                        currency = None;
+                    } else if ends_number[i] {
+                        tokens[i].underscore_mut().currency = Some(c.to_string());
+                    }
                 }
             }
         }
@@ -828,7 +839,8 @@ impl G2P {
 
                 // Use get_word which handles special cases, lookup, and stemming
                 if let Some((ps, _)) = self.lexicon.get_word(&word, &tag, stress, ctx) {
-                    tokens[i].phonemes = Some(ps);
+                    tokens[i].phonemes =
+                        Some(self.append_currency(ps, Self::currency_of(&tokens[i])));
                 }
 
                 if tokens[i].phonemes.is_none() {
@@ -855,10 +867,13 @@ impl G2P {
                             sub_ps.push(p);
                         }
                         tokens[i].phonemes = Some(sub_ps.join(" "));
-                    } else if let Some(spoken) = currency_of[i]
+                    } else if let Some(spoken) = Self::currency_of(&tokens[i])
                         .filter(|_| {
+                            // misaki reads a number that is not a head bare.
                             let c = word.replace(',', "");
-                            !c.is_empty() && c.chars().all(|ch| ch.is_ascii_digit() || ch == '.')
+                            is_head[i]
+                                && !c.is_empty()
+                                && c.chars().all(|ch| ch.is_ascii_digit() || ch == '.')
                         })
                         .and_then(|sym| self.currency_words(sym, &word))
                     {
@@ -1092,7 +1107,9 @@ impl G2P {
                     //   $0.50     -> fifty cents        (the zero major is dropped)
                     //   $1,250.75 -> one thousand two hundred fifty dollars
                     //                and seventy five cents
-                    if let Some(spoken) = currency_of[g.start]
+                    if let Some(spoken) = group
+                        .iter()
+                        .find_map(Self::currency_of)
                         .filter(|_| {
                             let c = text.replace(',', "");
                             !c.is_empty() && c.chars().all(|ch| ch.is_ascii_digit() || ch == '.')
@@ -1157,7 +1174,9 @@ impl G2P {
                             // what follows the whole word.
                             self.lexicon
                                 .get_word(&k, &tg, st, Some(&contexts[g.start + left]))
-                                .map(|(ps, _)| ps)
+                                .map(|(ps, _)| {
+                                    self.append_currency(ps, sub.iter().find_map(Self::currency_of))
+                                })
                                 .or_else(|| self.number_with_ending(&k, sub, left == 0))
                         } else {
                             None
@@ -1350,7 +1369,9 @@ impl G2P {
                     Self::token_context(&rolling, tokens[i].phonemes.as_deref(), &tokens[i]);
             }
             for i in 0..n {
-                if tokens[i].underscore().alias.is_some() {
+                if tokens[i].underscore().alias.is_some()
+                    || tokens[i].underscore().currency.is_some()
+                {
                     continue;
                 }
                 let text = tokens[i].text.clone();
@@ -1520,12 +1541,7 @@ impl G2P {
     /// See the call site for misaki's rules; the units come from its CURRENCIES
     /// table.
     fn currency_words(&self, sym: char, amount: &str) -> Option<String> {
-        let units: (&str, &str) = match sym {
-            '$' => ("dollar", "cent"),
-            '\u{a3}' => ("pound", "pence"),
-            '\u{20ac}' => ("euro", "cent"),
-            _ => return None,
-        };
+        let units = Self::currency_units(sym)?;
         let rest: String = amount.replace(',', "");
         if rest.is_empty() || !rest.chars().all(|c| c.is_ascii_digit() || c == '.') {
             return None;
@@ -1564,6 +1580,32 @@ impl G2P {
             });
         }
         Some(out.join(" "))
+    }
+
+    /// misaki's CURRENCIES: the unit and its hundredth.
+    fn currency_units(sym: char) -> Option<(&'static str, &'static str)> {
+        match sym {
+            '$' => Some(("dollar", "cent")),
+            '\u{a3}' => Some(("pound", "pence")),
+            '\u{20ac}' => Some(("euro", "cent")),
+            _ => None,
+        }
+    }
+
+    fn currency_of(tk: &MToken) -> Option<char> {
+        tk.underscore().currency.as_deref().and_then(|s| s.chars().next())
+    }
+
+    /// misaki's `append_currency`: a word that carries the currency, such as
+    /// "billion" in `$2 billion`, is followed by the plural unit.
+    fn append_currency(&self, ps: String, sym: Option<char>) -> String {
+        let unit = sym
+            .and_then(Self::currency_units)
+            .and_then(|(unit, _)| self.lexicon.stem_s(&format!("{unit}s"), "", None, None));
+        match unit {
+            Some((unit, _)) => format!("{ps} {unit}"),
+            None => ps,
+        }
     }
 
     /// Phonemes for a spoken number phrase, looked up word by word.
@@ -1992,6 +2034,22 @@ mod tests {
 
             assert_eq!(asked, [word]);
             assert_eq!(ps, want);
+        }
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_currency_goes_after_the_last_number() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("It costs $2 billion.", "ˌɪt kˈɔsts tˈu bˈɪljən dˈɑləɹz."),
+            ("They raised $1.5 million.", "ðˌA ɹˈAzd wˈʌn pYnt fˈIv mˈɪljᵊn dˈɑləɹz."),
+            ("It costs £20 million.", "ˌɪt kˈɔsts twˈɛnti mˈɪljᵊn pˈWndz."),
+            ("It costs $2billion.", "ˌɪt kˈɔsts tˈu bˈɪljən dˈɑləɹz."),
+            ("It costs $3/4.", "ˌɪt kˈɔsts θɹˈi fˈɔɹ."),
+            ("It costs $9 and 5 more.", "ˌɪt kˈɔsts nˈIn dˈɑləɹz ænd fˈIv mˈɔɹ."),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
     }
 
