@@ -1469,10 +1469,23 @@ impl G2P {
         self.is_number(word)
     }
 
+    /// misaki's numeric-body test (`Lexicon.is_number`), after commas are
+    /// stripped: every character is a digit, `.`, or a leading `-`.
+    ///
+    /// Deliberately not `parse::<i64>()`: Rust's integer parser also accepts a
+    /// leading `+` (so `+1` was read as the number alone and lost "plus") and
+    /// rejects values outside `i64`, neither of which misaki does. Suffix
+    /// peel (`1990s`, `1st`, …) is handled by `is_number_like` / `convert_number`
+    /// and by the merge-pass number-with-ending path.
     fn is_number(&self, word: &str) -> bool {
         let clean = word.replace(",", "");
-        // misaki takes digits only; Rust's parser also takes a leading '+'.
-        !clean.starts_with('+') && clean.parse::<i64>().is_ok()
+        if clean.is_empty() || !clean.chars().any(|c| c.is_ascii_digit()) {
+            return false;
+        }
+        clean
+            .chars()
+            .enumerate()
+            .all(|(i, c)| c.is_ascii_digit() || c == '.' || (i == 0 && c == '-'))
     }
 
     /// Reduce a num2words string to the word sequence misaki feeds the lexicon.
@@ -1851,6 +1864,22 @@ mod tests {
         ] {
             assert_eq!(g2p.g2p(text).unwrap().0, want);
         }
+    }
+
+    #[test]
+    fn test_is_number_matches_misaki_digit_body() {
+        let g2p = G2P::new(Language::EnglishUS);
+        // Digits, commas, points, leading minus — not a leading plus.
+        assert!(g2p.is_number("1"));
+        assert!(g2p.is_number("1,000"));
+        assert!(g2p.is_number("-40"));
+        assert!(g2p.is_number("3.5"));
+        assert!(!g2p.is_number("+1"));
+        assert!(!g2p.is_number("+5"));
+        assert!(!g2p.is_number(""));
+        assert!(!g2p.is_number("abc"));
+        // Beyond i64: misaki still treats this as a number body.
+        assert!(g2p.is_number("99999999999999999999"));
     }
 
     #[test]
