@@ -3,9 +3,8 @@
 //! misaki tags with spaCy and its pronunciation is POS-conditional: 790 of the
 //! 90,201 gold entries are tag-keyed, and `get_special_case` branches on the
 //! tag directly (`A` as `DT` is `ɐ`, as `NNP` it is `ˈA`). An approximate
-//! tagger therefore caps achievable parity -- measured, the perceptron tagger
-//! agreed with spaCy on ~89% of tokens and accounted for 64 of the 73
-//! wrong-phoneme tokens remaining in the prose corpus.
+//! tagger therefore caps achievable parity. An earlier averaged-perceptron
+//! tagger agreed with spaCy on ~89% of tokens and is no longer shipped.
 //!
 //! The model is small: MultiHashEmbed + 4x residual MaxoutWindowEncoder +
 //! softmax over 50 tags, 1,570,514 f32 (6.3 MB) in `data/tagger.bin`, written

@@ -5,8 +5,6 @@ use crate::fallback::EspeakFallback;
 use crate::languages::{LanguageRules, english::English};
 use crate::lexicon::Lexicon;
 use thiserror::Error;
-#[cfg(feature = "perceptron-tagger")]
-use crate::tagger::PerceptronTagger;
 use crate::token::MToken;
 use fancy_regex::Regex as FancyRegex;
 use num2words::Num2Words;
@@ -94,14 +92,6 @@ pub struct G2P {
     pub unk: String,
     subtoken_regex: FancyRegex,
     link_regex: Regex,
-    /// The perceptron tagger this crate shipped with. No longer used for
-    /// pronunciation -- `spacy_tagger` is, because misaki's output depends on
-    /// spaCy's exact tags -- but kept so the two remain comparable. Only
-    /// loaded with the `perceptron-tagger` feature, since it makes the binary
-    /// larger and roughly doubles the memory a `G2P` uses.
-    #[cfg(feature = "perceptron-tagger")]
-    #[allow(dead_code)]
-    tagger: PerceptronTagger,
     spacy_tagger: crate::spacy_tagger::Tagger,
     spacy_tokenizer: crate::spacy_tokenizer::SpacyTokenizer,
     rules: Box<dyn LanguageRules>,
@@ -172,14 +162,6 @@ impl G2P {
             unk: "❓".to_string(),
             subtoken_regex,
             link_regex,
-            #[cfg(feature = "perceptron-tagger")]
-            tagger: PerceptronTagger::new(
-                include_str!("resources/tagger/weights.json"),
-                include_str!("resources/tagger/classes.txt"),
-                include_str!("resources/tagger/tags.json"),
-            ),
-            // The ported spaCy tagger. Kept alongside the perceptron rather
-            // than replacing it so the old one stays available for comparison.
             spacy_tagger: crate::spacy_tagger::Tagger::load(),
             spacy_tokenizer: crate::spacy_tokenizer::SpacyTokenizer::new(),
             rules,
