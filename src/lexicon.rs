@@ -89,11 +89,14 @@ pub struct Lexicon {
 
 impl Lexicon {
     pub fn new(lang: Language) -> Self {
-        let (golds, silvers) = match lang {
+        #[cfg_attr(not(feature = "fixes"), allow(unused_mut))]
+        let (mut golds, mut silvers) = match lang {
             Language::EnglishGB => (data::load_gb_gold(), data::load_gb_silver()),
             Language::EnglishUS => (data::load_us_gold(), data::load_us_silver()),
             // Language::Italian => (data::load_it_gold(), data::load_it_silver()),
         };
+        #[cfg(feature = "fixes")]
+        crate::fixes::dictionary(&mut golds, &mut silvers, lang);
 
         Self {
             lang,
@@ -796,6 +799,8 @@ mod tests {
         assert_eq!(ps, "tˈɑːməl");
     }
 
+    // With `fixes`, the dictionary adds keys the files lack.
+    #[cfg(not(feature = "fixes"))]
     #[test]
     fn the_table_holds_the_file_entries_and_nothing_more() {
         let lexicon = Lexicon::new(Language::EnglishUS);
