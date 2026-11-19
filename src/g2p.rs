@@ -1524,6 +1524,12 @@ impl G2P {
         if rest.is_empty() || !rest.chars().all(|c| c.is_ascii_digit() || c == '.') {
             return None;
         }
+        // misaki's `is_currency`: three or more cent digits is a plain number.
+        // Its `set(cents) == {0}` compares strings with an int, so never holds.
+        match rest.split_once('.') {
+            Some((_, cents)) if cents.contains('.') || cents.len() >= 3 => return None,
+            _ => {}
+        }
         let mut parts: Vec<(i64, &str)> = Vec::new();
         for (i, seg) in rest.split('.').enumerate().take(2) {
             let n: i64 = if seg.is_empty() { 0 } else { seg.parse().ok()? };
@@ -1974,6 +1980,20 @@ mod tests {
         assert!(parse_link_feature("2.5").is_none());
         assert!(parse_link_feature("/foo").is_none());
         assert!(parse_link_feature("foo/").is_none());
+    }
+
+    // Expected strings are misaki 0.9.4's output.
+    #[test]
+    fn test_three_cent_digits_read_as_a_number() {
+        let g2p = G2P::with_fallback(Language::EnglishUS, None);
+        for (text, want) in [
+            ("$1.555", "wˈʌn pYnt fˈIv fˈIv fˈIv"),
+            ("It cost $1.555 each.", "ˌɪt kˈɔst wˈʌn pYnt fˈIv fˈIv fˈIv ˈiʧ."),
+            ("£2.125", "tˈu pYnt wˈʌn tˈu fˈIv"),
+            ("$1.55", "wˈʌn dˈɑləɹ ænd fˈɪfti fˈIv sˈɛnts"),
+        ] {
+            assert_eq!(g2p.g2p(text).unwrap().0, want);
+        }
     }
 
     #[test]
