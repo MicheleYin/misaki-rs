@@ -12,6 +12,8 @@ pub mod spacy_tokenizer;
 pub mod spacy_tagger;
 pub mod g2p;
 pub mod fallback;
+#[cfg(feature = "fixes")]
+mod fixes;
 
 pub use g2p::G2P;
 pub use token::MToken;

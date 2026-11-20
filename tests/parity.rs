@@ -1,3 +1,5 @@
+// Parity with misaki 0.9.4 holds with the `fixes` feature off.
+#![cfg(not(feature = "fixes"))]
 //! Differential parity against misaki 0.9.4.
 //!
 //! misaki has no test suite of its own -- not in the pip package, not in
