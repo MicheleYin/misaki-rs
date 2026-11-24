@@ -2231,6 +2231,7 @@ mod tests {
     }
 
     // Expected strings are misaki 0.9.4's output (stock oracle).
+    #[cfg(not(feature = "fixes"))]
     #[test]
     fn test_full_stop_after_ampersand_word() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);

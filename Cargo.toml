@@ -20,6 +20,8 @@ exclude = [
 [features]
 default = ["espeak"]
 espeak = ["dep:espeak-rs"]
+# misaki 0.9.4's own mistakes, fixed. Off, misaki-rs reads as misaki 0.9.4.
+fixes = []
 
 [dependencies]
 log = "0.4"
