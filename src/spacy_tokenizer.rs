@@ -63,7 +63,11 @@ impl Default for SpacyTokenizer {
 impl SpacyTokenizer {
     pub fn new() -> Self {
         let prefix = Regex::new(data::PREFIX_PATTERN).expect("prefix pattern");
-        let suffix = Regex::new(data::SUFFIX_PATTERN).expect("suffix pattern");
+        #[cfg(not(feature = "fixes"))]
+        let suffix = Regex::new(data::SUFFIX_PATTERN);
+        #[cfg(feature = "fixes")]
+        let suffix = Regex::new(&[data::SUFFIX_PATTERN, crate::fixes::SUFFIX].concat());
+        let suffix = suffix.expect("suffix pattern");
         let infix = Regex::new(data::INFIX_PATTERN).expect("infix pattern");
         let url = Regex::new(data::URL_PATTERN).ok();
         let specials: HashMap<&'static str, &'static [(&'static str, Option<&'static str>)]> =
