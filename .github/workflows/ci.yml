@@ -1,0 +1,58 @@
+# Library tests on every PR and push to main.
+# Codacy quality analysis continues via the Codacy GitHub App; this workflow
+# adds functional cargo test gates that Codacy does not run.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # Stock misaki 0.9.4 parity gate (fixtures built with fallback=None).
+  test-parity:
+    name: cargo test (no-default-features)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run parity / unit / integration tests without espeak
+        run: cargo test --no-default-features --verbose
+
+  # Default feature set, including espeak-ng OOV fallback.
+  test-espeak:
+    name: cargo test (default + espeak)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install espeak-ng
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends espeak-ng libespeak-ng-dev
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run tests with default features (espeak)
+        run: cargo test --verbose
