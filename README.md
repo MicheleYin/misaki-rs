@@ -20,6 +20,7 @@ It is designed for TTS models like **Kokoro**, providing Part-of-Speech-aware ph
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
 - **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words. Disable with `default-features = false` for a build without the espeak dependency; unresolved words are marked with `G2P::unk` (❓ by default), not spelled letter-by-letter.
+- **Optional fixes** (feature `fixes`, off by default): Fixes mistakes misaki 0.9.4 makes, such as reading `AT&T.` as one word, and the full stop it drops in `Ask H&M.`; off, the output is misaki 0.9.4's.
 
 
 ## Unknown words and fallback
