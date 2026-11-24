@@ -90,6 +90,7 @@ pub struct Lexicon {
 impl Lexicon {
     pub fn new(lang: Language) -> Self {
         let (golds, silvers) = match lang {
+            #[cfg(feature = "gb")]
             Language::EnglishGB => (data::load_gb_gold(), data::load_gb_silver()),
             Language::EnglishUS => (data::load_us_gold(), data::load_us_silver()),
             // Language::Italian => (data::load_it_gold(), data::load_it_silver()),
@@ -387,7 +388,7 @@ impl Lexicon {
             return String::new();
         }
         let last = stem.chars().last().unwrap();
-        let british = matches!(self.lang, Language::EnglishGB);
+        let british = self.lang.is_british();
         if "ptkfθ".contains(last) {
             format!("{}s", stem)
         } else if "szʃʒʧʤ".contains(last) {
@@ -428,7 +429,7 @@ impl Lexicon {
         if stem.is_empty() {
             return String::new();
         }
-        let british = matches!(self.lang, Language::EnglishGB);
+        let british = self.lang.is_british();
         let last = stem.chars().last().unwrap();
         if "pkfθʃsʧ".contains(last) {
             format!("{}t", stem)
@@ -453,7 +454,7 @@ impl Lexicon {
         if stem.is_empty() {
             return None;
         }
-        let british = matches!(self.lang, Language::EnglishGB);
+        let british = self.lang.is_british();
 
         if british {
             let last = stem.chars().last().unwrap();
@@ -824,5 +825,45 @@ mod tests {
         let _ = lexicon.stem_ing("sautéing", "VBG", None, None);
         let _ = lexicon.stem_ing("caféing", "VBG", None, None);
         let _ = lexicon.get_word("sautéing", "VBG", None, None);
+    }
+
+    #[cfg(feature = "gb")]
+    #[test]
+    fn gb_table_holds_the_file_entries() {
+        let lexicon = Lexicon::new(Language::EnglishGB);
+        assert_eq!(lexicon.golds.len(), data::load_gb_gold().len());
+        assert_eq!(lexicon.silvers.len(), data::load_gb_silver().len());
+        assert!(!lexicon.golds.is_empty());
+    }
+
+    #[cfg(feature = "gb")]
+    #[test]
+    fn gb_append_s_uses_british_vowel() {
+        let lexicon = Lexicon {
+            lang: Language::EnglishGB,
+            cap_stresses: (0.5, 2.0),
+            golds: HashMap::new(),
+            silvers: HashMap::new(),
+        };
+        assert_eq!(lexicon.append_s("bˈæs"), "bˈæsɪz");
+        assert_eq!(lexicon.append_ed("wˈɒnt"), "wˈɒntɪd");
+    }
+
+    #[cfg(feature = "gb")]
+    #[test]
+    fn schedule_differs_between_us_and_gb() {
+        let us = Lexicon::new(Language::EnglishUS);
+        let gb = Lexicon::new(Language::EnglishGB);
+        let us_ps = phonemes(&us, "schedule").expect("US schedule");
+        let gb_ps = phonemes(&gb, "schedule").expect("GB schedule");
+        assert_ne!(us_ps, gb_ps, "US and GB schedule should diverge");
+        assert!(
+            us_ps.starts_with('s') || us_ps.contains("sk"),
+            "US schedule usually starts with sk-ish: {us_ps}"
+        );
+        assert!(
+            gb_ps.contains('ʃ') || gb_ps.starts_with('ʃ'),
+            "GB schedule usually starts with ʃ: {gb_ps}"
+        );
     }
 }

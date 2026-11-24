@@ -35,11 +35,10 @@ struct Golden {
     cases: Vec<Case>,
 }
 
-#[test]
-fn heldout_matches_misaki() {
-    let raw = std::fs::read_to_string("tests/fixtures/golden_heldout_us.json").unwrap();
-    let g: Golden = serde_json::from_str(&raw).unwrap();
-    let mut e = G2P::with_fallback(Language::EnglishUS, None);
+fn heldout_matches(path: &str, lang: Language, label: &str) {
+    let raw = std::fs::read_to_string(path).unwrap_or_else(|e| panic!("cannot read {path}: {e}"));
+    let g: Golden = serde_json::from_str(&raw).unwrap_or_else(|e| panic!("cannot parse {path}: {e}"));
+    let mut e = G2P::with_fallback(lang, None);
     e.unk = String::new();
 
     let mut ok = 0usize;
@@ -56,10 +55,29 @@ fn heldout_matches_misaki() {
         }
     }
     println!(
-        "\nheld-out: {}/{} exact ({:.1}%)",
+        "\nheld-out {label}: {}/{} exact ({:.1}%)",
         ok,
         g.cases.len(),
         100.0 * ok as f64 / g.cases.len() as f64
     );
-    assert_eq!(ok, g.cases.len(), "held-out parity is not exact");
+    assert_eq!(ok, g.cases.len(), "held-out {label} parity is not exact");
+}
+
+#[test]
+fn heldout_matches_misaki() {
+    heldout_matches(
+        "tests/fixtures/golden_heldout_us.json",
+        Language::EnglishUS,
+        "US",
+    );
+}
+
+#[cfg(feature = "gb")]
+#[test]
+fn heldout_matches_misaki_gb() {
+    heldout_matches(
+        "tests/fixtures/golden_heldout_gb.json",
+        Language::EnglishGB,
+        "GB",
+    );
 }

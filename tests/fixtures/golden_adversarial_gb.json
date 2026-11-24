@@ -1,0 +1,5286 @@
+{
+ "misaki_version": "0.9.4",
+ "lang": "b",
+ "british": true,
+ "fallback": null,
+ "unk": "",
+ "n": 122,
+ "cases": [
+  {
+   "text": "[Misaki](/misˈɑki/) is a G2P engine designed for [Kokoro](/kˈOkəɹO/) models.",
+   "ps": "misˈɑki ɪz ɐ ʤˈiːtəpˈiː ˈɛnʤɪn dɪzˈInd fɔː kˈOkəɹO mˈɒdᵊlz.",
+   "tokens": [
+    [
+     "Misaki",
+     "misˈɑki"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "G",
+     "ʤˈiː"
+    ],
+    [
+     "2",
+     "tə"
+    ],
+    [
+     "P",
+     "pˈiː"
+    ],
+    [
+     "engine",
+     "ˈɛnʤɪn"
+    ],
+    [
+     "designed",
+     "dɪzˈInd"
+    ],
+    [
+     "for",
+     "fɔː"
+    ],
+    [
+     "Kokoro",
+     "kˈOkəɹO"
+    ],
+    [
+     "models",
+     "mˈɒdᵊlz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "VBZ",
+    "DT",
+    "NNP",
+    "NNP",
+    "NNP",
+    "NN",
+    "VBN",
+    "IN",
+    "NNP",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "Please read the report I read yesterday.",
+   "ps": "plˈiːz ɹˈiːd ðə ɹɪpˈɔːt ˌI ɹˈɛd jˈɛstədA.",
+   "tokens": [
+    [
+     "Please",
+     "plˈiːz"
+    ],
+    [
+     "read",
+     "ɹˈiːd"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "report",
+     "ɹɪpˈɔːt"
+    ],
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "read",
+     "ɹˈɛd"
+    ],
+    [
+     "yesterday",
+     "jˈɛstədA"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "VB",
+    "DT",
+    "NN",
+    "PRP",
+    "VBP",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "He will lead the team with a lead pipe.",
+   "ps": "hˌiː wɪl lˈiːd ðə tˈiːm wɪð ɐ lˈiːd pˈIp.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "will",
+     "wɪl"
+    ],
+    [
+     "lead",
+     "lˈiːd"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "team",
+     "tˈiːm"
+    ],
+    [
+     "with",
+     "wɪð"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "lead",
+     "lˈiːd"
+    ],
+    [
+     "pipe",
+     "pˈIp"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "MD",
+    "VB",
+    "DT",
+    "NN",
+    "IN",
+    "DT",
+    "JJ",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "They record a record every week.",
+   "ps": "ðˌA ɹɪkˈɔːd ɐ ɹˈɛkɔːd ˈɛvəɹi wˈiːk.",
+   "tokens": [
+    [
+     "They",
+     "ðˌA"
+    ],
+    [
+     "record",
+     "ɹɪkˈɔːd"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "record",
+     "ɹˈɛkɔːd"
+    ],
+    [
+     "every",
+     "ˈɛvəɹi"
+    ],
+    [
+     "week",
+     "wˈiːk"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBP",
+    "DT",
+    "NN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "We live near a live volcano.",
+   "ps": "wˌiː lˈɪv nˌɪə ɐ lˈIv vɒlkˈAnQ.",
+   "tokens": [
+    [
+     "We",
+     "wˌiː"
+    ],
+    [
+     "live",
+     "lˈɪv"
+    ],
+    [
+     "near",
+     "nˌɪə"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "live",
+     "lˈIv"
+    ],
+    [
+     "volcano",
+     "vɒlkˈAnQ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBP",
+    "IN",
+    "DT",
+    "JJ",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The bandage was wound around the wound.",
+   "ps": "ðə bˈandɪʤ wɒz wˈWnd əɹˈWnd ðə wˈuːnd.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "bandage",
+     "bˈandɪʤ"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "wound",
+     "wˈWnd"
+    ],
+    [
+     "around",
+     "əɹˈWnd"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "wound",
+     "wˈuːnd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "VBN",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The dove dove into the bushes.",
+   "ps": "ðə dˈʌv dˈQv ˈɪntuː ðə bˈʊʃɪz.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "dove",
+     "dˈʌv"
+    ],
+    [
+     "dove",
+     "dˈQv"
+    ],
+    [
+     "into",
+     "ˈɪntuː"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "bushes",
+     "bˈʊʃɪz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "IN",
+    "DT",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "I object to that object.",
+   "ps": "ˌI əbʤˈɛkt tə ðˈat ˈɒbʤɛkt.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "object",
+     "əbʤˈɛkt"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "that",
+     "ðˈat"
+    ],
+    [
+     "object",
+     "ˈɒbʤɛkt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBP",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The farm was used to produce produce.",
+   "ps": "ðə fˈɑːm wɒz jˈuːzd tə pɹədjˈuːs pɹˈɒdjuːs.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "farm",
+     "fˈɑːm"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "used",
+     "jˈuːzd"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "produce",
+     "pɹədjˈuːs"
+    ],
+    [
+     "produce",
+     "pɹˈɒdjuːs"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "VBN",
+    "TO",
+    "VB",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "He did not desert his comrades in the desert.",
+   "ps": "hˌiː dˈɪd nˌɒt dɪzˈɜːt hɪz kˈɒmɹAdz ɪn ðə dˈɛzət.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "did",
+     "dˈɪd"
+    ],
+    [
+     "not",
+     "nˌɒt"
+    ],
+    [
+     "desert",
+     "dɪzˈɜːt"
+    ],
+    [
+     "his",
+     "hɪz"
+    ],
+    [
+     "comrades",
+     "kˈɒmɹAdz"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "desert",
+     "dˈɛzət"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "RB",
+    "VB",
+    "PRP$",
+    "NNS",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The soldier decided to desert in the desert.",
+   "ps": "ðə sˈQlʤə dɪsˈIdɪd tə dɪzˈɜːt ɪn ðə dˈɛzət.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "soldier",
+     "sˈQlʤə"
+    ],
+    [
+     "decided",
+     "dɪsˈIdɪd"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "desert",
+     "dɪzˈɜːt"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "desert",
+     "dˈɛzət"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "TO",
+    "VB",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "She was too close to the door to close it.",
+   "ps": "ʃˌiː wɒz tˈuː klˈQs tə ðə dˈɔː tə klˈQz ɪt.",
+   "tokens": [
+    [
+     "She",
+     "ʃˌiː"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "too",
+     "tˈuː"
+    ],
+    [
+     "close",
+     "klˈQs"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "door",
+     "dˈɔː"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "close",
+     "klˈQz"
+    ],
+    [
+     "it",
+     "ɪt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "RB",
+    "JJ",
+    "IN",
+    "DT",
+    "NN",
+    "TO",
+    "VB",
+    "PRP",
+    "."
+   ]
+  },
+  {
+   "text": "The buck does funny things when the does are present.",
+   "ps": "ðə bˈʌk dˈʌz fˈʌni θˈɪŋz wˌɛn ðə dˈʌz ɑː pɹˈɛzᵊnt.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "buck",
+     "bˈʌk"
+    ],
+    [
+     "does",
+     "dˈʌz"
+    ],
+    [
+     "funny",
+     "fˈʌni"
+    ],
+    [
+     "things",
+     "θˈɪŋz"
+    ],
+    [
+     "when",
+     "wˌɛn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "does",
+     "dˈʌz"
+    ],
+    [
+     "are",
+     "ɑː"
+    ],
+    [
+     "present",
+     "pɹˈɛzᵊnt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBZ",
+    "JJ",
+    "NNS",
+    "WRB",
+    "DT",
+    "VBZ",
+    "VBP",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "A bass was painted on the bass drum.",
+   "ps": "ɐ bˈas wɒz pˈAntɪd ˌɒn ðə bˈas dɹˈʌm.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "bass",
+     "bˈas"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "painted",
+     "pˈAntɪd"
+    ],
+    [
+     "on",
+     "ˌɒn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "bass",
+     "bˈas"
+    ],
+    [
+     "drum",
+     "dɹˈʌm"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "VBN",
+    "IN",
+    "DT",
+    "NN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "They were too separate to separate the pieces.",
+   "ps": "ðˌA wɜː tˈuː sˈɛpəɹət tə sˈɛpəɹAt ðə pˈiːsɪz.",
+   "tokens": [
+    [
+     "They",
+     "ðˌA"
+    ],
+    [
+     "were",
+     "wɜː"
+    ],
+    [
+     "too",
+     "tˈuː"
+    ],
+    [
+     "separate",
+     "sˈɛpəɹət"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "separate",
+     "sˈɛpəɹAt"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "pieces",
+     "pˈiːsɪz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "RB",
+    "JJ",
+    "TO",
+    "VB",
+    "DT",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "The insurance was invalid for the invalid.",
+   "ps": "ði ɪnʃˈʊəɹəns wɒz ɪnvˈalɪd fɔː ði ˈɪnvəlɪd.",
+   "tokens": [
+    [
+     "The",
+     "ði"
+    ],
+    [
+     "insurance",
+     "ɪnʃˈʊəɹəns"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "invalid",
+     "ɪnvˈalɪd"
+    ],
+    [
+     "for",
+     "fɔː"
+    ],
+    [
+     "the",
+     "ði"
+    ],
+    [
+     "invalid",
+     "ˈɪnvəlɪd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "JJ",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "I had to subject the subject to a test.",
+   "ps": "ˌI had tə səbʤˈɛkt ðə sˈʌbʤɛkt tə ɐ tˈɛst.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "had",
+     "had"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "subject",
+     "səbʤˈɛkt"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "subject",
+     "sˈʌbʤɛkt"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "test",
+     "tˈɛst"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "TO",
+    "VB",
+    "DT",
+    "NN",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The wind was too strong to wind the sail.",
+   "ps": "ðə wˈɪnd wɒz tˈuː stɹˈɒŋ tə wˈInd ðə sˈAl.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "wind",
+     "wˈɪnd"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "too",
+     "tˈuː"
+    ],
+    [
+     "strong",
+     "stɹˈɒŋ"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "wind",
+     "wˈInd"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "sail",
+     "sˈAl"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "RB",
+    "JJ",
+    "TO",
+    "VB",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "He wound the clock after the wound healed.",
+   "ps": "hˌiː wˈWnd ðə klˈɒk ˈɑːftə ðə wˈuːnd hˈiːld.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "wound",
+     "wˈWnd"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "clock",
+     "klˈɒk"
+    ],
+    [
+     "after",
+     "ˈɑːftə"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "wound",
+     "wˈuːnd"
+    ],
+    [
+     "healed",
+     "hˈiːld"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "DT",
+    "NN",
+    "IN",
+    "DT",
+    "NN",
+    "VBD",
+    "."
+   ]
+  },
+  {
+   "text": "Do not refuse to take out the refuse.",
+   "ps": "dˈuː nˌɒt ɹɪfjˈuːz tə tˈAk ˈWt ðə ɹˈɛfjuːs.",
+   "tokens": [
+    [
+     "Do",
+     "dˈuː"
+    ],
+    [
+     "not",
+     "nˌɒt"
+    ],
+    [
+     "refuse",
+     "ɹɪfjˈuːz"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "take",
+     "tˈAk"
+    ],
+    [
+     "out",
+     "ˈWt"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "refuse",
+     "ɹˈɛfjuːs"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VBP",
+    "RB",
+    "VB",
+    "TO",
+    "VB",
+    "RP",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The contract did not contract as expected.",
+   "ps": "ðə kˈɒntɹakt dˈɪd nˌɒt kəntɹˈakt az ɪkspˈɛktɪd.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "contract",
+     "kˈɒntɹakt"
+    ],
+    [
+     "did",
+     "dˈɪd"
+    ],
+    [
+     "not",
+     "nˌɒt"
+    ],
+    [
+     "contract",
+     "kəntɹˈakt"
+    ],
+    [
+     "as",
+     "az"
+    ],
+    [
+     "expected",
+     "ɪkspˈɛktɪd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "RB",
+    "VB",
+    "IN",
+    "VBN",
+    "."
+   ]
+  },
+  {
+   "text": "The apple and the pear were on the table.",
+   "ps": "ði ˈapᵊl and ðə pˈɛː wɜː ˌɒn ðə tˈAbᵊl.",
+   "tokens": [
+    [
+     "The",
+     "ði"
+    ],
+    [
+     "apple",
+     "ˈapᵊl"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "pear",
+     "pˈɛː"
+    ],
+    [
+     "were",
+     "wɜː"
+    ],
+    [
+     "on",
+     "ˌɒn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "table",
+     "tˈAbᵊl"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "CC",
+    "DT",
+    "NN",
+    "VBD",
+    "IN",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The elephant ate the entire thing.",
+   "ps": "ði ˈɛlɪfᵊnt ˈAt ði ɪntˈIə θˈɪŋ.",
+   "tokens": [
+    [
+     "The",
+     "ði"
+    ],
+    [
+     "elephant",
+     "ˈɛlɪfᵊnt"
+    ],
+    [
+     "ate",
+     "ˈAt"
+    ],
+    [
+     "the",
+     "ði"
+    ],
+    [
+     "entire",
+     "ɪntˈIə"
+    ],
+    [
+     "thing",
+     "θˈɪŋ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "DT",
+    "JJ",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "I want to eat and to sleep.",
+   "ps": "ˌI wˈɒnt tʊ ˈiːt and tə slˈiːp.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "want",
+     "wˈɒnt"
+    ],
+    [
+     "to",
+     "tʊ"
+    ],
+    [
+     "eat",
+     "ˈiːt"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "sleep",
+     "slˈiːp"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBP",
+    "TO",
+    "VB",
+    "CC",
+    "TO",
+    "VB",
+    "."
+   ]
+  },
+  {
+   "text": "She went to Ohio to open an account.",
+   "ps": "ʃˌiː wˈɛnt tʊ QhˈIQ tʊ ˈQpᵊn ɐn əkˈWnt.",
+   "tokens": [
+    [
+     "She",
+     "ʃˌiː"
+    ],
+    [
+     "went",
+     "wˈɛnt"
+    ],
+    [
+     "to",
+     "tʊ"
+    ],
+    [
+     "Ohio",
+     "QhˈIQ"
+    ],
+    [
+     "to",
+     "tʊ"
+    ],
+    [
+     "open",
+     "ˈQpᵊn"
+    ],
+    [
+     "an",
+     "ɐn"
+    ],
+    [
+     "account",
+     "əkˈWnt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "IN",
+    "NNP",
+    "TO",
+    "VB",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "A unicorn and an umbrella.",
+   "ps": "ɐ jˈuːnɪkɔːn and ɐn ʌmbɹˈɛlə.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "unicorn",
+     "jˈuːnɪkɔːn"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "an",
+     "ɐn"
+    ],
+    [
+     "umbrella",
+     "ʌmbɹˈɛlə"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "CC",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "A hour is not an hour.",
+   "ps": "ɐ ˈWə ɪz nˌɒt ɐn ˈWə.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "hour",
+     "ˈWə"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "not",
+     "nˌɒt"
+    ],
+    [
+     "an",
+     "ɐn"
+    ],
+    [
+     "hour",
+     "ˈWə"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBZ",
+    "RB",
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "I have three PDFs and two URLs to send you.",
+   "ps": "ˌI hav θɹˈiː pˌiːdˌiːˈɛfs and tˈuː jˌuːˌɑːˈɛlz tə sˈɛnd juː.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "have",
+     "hav"
+    ],
+    [
+     "three",
+     "θɹˈiː"
+    ],
+    [
+     "PDFs",
+     "pˌiːdˌiːˈɛfs"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "two",
+     "tˈuː"
+    ],
+    [
+     "URLs",
+     "jˌuːˌɑːˈɛlz"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "send",
+     "sˈɛnd"
+    ],
+    [
+     "you",
+     "juː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBP",
+    "CD",
+    "NNS",
+    "CC",
+    "CD",
+    "NNS",
+    "TO",
+    "VB",
+    "PRP",
+    "."
+   ]
+  },
+  {
+   "text": "The CEOs of several NGOs met.",
+   "ps": "ðə sˌiːˌiːˈQz ɒv sˈɛvəɹəl ˌɛnʤˌiːˈQz mˈɛt.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "CEOs",
+     "sˌiːˌiːˈQz"
+    ],
+    [
+     "of",
+     "ɒv"
+    ],
+    [
+     "several",
+     "sˈɛvəɹəl"
+    ],
+    [
+     "NGOs",
+     "ˌɛnʤˌiːˈQz"
+    ],
+    [
+     "met",
+     "mˈɛt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNS",
+    "IN",
+    "JJ",
+    "NNPS",
+    "VBD",
+    "."
+   ]
+  },
+  {
+   "text": "He bought two CDs and three DVDs.",
+   "ps": "hˌiː bˈɔːt tˈuː sˌiːdˈiːz and θɹˈiː dˌiːvˌiːdˈiːz.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "bought",
+     "bˈɔːt"
+    ],
+    [
+     "two",
+     "tˈuː"
+    ],
+    [
+     "CDs",
+     "sˌiːdˈiːz"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "three",
+     "θɹˈiː"
+    ],
+    [
+     "DVDs",
+     "dˌiːvˌiːdˈiːz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "CD",
+    "NNS",
+    "CC",
+    "CD",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "NASA and the FBI and the CIA.",
+   "ps": "nˈasə and ði ˌɛfbˌiːˈI and ðə sˌiːˌIˈA.",
+   "tokens": [
+    [
+     "NASA",
+     "nˈasə"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "the",
+     "ði"
+    ],
+    [
+     "FBI",
+     "ˌɛfbˌiːˈI"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "CIA",
+     "sˌiːˌIˈA"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "CC",
+    "DT",
+    "NNP",
+    "CC",
+    "DT",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "An API, two APIs, and some APIs' documentation.",
+   "ps": "ɐn ˌApˌiːˈI, tˈuː ˌApˌiːˈIz, and sˌʌm ˌApˌiːˈIz dˌɒkjʊmɛntˈAʃᵊn.",
+   "tokens": [
+    [
+     "An",
+     "ɐn"
+    ],
+    [
+     "API",
+     "ˌApˌiːˈI"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "two",
+     "tˈuː"
+    ],
+    [
+     "APIs",
+     "ˌApˌiːˈIz"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "some",
+     "sˌʌm"
+    ],
+    [
+     "APIs'",
+     "ˌApˌiːˈIz"
+    ],
+    [
+     "documentation",
+     "dˌɒkjʊmɛntˈAʃᵊn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNP",
+    ",",
+    "CD",
+    "NNS",
+    ",",
+    "CC",
+    "DT",
+    "NNS",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The GPUs cost more than the CPUs.",
+   "ps": "ðə ʤˌiːpˌiːjˈuːz kˈɒst mˈɔː ðən ðə sˌiːpˌiːjˈuːz.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "GPUs",
+     "ʤˌiːpˌiːjˈuːz"
+    ],
+    [
+     "cost",
+     "kˈɒst"
+    ],
+    [
+     "more",
+     "mˈɔː"
+    ],
+    [
+     "than",
+     "ðən"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "CPUs",
+     "sˌiːpˌiːjˈuːz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNS",
+    "VBD",
+    "JJR",
+    "IN",
+    "DT",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "Chapter 12 begins on page 347 in 1999.",
+   "ps": "ʧˈaptə twˈɛlv bɪɡˈɪnz ˌɒn pˈAʤ θɹˈiː hˈʌndɹəd fˈɔːti sˈɛvᵊn ɪn nˌIntˈiːn nˈInti nˈIn.",
+   "tokens": [
+    [
+     "Chapter",
+     "ʧˈaptə"
+    ],
+    [
+     "12",
+     "twˈɛlv"
+    ],
+    [
+     "begins",
+     "bɪɡˈɪnz"
+    ],
+    [
+     "on",
+     "ˌɒn"
+    ],
+    [
+     "page",
+     "pˈAʤ"
+    ],
+    [
+     "347",
+     "θɹˈiː hˈʌndɹəd fˈɔːti sˈɛvᵊn"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "1999",
+     "nˌIntˈiːn nˈInti nˈIn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "CD",
+    "VBZ",
+    "IN",
+    "NN",
+    "CD",
+    "IN",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "It cost $1,250.75 and weighed 3.5 kg.",
+   "ps": "ˌɪt kˈɒst wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd fˈɪfti dˈɒləz and sˈɛvnti fˈIv sˈɛnts and wˈAd θɹˈiː pYnt fˈIv .",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "cost",
+     "kˈɒst"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "1,250.75",
+     "wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd fˈɪfti dˈɒləz and sˈɛvnti fˈIv sˈɛnts"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "weighed",
+     "wˈAd"
+    ],
+    [
+     "3.5",
+     "θɹˈiː pYnt fˈIv"
+    ],
+    [
+     "kg",
+     null
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "$",
+    "CD",
+    "CC",
+    "VBD",
+    "CD",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "Dr. Smith met Mr. Jones at 5:30 p.m. on Jan. 3rd.",
+   "ps": "dˈɒktə smˈɪθ mˈɛt mˈɪstə ʤˈQnz at fˈIv θˈɜːti pˌiːˈɛm ˌɒn  θˈɜːd.",
+   "tokens": [
+    [
+     "Dr.",
+     "dˈɒktə"
+    ],
+    [
+     "Smith",
+     "smˈɪθ"
+    ],
+    [
+     "met",
+     "mˈɛt"
+    ],
+    [
+     "Mr.",
+     "mˈɪstə"
+    ],
+    [
+     "Jones",
+     "ʤˈQnz"
+    ],
+    [
+     "at",
+     "at"
+    ],
+    [
+     "5:30",
+     "fˈIv θˈɜːti"
+    ],
+    [
+     "p.m.",
+     "pˌiːˈɛm"
+    ],
+    [
+     "on",
+     "ˌɒn"
+    ],
+    [
+     "Jan.",
+     ""
+    ],
+    [
+     "3rd",
+     "θˈɜːd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "NNP",
+    "VBD",
+    "NNP",
+    "NNP",
+    "IN",
+    "CD",
+    "NN",
+    "IN",
+    "NNP",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "She finished 1st, he finished 2nd, and I was 23rd.",
+   "ps": "ʃˌiː fˈɪnɪʃt fˈɜːst, hiː fˈɪnɪʃt sˈɛkᵊnd, and ˌI wɒz twˈɛnti θˈɜːd.",
+   "tokens": [
+    [
+     "She",
+     "ʃˌiː"
+    ],
+    [
+     "finished",
+     "fˈɪnɪʃt"
+    ],
+    [
+     "1st",
+     "fˈɜːst"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "he",
+     "hiː"
+    ],
+    [
+     "finished",
+     "fˈɪnɪʃt"
+    ],
+    [
+     "2nd",
+     "sˈɛkᵊnd"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "23rd",
+     "twˈɛnti θˈɜːd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "JJ",
+    ",",
+    "PRP",
+    "VBD",
+    "JJ",
+    ",",
+    "CC",
+    "PRP",
+    "VBD",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "In 1776 and again in 1812 and once more in 2026.",
+   "ps": "ɪn sˌɛvntˈiːn sˈɛvnti sˈɪks and əɡˈɛn ɪn ˌAtˈiːn twˈɛlv and wˈʌns mˈɔː ɪn twˈɛnti twˈɛnti sˈɪks.",
+   "tokens": [
+    [
+     "In",
+     "ɪn"
+    ],
+    [
+     "1776",
+     "sˌɛvntˈiːn sˈɛvnti sˈɪks"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "again",
+     "əɡˈɛn"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "1812",
+     "ˌAtˈiːn twˈɛlv"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "once",
+     "wˈʌns"
+    ],
+    [
+     "more",
+     "mˈɔː"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "2026",
+     "twˈɛnti twˈɛnti sˈɪks"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "IN",
+    "CD",
+    "CC",
+    "RB",
+    "IN",
+    "CD",
+    "CC",
+    "RB",
+    "JJR",
+    "IN",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "The temperature was -40 degrees.",
+   "ps": "ðə tˈɛmpɹɪʧə wɒz mˈInəs fˈɔːti dɪɡɹˈiːz.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "temperature",
+     "tˈɛmpɹɪʧə"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "-40",
+     "mˈInəs fˈɔːti"
+    ],
+    [
+     "degrees",
+     "dɪɡɹˈiːz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "NN",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "Add 1/2 cup and 3/4 teaspoon.",
+   "ps": "ˈad wˈʌn tˈuː kˈʌp and θɹˈiː fˈɔː tˈiːspuːn.",
+   "tokens": [
+    [
+     "Add",
+     "ˈad"
+    ],
+    [
+     "1/2",
+     "wˈʌn tˈuː"
+    ],
+    [
+     "cup",
+     "kˈʌp"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "3/4",
+     "θɹˈiː fˈɔː"
+    ],
+    [
+     "teaspoon",
+     "tˈiːspuːn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "CD",
+    "NN",
+    "CC",
+    "CD",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "It is 100% certain that 50% will fail.",
+   "ps": "ˌɪt ɪz wˈʌn hˈʌndɹəd pəsˈɛnt sˈɜːtɪn ðat fˈɪfti pəsˈɛnt wɪl fˈAl.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "100%",
+     "wˈʌn hˈʌndɹəd pəsˈɛnt"
+    ],
+    [
+     "certain",
+     "sˈɜːtɪn"
+    ],
+    [
+     "that",
+     "ðat"
+    ],
+    [
+     "50%",
+     "fˈɪfti pəsˈɛnt"
+    ],
+    [
+     "will",
+     "wɪl"
+    ],
+    [
+     "fail",
+     "fˈAl"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "CD",
+    "JJ",
+    "IN",
+    "CD",
+    "MD",
+    "VB",
+    "."
+   ]
+  },
+  {
+   "text": "Call 555-1234 or 1-800-555-0199.",
+   "ps": "kˈɔːl fˈIv hˈʌndɹəd fˈɪfti fˈIvtwˌɛlv θˌɜːti fˌɔː ɔː wˌʌnˌAt hˌʌndɹədfˈIv fˈɪfti fˈIvwˈʌn nˈInti nˈIn.",
+   "tokens": [
+    [
+     "Call",
+     "kˈɔːl"
+    ],
+    [
+     "555-1234",
+     "fˈIv hˈʌndɹəd fˈɪfti fˈIvtwˌɛlv θˌɜːti fˌɔː"
+    ],
+    [
+     "or",
+     "ɔː"
+    ],
+    [
+     "1-800-555-0199",
+     "wˌʌnˌAt hˌʌndɹədfˈIv fˈɪfti fˈIvwˈʌn nˈInti nˈIn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "CD",
+    "CC",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "The price rose from £5 to €7 to $9.",
+   "ps": "ðə pɹˈIs ɹˈQz fɹɒm fˈIv pˈWndz tə sˈɛvᵊn jˈʊəɹQz tə nˈIn dˈɒləz.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "price",
+     "pɹˈIs"
+    ],
+    [
+     "rose",
+     "ɹˈQz"
+    ],
+    [
+     "from",
+     "fɹɒm"
+    ],
+    [
+     "£",
+     ""
+    ],
+    [
+     "5",
+     "fˈIv pˈWndz"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "€",
+     ""
+    ],
+    [
+     "7",
+     "sˈɛvᵊn jˈʊəɹQz"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "9",
+     "nˈIn dˈɒləz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "VBD",
+    "IN",
+    "$",
+    "CD",
+    "TO",
+    "$",
+    "CD",
+    "TO",
+    "$",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "He ran 26.2 miles in 3:42:15.",
+   "ps": "hˌiː ɹˈan twˈɛnti sˈɪks pYnt tˈuː mˈIlz ɪn θɹˈiː fˈɔːti tˈuː fˌɪftˈiːn.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "ran",
+     "ɹˈan"
+    ],
+    [
+     "26.2",
+     "twˈɛnti sˈɪks pYnt tˈuː"
+    ],
+    [
+     "miles",
+     "mˈIlz"
+    ],
+    [
+     "in",
+     "ɪn"
+    ],
+    [
+     "3:42:15",
+     "θɹˈiː fˈɔːti tˈuː fˌɪftˈiːn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "CD",
+    "NNS",
+    "IN",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Room 101 on the 4th floor of building 7A.",
+   "ps": "ɹˈuːm wˈʌn hˈʌndɹəd wˈʌn ˌɒn ðə fˈɔːθ flˈɔː ɒv bˈɪldɪŋ sˈɛvᵊn ˈA",
+   "tokens": [
+    [
+     "Room",
+     "ɹˈuːm"
+    ],
+    [
+     "101",
+     "wˈʌn hˈʌndɹəd wˈʌn"
+    ],
+    [
+     "on",
+     "ˌɒn"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "4th",
+     "fˈɔːθ"
+    ],
+    [
+     "floor",
+     "flˈɔː"
+    ],
+    [
+     "of",
+     "ɒv"
+    ],
+    [
+     "building",
+     "bˈɪldɪŋ"
+    ],
+    [
+     "7A.",
+     "sˈɛvᵊn ˈA"
+    ]
+   ],
+   "tags": [
+    "NN",
+    "CD",
+    "IN",
+    "DT",
+    "JJ",
+    "NN",
+    "IN",
+    "VBG",
+    "NN"
+   ]
+  },
+  {
+   "text": "She said \"don't go\" and then left.",
+   "ps": "ʃˌiː sˈɛd “dˈQnt ɡˌQ” and ðˈɛn lˈɛft.",
+   "tokens": [
+    [
+     "She",
+     "ʃˌiː"
+    ],
+    [
+     "said",
+     "sˈɛd"
+    ],
+    [
+     "\"",
+     "“"
+    ],
+    [
+     "don't",
+     "dˈQnt"
+    ],
+    [
+     "go",
+     "ɡˌQ"
+    ],
+    [
+     "\"",
+     "”"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "then",
+     "ðˈɛn"
+    ],
+    [
+     "left",
+     "lˈɛft"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "``",
+    "RB",
+    "VB",
+    "''",
+    "CC",
+    "RB",
+    "VBD",
+    "."
+   ]
+  },
+  {
+   "text": "It was -- how shall I say it -- unexpected.",
+   "ps": "ˌɪt wɒz  hˌW ʃˌal ˌI sˈA ɪt  ˌʌnɪkspˈɛktɪd.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "was",
+     "wɒz"
+    ],
+    [
+     "--",
+     ""
+    ],
+    [
+     "how",
+     "hˌW"
+    ],
+    [
+     "shall",
+     "ʃˌal"
+    ],
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "say",
+     "sˈA"
+    ],
+    [
+     "it",
+     "ɪt"
+    ],
+    [
+     "--",
+     ""
+    ],
+    [
+     "unexpected",
+     "ˌʌnɪkspˈɛktɪd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    ":",
+    "WRB",
+    "MD",
+    "PRP",
+    "VB",
+    "PRP",
+    ":",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "Wait... what? No! Really?",
+   "ps": "wˈAt... wˌɒt? nˈQ! ɹˈɪəli?",
+   "tokens": [
+    [
+     "Wait",
+     "wˈAt"
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "what",
+     "wˌɒt"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "No",
+     "nˈQ"
+    ],
+    [
+     "!",
+     "!"
+    ],
+    [
+     "Really",
+     "ɹˈɪəli"
+    ],
+    [
+     "?",
+     "?"
+    ]
+   ],
+   "tags": [
+    "VB",
+    ":",
+    ":",
+    ":",
+    "WP",
+    ".",
+    "UH",
+    ".",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "The cat's toys; the dogs' bones.",
+   "ps": "ðə kˈats tˈYz; ðə dˈɒɡz bˈQnz.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "cat's",
+     "kˈats"
+    ],
+    [
+     "toys",
+     "tˈYz"
+    ],
+    [
+     ";",
+     ";"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "dogs'",
+     "dˈɒɡz"
+    ],
+    [
+     "bones",
+     "bˈQnz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "NNS",
+    ":",
+    "DT",
+    "NNS",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "(Parenthetical) [bracketed] {braced}",
+   "ps": "(pˌaɹənθˈɛtɪkᵊl) bɹˈakɪtɪd) (bɹˈAst)",
+   "tokens": [
+    [
+     "(",
+     "("
+    ],
+    [
+     "Parenthetical",
+     "pˌaɹənθˈɛtɪkᵊl"
+    ],
+    [
+     ")",
+     ")"
+    ],
+    [
+     "[bracketed",
+     "bɹˈakɪtɪd"
+    ],
+    [
+     "]",
+     ")"
+    ],
+    [
+     "{",
+     "("
+    ],
+    [
+     "braced",
+     "bɹˈAst"
+    ],
+    [
+     "}",
+     ")"
+    ]
+   ],
+   "tags": [
+    "-LRB-",
+    "NNP",
+    "-RRB-",
+    "VBD",
+    "-RRB-",
+    "-LRB-",
+    "NN",
+    "-RRB-"
+   ]
+  },
+  {
+   "text": "A semicolon; a colon: and a comma, too.",
+   "ps": "ɐ sˌɛmɪkˈQlən; ɐ kˈQlən: and ɐ kˈɒmə, tˈuː.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "semicolon",
+     "sˌɛmɪkˈQlən"
+    ],
+    [
+     ";",
+     ";"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "colon",
+     "kˈQlən"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "comma",
+     "kˈɒmə"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "too",
+     "tˈuː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    ":",
+    "DT",
+    "NN",
+    ":",
+    "CC",
+    "DT",
+    "NN",
+    ",",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "Hyphenated-words and re-entry and co-operate.",
+   "ps": "hˈIfənAtɪdwˌɜːdz and ɹˌiːˈɛntɹi and kˌQˈɒpəɹAt.",
+   "tokens": [
+    [
+     "Hyphenated-words",
+     "hˈIfənAtɪdwˌɜːdz"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "re-entry",
+     "ɹˌiːˈɛntɹi"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "co-operate",
+     "kˌQˈɒpəɹAt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VBN",
+    "CC",
+    "NN",
+    "CC",
+    "VBP",
+    "."
+   ]
+  },
+  {
+   "text": "'Single quotes' and “curly doubles” and ‘curly singles’.",
+   "ps": "“sˈɪŋɡᵊl kwˈQts” and “kˈɜːli dˈʌbᵊlz” and “kˈɜːli sˈɪŋɡᵊlz”.",
+   "tokens": [
+    [
+     "'",
+     "“"
+    ],
+    [
+     "Single",
+     "sˈɪŋɡᵊl"
+    ],
+    [
+     "quotes",
+     "kwˈQts"
+    ],
+    [
+     "'",
+     "”"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "“",
+     "“"
+    ],
+    [
+     "curly",
+     "kˈɜːli"
+    ],
+    [
+     "doubles",
+     "dˈʌbᵊlz"
+    ],
+    [
+     "”",
+     "”"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "‘",
+     "“"
+    ],
+    [
+     "curly",
+     "kˈɜːli"
+    ],
+    [
+     "singles",
+     "sˈɪŋɡᵊlz"
+    ],
+    [
+     "’",
+     "”"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "``",
+    "JJ",
+    "NNS",
+    "''",
+    "CC",
+    "``",
+    "JJ",
+    "NNS",
+    "''",
+    "CC",
+    "``",
+    "JJ",
+    "NNS",
+    "''",
+    "."
+   ]
+  },
+  {
+   "text": "Is this, perhaps, working? Yes, it is! Absolutely.",
+   "ps": "ˌɪz ðˈɪs, pəhˈaps, wˈɜːkɪŋ? jˈɛs, ɪt ɪz! ˈabsəluːtli.",
+   "tokens": [
+    [
+     "Is",
+     "ˌɪz"
+    ],
+    [
+     "this",
+     "ðˈɪs"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "perhaps",
+     "pəhˈaps"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "working",
+     "wˈɜːkɪŋ"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "Yes",
+     "jˈɛs"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "it",
+     "ɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "!",
+     "!"
+    ],
+    [
+     "Absolutely",
+     "ˈabsəluːtli"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VBZ",
+    "DT",
+    ",",
+    "RB",
+    ",",
+    "VBG",
+    ".",
+    "UH",
+    ",",
+    "PRP",
+    "VBZ",
+    ".",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "Wait?! Really... no, really?!",
+   "ps": "wˈAt?! ɹˈɪəli... nˈQ, ɹˈɪəli?!",
+   "tokens": [
+    [
+     "Wait",
+     "wˈAt"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "!",
+     "!"
+    ],
+    [
+     "Really",
+     "ɹˈɪəli"
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "no",
+     "nˈQ"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "really",
+     "ɹˈɪəli"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "!",
+     "!"
+    ]
+   ],
+   "tags": [
+    "VB",
+    ".",
+    ".",
+    "RB",
+    ":",
+    ":",
+    ":",
+    "UH",
+    ",",
+    "RB",
+    ".",
+    "."
+   ]
+  },
+  {
+   "text": "A hyphen - an en dash – and an em dash —.",
+   "ps": "ɐ hˈIfᵊn  ɐn ˈɛn dˈaʃ — and ɐn ˈɛm dˈaʃ —.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "hyphen",
+     "hˈIfᵊn"
+    ],
+    [
+     "-",
+     null
+    ],
+    [
+     "an",
+     "ɐn"
+    ],
+    [
+     "en",
+     "ˈɛn"
+    ],
+    [
+     "dash",
+     "dˈaʃ"
+    ],
+    [
+     "–",
+     "—"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "an",
+     "ɐn"
+    ],
+    [
+     "em",
+     "ˈɛm"
+    ],
+    [
+     "dash",
+     "dˈaʃ"
+    ],
+    [
+     "—",
+     "—"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "HYPH",
+    "DT",
+    "JJ",
+    "NN",
+    ":",
+    "CC",
+    "DT",
+    "NNP",
+    "NN",
+    ":",
+    "."
+   ]
+  },
+  {
+   "text": "Well-known, re-entry, state-of-the-art, and twenty-one.",
+   "ps": "wˌɛlnˈQn, ɹˌiːˈɛntɹi, stˈAtɒvðiˈɑːt, and twˈɛntiwˌʌn.",
+   "tokens": [
+    [
+     "Well-known",
+     "wˌɛlnˈQn"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "re-entry",
+     "ɹˌiːˈɛntɹi"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "state-of-the-art",
+     "stˈAtɒvðiˈɑːt"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "twenty-one",
+     "twˈɛntiwˌʌn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "RB",
+    ",",
+    "NN",
+    ",",
+    "NN",
+    ",",
+    "CC",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Version 0.12.1; release 1.100.0; decimal .5.",
+   "ps": "vˈɜːʃᵊn zˈɪəɹQ twˈɛlv wˈʌn; ɹɪlˈiːs wˈʌn wˈʌn hˈʌndɹəd zˈɪəɹQ; dˈɛsɪmᵊl pYnt fˈIv.",
+   "tokens": [
+    [
+     "Version",
+     "vˈɜːʃᵊn"
+    ],
+    [
+     "0.12.1",
+     "zˈɪəɹQ twˈɛlv wˈʌn"
+    ],
+    [
+     ";",
+     ";"
+    ],
+    [
+     "release",
+     "ɹɪlˈiːs"
+    ],
+    [
+     "1.100.0",
+     "wˈʌn wˈʌn hˈʌndɹəd zˈɪəɹQ"
+    ],
+    [
+     ";",
+     ";"
+    ],
+    [
+     "decimal",
+     "dˈɛsɪmᵊl"
+    ],
+    [
+     ".5",
+     "pYnt fˈIv"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "CD",
+    ":",
+    "VBP",
+    "CD",
+    ":",
+    "JJ",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "Numbers: 1,234.50, 1,000,000, and 12,34.",
+   "ps": "nˈʌmbəz: wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd θˈɜːti fˈɔː pYnt fˈIv, wˈʌn mˈɪljən, and wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd θˈɜːti fˈɔː.",
+   "tokens": [
+    [
+     "Numbers",
+     "nˈʌmbəz"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "1,234.50",
+     "wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd θˈɜːti fˈɔː pYnt fˈIv"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "1,000,000",
+     "wˈʌn mˈɪljən"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "12,34",
+     "wˈʌn θˈWzᵊnd tˈuː hˈʌndɹəd θˈɜːti fˈɔː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNS",
+    ":",
+    "CD",
+    ",",
+    "CD",
+    ",",
+    "CC",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Currency: $0.99, £1.50, €12.00, and ¥500.",
+   "ps": "kˈʌɹənsi: nˈInti nˈIn sˈɛnts, wˈʌn pˈWnd and fˈɪfti pˈɛns, twˈɛlv jˈʊəɹQz, and fˈIv hˈʌndɹəd.",
+   "tokens": [
+    [
+     "Currency",
+     "kˈʌɹənsi"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "0.99",
+     "nˈInti nˈIn sˈɛnts"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "£",
+     ""
+    ],
+    [
+     "1.50",
+     "wˈʌn pˈWnd and fˈɪfti pˈɛns"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "€",
+     ""
+    ],
+    [
+     "12.00",
+     "twˈɛlv jˈʊəɹQz"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "¥500",
+     "fˈIv hˈʌndɹəd"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    ":",
+    "$",
+    "CD",
+    ",",
+    "$",
+    "CD",
+    ",",
+    "$",
+    "CD",
+    ",",
+    "CC",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Costs fell from $10 to £8, then to €7.25.",
+   "ps": "kˈɒsts fˈɛl fɹɒm tˈɛn dˈɒləz tʊ ˈAt pˈWndz, ðˈɛn tə sˈɛvᵊn jˈʊəɹQz and twˈɛnti fˈIv sˈɛnts.",
+   "tokens": [
+    [
+     "Costs",
+     "kˈɒsts"
+    ],
+    [
+     "fell",
+     "fˈɛl"
+    ],
+    [
+     "from",
+     "fɹɒm"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "10",
+     "tˈɛn dˈɒləz"
+    ],
+    [
+     "to",
+     "tʊ"
+    ],
+    [
+     "£",
+     ""
+    ],
+    [
+     "8",
+     "ˈAt pˈWndz"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "then",
+     "ðˈɛn"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "€",
+     ""
+    ],
+    [
+     "7.25",
+     "sˈɛvᵊn jˈʊəɹQz and twˈɛnti fˈIv sˈɛnts"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNS",
+    "VBD",
+    "IN",
+    "$",
+    "CD",
+    "TO",
+    "$",
+    "CD",
+    ",",
+    "RB",
+    "IN",
+    "$",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Uh, um, erm, ehm... hmm? Well, okay!",
+   "ps": "ˈʌ, ˈʌm, , ... hmm? wˈɛl, ˌQkˈA!",
+   "tokens": [
+    [
+     "Uh",
+     "ˈʌ"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "um",
+     "ˈʌm"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "erm",
+     null
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "ehm",
+     null
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "hmm",
+     "hmm"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "Well",
+     "wˈɛl"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "okay",
+     "ˌQkˈA"
+    ],
+    [
+     "!",
+     "!"
+    ]
+   ],
+   "tags": [
+    "UH",
+    ",",
+    "UH",
+    ",",
+    "NNP",
+    ",",
+    "NN",
+    ":",
+    ":",
+    ":",
+    "UH",
+    ".",
+    "UH",
+    ",",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "© 2026 Misaki™: café, naïve, résumé, déjà vu.",
+   "ps": " twˈɛnti twˈɛnti sˈɪks tˌiːˈɛm: , , ,  .",
+   "tokens": [
+    [
+     "©",
+     null
+    ],
+    [
+     "2026",
+     "twˈɛnti twˈɛnti sˈɪks"
+    ],
+    [
+     "Misaki™",
+     "tˌiːˈɛm"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "café",
+     null
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "naïve",
+     null
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "résumé",
+     null
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "déjà",
+     null
+    ],
+    [
+     "vu",
+     null
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "CD",
+    "NNP",
+    ":",
+    "NNP",
+    ",",
+    "NNP",
+    ",",
+    "JJ",
+    ",",
+    "JJ",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "Quotes: \"Wait,\" she said. ‘Really?’ he asked!",
+   "ps": "kwˈQts: “wˈAt,” ʃiː sˈɛd. “ɹˈɪəli?” hiː ˈɑːskt!",
+   "tokens": [
+    [
+     "Quotes",
+     "kwˈQts"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "\"",
+     "“"
+    ],
+    [
+     "Wait",
+     "wˈAt"
+    ],
+    [
+     ",",
+     ","
+    ],
+    [
+     "\"",
+     "”"
+    ],
+    [
+     "she",
+     "ʃiː"
+    ],
+    [
+     "said",
+     "sˈɛd"
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "‘",
+     "“"
+    ],
+    [
+     "Really",
+     "ɹˈɪəli"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "’",
+     "”"
+    ],
+    [
+     "he",
+     "hiː"
+    ],
+    [
+     "asked",
+     "ˈɑːskt"
+    ],
+    [
+     "!",
+     "!"
+    ]
+   ],
+   "tags": [
+    "NNS",
+    ":",
+    "``",
+    "VB",
+    ",",
+    "''",
+    "PRP",
+    "VBD",
+    ".",
+    "``",
+    "RB",
+    ".",
+    "''",
+    "PRP",
+    "VBD",
+    "."
+   ]
+  },
+  {
+   "text": "Specials: @ # $ % ^ & * + = / \\ | ~.",
+   "ps": "spˈɛʃlz: at   pəsˈɛnt  and  plˈʌs     .",
+   "tokens": [
+    [
+     "Specials",
+     "spˈɛʃlz"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "@",
+     "at"
+    ],
+    [
+     "#",
+     null
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "%",
+     "pəsˈɛnt"
+    ],
+    [
+     "^",
+     null
+    ],
+    [
+     "&",
+     "and"
+    ],
+    [
+     "*",
+     ""
+    ],
+    [
+     "+",
+     "plˈʌs"
+    ],
+    [
+     "=",
+     null
+    ],
+    [
+     "/",
+     null
+    ],
+    [
+     "\\",
+     null
+    ],
+    [
+     "|",
+     null
+    ],
+    [
+     "~",
+     ""
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNS",
+    ":",
+    "IN",
+    "NN",
+    "$",
+    "NN",
+    "NNS",
+    "CC",
+    "NFP",
+    "CD",
+    "NN",
+    "SYM",
+    "NNP",
+    "NN",
+    ".",
+    "."
+   ]
+  },
+  {
+   "text": "Emoji: 😊 and ☕; should punctuation stay right?!",
+   "ps": "ɪmˈQʤi:  and ; ʃˌʊd pˌʌŋkʧʊˈAʃᵊn stˈA ɹˈIt?!",
+   "tokens": [
+    [
+     "Emoji",
+     "ɪmˈQʤi"
+    ],
+    [
+     ":",
+     ":"
+    ],
+    [
+     "😊",
+     null
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "☕",
+     null
+    ],
+    [
+     ";",
+     ";"
+    ],
+    [
+     "should",
+     "ʃˌʊd"
+    ],
+    [
+     "punctuation",
+     "pˌʌŋkʧʊˈAʃᵊn"
+    ],
+    [
+     "stay",
+     "stˈA"
+    ],
+    [
+     "right",
+     "ɹˈIt"
+    ],
+    [
+     "?",
+     "?"
+    ],
+    [
+     "!",
+     "!"
+    ]
+   ],
+   "tags": [
+    "NNP",
+    ":",
+    "NN",
+    "CC",
+    "CD",
+    ":",
+    "MD",
+    "NN",
+    "VB",
+    "JJ",
+    ".",
+    "."
+   ]
+  },
+  {
+   "text": "ALL CAPS SENTENCE HERE.",
+   "ps": "ˈɔːl kˈaps sˈɛntᵊns hˈɪə.",
+   "tokens": [
+    [
+     "ALL",
+     "ˈɔːl"
+    ],
+    [
+     "CAPS",
+     "kˈaps"
+    ],
+    [
+     "SENTENCE",
+     "sˈɛntᵊns"
+    ],
+    [
+     "HERE",
+     "hˈɪə"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNP",
+    "NN",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "iPhone and eBay and McDonald's.",
+   "ps": "ˈIfˌQn and ˈiːbA and məkdˈɒnᵊldz.",
+   "tokens": [
+    [
+     "iPhone",
+     "ˈIfˌQn"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "eBay",
+     "ˈiːbA"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "McDonald's",
+     "məkdˈɒnᵊldz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "CC",
+    "NNP",
+    "CC",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "e.g. and i.e. and etc. and vs.",
+   "ps": "ˌiːʤˈiː and ˌIˈiː and ɛtsˈɛtəɹə and vˈɜːsəs",
+   "tokens": [
+    [
+     "e.g.",
+     "ˌiːʤˈiː"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "i.e.",
+     "ˌIˈiː"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "etc.",
+     "ɛtsˈɛtəɹə"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "vs.",
+     "vˈɜːsəs"
+    ]
+   ],
+   "tags": [
+    "RB",
+    "CC",
+    "FW",
+    "CC",
+    "FW",
+    "CC",
+    "IN"
+   ]
+  },
+  {
+   "text": "The naive cafe served souffle.",
+   "ps": "ðə nIˈiːv kˈafA sˈɜːvd sˈuːfᵊl.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "naive",
+     "nIˈiːv"
+    ],
+    [
+     "cafe",
+     "kˈafA"
+    ],
+    [
+     "served",
+     "sˈɜːvd"
+    ],
+    [
+     "souffle",
+     "sˈuːfᵊl"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "JJ",
+    "NN",
+    "VBD",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "Mr O'Brien and Mrs McCarthy-Jones.",
+   "ps": "mˈɪstə  and mˈɪsɪz məkˈɑːθiʤˌQnz.",
+   "tokens": [
+    [
+     "Mr",
+     "mˈɪstə"
+    ],
+    [
+     "O'Brien",
+     ""
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "Mrs",
+     "mˈɪsɪz"
+    ],
+    [
+     "McCarthy-Jones",
+     "məkˈɑːθiʤˌQnz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "NNP",
+    "CC",
+    "NNP",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "A well-known fact about ice cream.",
+   "ps": "ɐ wˌɛlnˈQn fˈakt əbˈWt ˈIs kɹˈiːm.",
+   "tokens": [
+    [
+     "A",
+     "ɐ"
+    ],
+    [
+     "well-known",
+     "wˌɛlnˈQn"
+    ],
+    [
+     "fact",
+     "fˈakt"
+    ],
+    [
+     "about",
+     "əbˈWt"
+    ],
+    [
+     "ice",
+     "ˈIs"
+    ],
+    [
+     "cream",
+     "kɹˈiːm"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "VBN",
+    "NN",
+    "IN",
+    "NN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The New York Times said so.",
+   "ps": "ðə njˈuː jˈɔːk tˈImz sˈɛd sˌQ.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "New",
+     "njˈuː"
+    ],
+    [
+     "York",
+     "jˈɔːk"
+    ],
+    [
+     "Times",
+     "tˈImz"
+    ],
+    [
+     "said",
+     "sˈɛd"
+    ],
+    [
+     "so",
+     "sˌQ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNP",
+    "NNP",
+    "NNP",
+    "VBD",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "He is a self-made man.",
+   "ps": "hˌiː ɪz ɐ sˌɛlfmˈAd mˈan.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "a",
+     "ɐ"
+    ],
+    [
+     "self-made",
+     "sˌɛlfmˈAd"
+    ],
+    [
+     "man",
+     "mˈan"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "DT",
+    "NN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "[Kokoro](/kˈOkəɹO/) is fast.",
+   "ps": "kˈOkəɹO ɪz fˈɑːst.",
+   "tokens": [
+    [
+     "Kokoro",
+     "kˈOkəɹO"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "fast",
+     "fˈɑːst"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "VBZ",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "[hello](+2) and [hello](-1) and [hello](0.5).",
+   "ps": "həlˈQ and həlˌQ and həlˈQ.",
+   "tokens": [
+    [
+     "hello",
+     "həlˈQ"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "hello",
+     "həlˌQ"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "hello",
+     "həlˈQ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "CC",
+    "UH",
+    "CC",
+    "UH",
+    "."
+   ]
+  },
+  {
+   "text": "A.",
+   "ps": "ˈA",
+   "tokens": [
+    [
+     "A.",
+     "ˈA"
+    ]
+   ],
+   "tags": [
+    "NNP"
+   ]
+  },
+  {
+   "text": "I",
+   "ps": "ˌI",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ]
+   ],
+   "tags": [
+    "PRP"
+   ]
+  },
+  {
+   "text": "...",
+   "ps": "...",
+   "tokens": [
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    ":",
+    ":",
+    ":"
+   ]
+  },
+  {
+   "text": "a",
+   "ps": "ɐ",
+   "tokens": [
+    [
+     "a",
+     "ɐ"
+    ]
+   ],
+   "tags": [
+    "DT"
+   ]
+  },
+  {
+   "text": "The",
+   "ps": "ðə",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ]
+   ],
+   "tags": [
+    "DT"
+   ]
+  },
+  {
+   "text": "Hmm.",
+   "ps": "hmm.",
+   "tokens": [
+    [
+     "Hmm",
+     "hmm"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "."
+   ]
+  },
+  {
+   "text": "Shhh!",
+   "ps": "!",
+   "tokens": [
+    [
+     "Shhh",
+     null
+    ],
+    [
+     "!",
+     "!"
+    ]
+   ],
+   "tags": [
+    "UH",
+    "."
+   ]
+  },
+  {
+   "text": "Ok.",
+   "ps": "ˈQkˌA.",
+   "tokens": [
+    [
+     "Ok",
+     "ˈQkˌA"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "."
+   ]
+  },
+  {
+   "text": "Call AT&T.",
+   "ps": "kˈɔːl ˈattˈiː.",
+   "tokens": [
+    [
+     "Call",
+     "kˈɔːl"
+    ],
+    [
+     "AT",
+     "ˈat"
+    ],
+    [
+     "&",
+     ""
+    ],
+    [
+     "T",
+     "tˈiː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    ".",
+    ".",
+    ".",
+    "."
+   ]
+  },
+  {
+   "text": "AT&T. Then more.",
+   "ps": "ˈattˈiː. ðˈɛn mˈɔː.",
+   "tokens": [
+    [
+     "AT",
+     "ˈat"
+    ],
+    [
+     "&",
+     ""
+    ],
+    [
+     "T",
+     "tˈiː"
+    ],
+    [
+     ".",
+     "."
+    ],
+    [
+     "Then",
+     "ðˈɛn"
+    ],
+    [
+     "more",
+     "mˈɔː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    ".",
+    ".",
+    ".",
+    ".",
+    "RB",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "Ask H&M.",
+   "ps": "ˈɑːsk ˈAʧ and ˈɛm",
+   "tokens": [
+    [
+     "Ask",
+     "ˈɑːsk"
+    ],
+    [
+     "H&M.",
+     "ˈAʧ and ˈɛm"
+    ]
+   ],
+   "tags": [
+    "VB",
+    "NNP"
+   ]
+  },
+  {
+   "text": "R&D. Then more.",
+   "ps": "ˈɑː and dˈiː ðˈɛn mˈɔː.",
+   "tokens": [
+    [
+     "R&D.",
+     "ˈɑː and dˈiː"
+    ],
+    [
+     "Then",
+     "ðˈɛn"
+    ],
+    [
+     "more",
+     "mˈɔː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "RB",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "The Q&A.",
+   "ps": "ðə kjˈuː and ˈA",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "Q&A.",
+     "kjˈuː and ˈA"
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NNP"
+   ]
+  },
+  {
+   "text": "I met J. Smith.",
+   "ps": "ˌI mˈɛt ʤˈA smˈɪθ.",
+   "tokens": [
+    [
+     "I",
+     "ˌI"
+    ],
+    [
+     "met",
+     "mˈɛt"
+    ],
+    [
+     "J.",
+     "ʤˈA"
+    ],
+    [
+     "Smith",
+     "smˈɪθ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "NNP",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "It is 20 °C.",
+   "ps": "ˌɪt ɪz twˈɛnti sˈiː.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "20",
+     "twˈɛnti"
+    ],
+    [
+     "°C",
+     "sˈiː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "CD",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "It is 72 °F.",
+   "ps": "ˌɪt ɪz sˈɛvnti tˈuː ˈɛf.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "72",
+     "sˈɛvnti tˈuː"
+    ],
+    [
+     "°F",
+     "ˈɛf"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "CD",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "It is +5 degrees.",
+   "ps": "ˌɪt ɪz plˈʌs fˈIv dɪɡɹˈiːz.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "+5",
+     "plˈʌs fˈIv"
+    ],
+    [
+     "degrees",
+     "dɪɡɹˈiːz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "RB",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "Call +1 555 123 4567.",
+   "ps": "kˈɔːl plˈʌs wˈʌn fˈIv hˈʌndɹəd fˈɪfti fˈIv wˈʌn hˈʌndɹəd twˈɛnti θɹˈiː fˈɔːti fˈIv sˈɪksti sˈɛvᵊn.",
+   "tokens": [
+    [
+     "Call",
+     "kˈɔːl"
+    ],
+    [
+     "+1",
+     "plˈʌs wˈʌn"
+    ],
+    [
+     "555",
+     "fˈIv hˈʌndɹəd fˈɪfti fˈIv"
+    ],
+    [
+     "123",
+     "wˈʌn hˈʌndɹəd twˈɛnti θɹˈiː"
+    ],
+    [
+     "4567",
+     "fˈɔːti fˈIv sˈɪksti sˈɛvᵊn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "NNP",
+    "CD",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Music from the 1990s.",
+   "ps": "mjˈuːzɪk fɹɒm ðə nˌIntˈiːn nˈIntiz.",
+   "tokens": [
+    [
+     "Music",
+     "mjˈuːzɪk"
+    ],
+    [
+     "from",
+     "fɹɒm"
+    ],
+    [
+     "the",
+     "ðə"
+    ],
+    [
+     "1990s",
+     "nˌIntˈiːn nˈIntiz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "IN",
+    "DT",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "It costs $2 billion.",
+   "ps": "ˌɪt kˈɒsts tˈuː bˈɪljən dˈɒləz.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "costs",
+     "kˈɒsts"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "2",
+     "tˈuː"
+    ],
+    [
+     "billion",
+     "bˈɪljən dˈɒləz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "$",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "They raised $1.5 million.",
+   "ps": "ðˌA ɹˈAzd wˈʌn pYnt fˈIv mˈɪljən dˈɒləz.",
+   "tokens": [
+    [
+     "They",
+     "ðˌA"
+    ],
+    [
+     "raised",
+     "ɹˈAzd"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.5",
+     "wˈʌn pYnt fˈIv"
+    ],
+    [
+     "million",
+     "mˈɪljən dˈɒləz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "$",
+    "CD",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "It costs $9 and 5 more.",
+   "ps": "ˌɪt kˈɒsts nˈIn dˈɒləz and fˈIv mˈɔː.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "costs",
+     "kˈɒsts"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "9",
+     "nˈIn dˈɒləz"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "5",
+     "fˈIv"
+    ],
+    [
+     "more",
+     "mˈɔː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBZ",
+    "$",
+    "CD",
+    "CC",
+    "CD",
+    "JJR",
+    "."
+   ]
+  },
+  {
+   "text": "Read pages 5–7.",
+   "ps": "ɹˈiːd pˈAʤɪz fˈIv sˈɛvᵊn.",
+   "tokens": [
+    [
+     "Read",
+     "ɹˈiːd"
+    ],
+    [
+     "pages",
+     "pˈAʤɪz"
+    ],
+    [
+     "5–7",
+     "fˈIv sˈɛvᵊn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NN",
+    "NNS",
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "Set it to 60Hz.",
+   "ps": "sˈɛt ɪt tə sˈɪksti.",
+   "tokens": [
+    [
+     "Set",
+     "sˈɛt"
+    ],
+    [
+     "it",
+     "ɪt"
+    ],
+    [
+     "to",
+     "tə"
+    ],
+    [
+     "60Hz",
+     "sˈɪksti"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "VB",
+    "PRP",
+    "IN",
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Dana's TikTok-ish",
+   "ps": "s tˈɪkˌɪʃ",
+   "tokens": [
+    [
+     "Dana's",
+     "s"
+    ],
+    [
+     "TikTok-ish",
+     "tˈɪkˌɪʃ"
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "NNP"
+   ]
+  },
+  {
+   "text": "$1.555",
+   "ps": "wˈʌn pYnt fˈIv fˈIv fˈIv",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.555",
+     "wˈʌn pYnt fˈIv fˈIv fˈIv"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
+   ]
+  },
+  {
+   "text": "It cost $1.555 each.",
+   "ps": "ˌɪt kˈɒst wˈʌn pYnt fˈIv fˈIv fˈIv ˈiːʧ.",
+   "tokens": [
+    [
+     "It",
+     "ˌɪt"
+    ],
+    [
+     "cost",
+     "kˈɒst"
+    ],
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.555",
+     "wˈʌn pYnt fˈIv fˈIv fˈIv"
+    ],
+    [
+     "each",
+     "ˈiːʧ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "$",
+    "CD",
+    "DT",
+    "."
+   ]
+  },
+  {
+   "text": "$1.55",
+   "ps": "wˈʌn dˈɒlə and fˈɪfti fˈIv sˈɛnts",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "1.55",
+     "wˈʌn dˈɒlə and fˈɪfti fˈIv sˈɛnts"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
+   ]
+  },
+  {
+   "text": "This is sautéing onions.",
+   "ps": "ðˌɪs ɪz  ˈʌnjənz.",
+   "tokens": [
+    [
+     "This",
+     "ðˌɪs"
+    ],
+    [
+     "is",
+     "ɪz"
+    ],
+    [
+     "sautéing",
+     null
+    ],
+    [
+     "onions",
+     "ˈʌnjənz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "VBZ",
+    "VBG",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "It's Wed. now.",
+   "ps": "ˌɪts wˈɛd nˈW.",
+   "tokens": [
+    [
+     "It's",
+     "ˌɪts"
+    ],
+    [
+     "Wed.",
+     "wˈɛd"
+    ],
+    [
+     "now",
+     "nˈW"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "PRP",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "On Wed.",
+   "ps": "ˌɒn wˈɛd",
+   "tokens": [
+    [
+     "On",
+     "ˌɒn"
+    ],
+    [
+     "Wed.",
+     "wˈɛd"
+    ]
+   ],
+   "tags": [
+    "IN",
+    "PRP"
+   ]
+  },
+  {
+   "text": "well-I'm sure.",
+   "ps": "wˈɛlˌIm ʃˈʊə.",
+   "tokens": [
+    [
+     "well-I'm",
+     "wˈɛlˌIm"
+    ],
+    [
+     "sure",
+     "ʃˈʊə"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "RB",
+    "JJ",
+    "."
+   ]
+  },
+  {
+   "text": "yes-don't.",
+   "ps": "jˌɛsdˈQnt.",
+   "tokens": [
+    [
+     "yes-don't",
+     "jˌɛsdˈQnt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "CD",
+    "."
+   ]
+  },
+  {
+   "text": "Open from 10am-noon.",
+   "ps": "ˈQpᵊn fɹɒm tˈɛn ɐm nˈuːn.",
+   "tokens": [
+    [
+     "Open",
+     "ˈQpᵊn"
+    ],
+    [
+     "from",
+     "fɹɒm"
+    ],
+    [
+     "10am-noon",
+     "tˈɛn ɐm nˈuːn"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "JJ",
+    "IN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "The 21st-century and 4th-grade art.",
+   "ps": "ðə twˈɛnti fˈɜːst sˈɛnʧʊɹi and fˈɔːθ ɡɹˈAd ˈɑːt.",
+   "tokens": [
+    [
+     "The",
+     "ðə"
+    ],
+    [
+     "21st-century",
+     "twˈɛnti fˈɜːst sˈɛnʧʊɹi"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "4th-grade",
+     "fˈɔːθ ɡɹˈAd"
+    ],
+    [
+     "art",
+     "ˈɑːt"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "CC",
+    "NN",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "He finished 5th/6th.",
+   "ps": "hˌiː fˈɪnɪʃt fˈɪfθ sˈɪksθ.",
+   "tokens": [
+    [
+     "He",
+     "hˌiː"
+    ],
+    [
+     "finished",
+     "fˈɪnɪʃt"
+    ],
+    [
+     "5th/6th",
+     "fˈɪfθ sˈɪksθ"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "PRP",
+    "VBD",
+    "NNS",
+    "."
+   ]
+  },
+  {
+   "text": "5TH place",
+   "ps": "fˈIv tˌiːˈAʧ plˈAs",
+   "tokens": [
+    [
+     "5TH",
+     "fˈIv tˌiːˈAʧ"
+    ],
+    [
+     "place",
+     "plˈAs"
+    ]
+   ],
+   "tags": [
+    "NNS",
+    "NN"
+   ]
+  },
+  {
+   "text": "-1990s.",
+   "ps": "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIntiz.",
+   "tokens": [
+    [
+     "-1990s",
+     "mˈInəs wˈʌn θˈWzᵊnd nˈIn hˈʌndɹəd nˈIntiz"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "."
+   ]
+  },
+  {
+   "text": "No.5",
+   "ps": "nˈQ fˈIv",
+   "tokens": [
+    [
+     "No.5",
+     "nˈQ fˈIv"
+    ]
+   ],
+   "tags": [
+    "NNP"
+   ]
+  },
+  {
+   "text": "x5.00",
+   "ps": "ˈɛks fˈIv zˈɪəɹQ zˈɪəɹQ",
+   "tokens": [
+    [
+     "x5.00",
+     "ˈɛks fˈIv zˈɪəɹQ zˈɪəɹQ"
+    ]
+   ],
+   "tags": [
+    "NNP"
+   ]
+  },
+  {
+   "text": "$-5",
+   "ps": "mˈInəs fˈIv dˈɒləz",
+   "tokens": [
+    [
+     "$",
+     ""
+    ],
+    [
+     "-5",
+     "mˈInəs fˈIv dˈɒləz"
+    ]
+   ],
+   "tags": [
+    "$",
+    "CD"
+   ]
+  },
+  {
+   "text": "[hello](/hɛlO/) there.",
+   "ps": "hɛlO ðˈɛː.",
+   "tokens": [
+    [
+     "hello",
+     "hɛlO"
+    ],
+    [
+     "there",
+     "ðˈɛː"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "RB",
+    "."
+   ]
+  },
+  {
+   "text": "[the](+2) cat.",
+   "ps": "ðˈə kˈat.",
+   "tokens": [
+    [
+     "the",
+     "ðˈə"
+    ],
+    [
+     "cat",
+     "kˈat"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "DT",
+    "NN",
+    "."
+   ]
+  },
+  {
+   "text": "１２３",
+   "ps": "wˈʌn hˈʌndɹəd twˈɛnti θɹˈiː",
+   "tokens": [
+    [
+     "１２３",
+     "wˈʌn hˈʌndɹəd twˈɛnti θɹˈiː"
+    ]
+   ],
+   "tags": [
+    "CD"
+   ]
+  },
+  {
+   "text": "x² and H₂O",
+   "ps": "ˈɛks tˈuː and ˈAʧ tˈuː ˈQ",
+   "tokens": [
+    [
+     "x²",
+     "ˈɛks tˈuː"
+    ],
+    [
+     "and",
+     "and"
+    ],
+    [
+     "H₂O",
+     "ˈAʧ tˈuː ˈQ"
+    ]
+   ],
+   "tags": [
+    "NNP",
+    "CC",
+    "NNP"
+   ]
+  },
+  {
+   "text": "Hello  world.",
+   "ps": "həlˈQ wˈɜːld.",
+   "tokens": [
+    [
+     "Hello",
+     "həlˈQ"
+    ],
+    [
+     " world",
+     "wˈɜːld"
+    ],
+    [
+     ".",
+     "."
+    ]
+   ],
+   "tags": [
+    "UH",
+    "NN",
+    "."
+   ]
+  }
+ ]
+}

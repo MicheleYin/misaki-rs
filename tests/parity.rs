@@ -15,10 +15,9 @@
 //!     with the timestamps silently wrong.
 //!
 //! Fixtures pin the LEXICON layer: they were generated with `fallback=None`,
-//! so these tests must run with `--no-default-features` (espeak off) to
-//! compare like with like.
+//! so these tests must run with espeak off and lexicons on:
 //!
-//!   cargo test --no-default-features --test parity -- --nocapture
+//!   cargo test --no-default-features --features "silver,gb" --test parity -- --nocapture
 
 use misaki_rs::{G2P, Language};
 use serde::Deserialize;
@@ -46,6 +45,22 @@ struct Report {
     first: Vec<(String, String, String)>,
 }
 
+fn dialect(lang: &str) -> Language {
+    match lang {
+        "b" => {
+            #[cfg(feature = "gb")]
+            {
+                Language::EnglishGB
+            }
+            #[cfg(not(feature = "gb"))]
+            {
+                panic!("GB fixture requires the \"gb\" Cargo feature");
+            }
+        }
+        _ => Language::EnglishUS,
+    }
+}
+
 fn run(path: &str) -> Report {
     let raw = std::fs::read_to_string(path)
         .unwrap_or_else(|e| panic!("cannot read {path}: {e}"));
@@ -54,7 +69,7 @@ fn run(path: &str) -> Report {
     assert_eq!(g.misaki_version, "0.9.4", "fixtures are not from misaki 0.9.4");
     assert_eq!(g.cases.len(), g.n, "fixture case count disagrees with itself");
 
-    let lang = if g.lang == "b" { Language::EnglishGB } else { Language::EnglishUS };
+    let lang = dialect(&g.lang);
     let mut engine = G2P::with_fallback(lang, None);
     // Fixtures were generated with `unk=''` (see tools/gen_fixtures.py), the
     // same value our Kokoro pipeline constructs misaki with. The crate defaults
@@ -112,13 +127,29 @@ fn report(name: &str, r: &Report) {
 #[test]
 fn parity_adversarial() {
     let r = run("tests/fixtures/golden_adversarial_us.json");
-    report("adversarial (heteronyms, acronyms, numbers, punctuation)", &r);
-    assert_eq!(r.both_ok, r.n, "adversarial parity is not exact");
+    report("adversarial US (heteronyms, acronyms, numbers, punctuation)", &r);
+    assert_eq!(r.both_ok, r.n, "adversarial US parity is not exact");
 }
 
 #[test]
 fn parity_prose() {
     let r = run("tests/fixtures/golden_prose_us.json");
-    report("real prose (Gutenberg)", &r);
-    assert_eq!(r.both_ok, r.n, "prose parity is not exact");
+    report("real prose US (Gutenberg)", &r);
+    assert_eq!(r.both_ok, r.n, "prose US parity is not exact");
+}
+
+#[cfg(feature = "gb")]
+#[test]
+fn parity_adversarial_gb() {
+    let r = run("tests/fixtures/golden_adversarial_gb.json");
+    report("adversarial GB (heteronyms, acronyms, numbers, punctuation)", &r);
+    assert_eq!(r.both_ok, r.n, "adversarial GB parity is not exact");
+}
+
+#[cfg(feature = "gb")]
+#[test]
+fn parity_prose_gb() {
+    let r = run("tests/fixtures/golden_prose_gb.json");
+    report("real prose GB (Gutenberg)", &r);
+    assert_eq!(r.both_ok, r.n, "prose GB parity is not exact");
 }

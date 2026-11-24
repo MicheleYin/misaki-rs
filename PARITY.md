@@ -37,11 +37,13 @@ changelog would never mention.
 ## The gate
 
 ```sh
-cargo test --no-default-features --test parity -- --nocapture
+cargo test --no-default-features --features "silver,gb" --test parity -- --nocapture
 ```
 
-`--no-default-features` is required: the fixtures were generated with
-`fallback=None`, so espeak must be off to compare like with like.
+`--no-default-features` turns espeak off (fixtures were generated with
+`fallback=None`). `--features "silver,gb"` keeps the silver and British
+lexicons embedded — without them, bare `default-features = false` is US-gold
+only and the gate will fail on OOV words that live in silver.
 
 Two properties are asserted per case:
 
@@ -58,18 +60,24 @@ needed to *run* the tests.
 ## Status: exact
 
 ```
-adversarial   122/122  (100.0%)    tests/parity.rs
-real prose    700/700  (100.0%)    tests/parity.rs
-held-out      900/900  (100.0%)    tests/heldout.rs
-tagger      20959/20959 tokens, 822/822 sentences
-tokenizer   20959/20959 tokens, 822/822 sentences
+US adversarial   122/122  (100.0%)    tests/parity.rs
+US real prose    700/700  (100.0%)    tests/parity.rs
+US held-out      900/900  (100.0%)    tests/heldout.rs
+GB adversarial   122/122  (100.0%)    tests/parity.rs
+GB real prose    700/700  (100.0%)    tests/parity.rs
+GB held-out      900/900  (100.0%)    tests/heldout.rs
+tagger         20959/20959 tokens, 822/822 sentences
+tokenizer      20959/20959 tokens, 822/822 sentences
 ```
 
-All three corpora match misaki 0.9.4 **byte for byte**, on the phoneme string
-and on the per-token `(text, phonemes)` attribution that the word timestamps
-are derived from. The second half is not redundant: three separate
-bugs produced identical audio with the attribution shifted, and only the
-token-pair check saw them.
+US and British corpora each match misaki 0.9.4 **byte for byte** (`british=False`
+vs `british=True`), on the phoneme string and on the per-token `(text, phonemes)`
+attribution that the word timestamps are derived from. The second half is not
+redundant: three separate bugs produced identical audio with the attribution
+shifted, and only the token-pair check saw them.
+
+Cargo features `silver` and `gb` (default-on) control whether silver and British
+JSON are compiled into the binary; see README and issue #34.
 
 The oracle is **stock** misaki 0.9.4 (and stock spaCy tokenizer patterns). A
 proposed ampersand suffix that peels `.` after `&`+capital (so `AT&T.` reads
