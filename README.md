@@ -19,8 +19,14 @@ It is designed for TTS models like **Kokoro**, providing Part-of-Speech-aware ph
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
 - **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words. Disable with `default-features = false` for a build without the espeak dependency; unresolved words are marked with `G2P::unk` (❓ by default), not spelled letter-by-letter.
-- **Optional fixes** (feature `fixes`, off by default): Fixes mistakes misaki 0.9.4 makes, such as reading `AT&T.` as one word, and the full stop it drops in `Ask H&M.`; off, the output is misaki 0.9.4's.
+- **Optional fixes** (feature `fixes`, off by default): Corrections to known misaki 0.9.4 mistakes (curly apostrophes, `dives`, title abbreviations, `AT&T.`, perfect-question participles), from [@homeygravity](https://github.com/homeygravity) (#30–#33). Off, output matches stock misaki 0.9.4. See [FIXES.md](FIXES.md).
 
+## Cargo features
+
+| Feature | Default | Effect |
+|---------|---------|--------|
+| `espeak` | yes | Link `espeak-rs` and use espeak-ng for OOV words |
+| `fixes` | no | Opt-in phonemizer corrections; see [FIXES.md](FIXES.md) |
 
 ## Unknown words and fallback
 
@@ -70,20 +76,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.11.0"
+misaki-rs = "0.12.0"
 ```
 
 **Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
 
 ```toml
 [dependencies]
-misaki-rs = { version = "0.11.0", default-features = false }
+misaki-rs = { version = "0.12.0", default-features = false }
 ```
 
 To depend on misaki-rs without default features but still use espeak:
 
 ```toml
-misaki-rs = { version = "0.11.0", default-features = false, features = ["espeak"] }
+misaki-rs = { version = "0.12.0", default-features = false, features = ["espeak"] }
 ```
 
 ## Quick Start
@@ -137,13 +143,17 @@ The original misaki project had very few words and some were not pronunced corre
 
 The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 122 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,959 tokens across 822 sentences.
 
-Run the parity suite with:
+**Default behavior is unchanged vs misaki 0.9.4.** Enable `features = ["fixes"]` for the opt-in quality pack.
 
 ```bash
+# Stock mirror (must stay byte-identical to 0.9.4)
 cargo test --no-default-features
+
+# Opt-in fixes pack
+cargo test --no-default-features --features fixes
 ```
 
-See [PARITY.md](PARITY.md) for the test methodology and coverage details.
+See [PARITY.md](PARITY.md) for the test methodology and [FIXES.md](FIXES.md) for the corrections registry.
 
 ## Scope
 
