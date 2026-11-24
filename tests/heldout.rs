@@ -1,3 +1,5 @@
+// Parity with misaki 0.9.4 holds with the `fixes` feature off.
+#![cfg(not(feature = "fixes"))]
 //! A HELD-OUT check against misaki 0.9.4.
 //!
 //! The 771 cases in `tests/parity.rs` were also what this port was developed

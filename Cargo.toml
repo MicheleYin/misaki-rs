@@ -1,6 +1,6 @@
 [package]
 name = "misaki-rs"
-version = "0.11.0"
+version = "0.12.0"
 edition = "2024"
 license = "MIT"
 description = "A self-contained, POS-aware Grapheme-to-Phoneme (G2P) engine for Rust, optimized for TTS models like Kokoro."
@@ -20,6 +20,9 @@ exclude = [
 [features]
 default = ["espeak"]
 espeak = ["dep:espeak-rs"]
+# Corrections to misaki 0.9.4 mistakes (off by default). Stock builds stay
+# byte-identical to 0.9.4; see FIXES.md. Based on #30–#33 by @homeygravity.
+fixes = []
 
 [dependencies]
 log = "0.4"

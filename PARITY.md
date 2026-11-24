@@ -73,8 +73,21 @@ token-pair check saw them.
 
 The oracle is **stock** misaki 0.9.4 (and stock spaCy tokenizer patterns). A
 proposed ampersand suffix that peels `.` after `&`+capital (so `AT&T.` reads
-as a name) is deliberately **out of scope** until upstream 0.9.4 ships it;
-Rust keeps stock letter-read behaviour for those forms.
+as a name) is deliberately **out of scope** for this gate; Rust keeps stock
+letter-read behaviour for those forms by default. Opt-in corrections live
+behind Cargo feature `fixes` (see [FIXES.md](FIXES.md); #30–#33 by
+@homeygravity) and are excluded from this oracle: parity / heldout /
+tokenizer-parity suites are `cfg`-off when `fixes` is enabled.
+
+### Dual gates
+
+```sh
+# Stock 0.9.4 mirror
+cargo test --no-default-features
+
+# Opt-in phonemizer fixes pack
+cargo test --no-default-features --features fixes
+```
 
 ## How it was done
 
