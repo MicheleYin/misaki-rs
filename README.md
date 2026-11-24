@@ -1,6 +1,7 @@
 # Misaki-RS
 
 [![Crates.io](https://img.shields.io/crates/v/misaki-rs)](https://crates.io/crates/misaki-rs)
+[![CI](https://github.com/MicheleYin/misaki-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/MicheleYin/misaki-rs/actions/workflows/ci.yml)
 
 
 **misaki-rs** is a self-contained Rust port of the [Misaki](https://github.com/hexgrad/misaki) G2P (Grapheme-to-Phoneme) engine, with its English pipeline brought to feature parity with Misaki 0.9.4.
@@ -143,6 +144,15 @@ cargo test --no-default-features
 ```
 
 See [PARITY.md](PARITY.md) for the test methodology and coverage details.
+
+## Continuous integration
+
+Every pull request and push to `main` runs GitHub Actions (`.github/workflows/ci.yml`):
+
+- `cargo test --no-default-features --workspace --all-targets` plus `--doc` — stock misaki 0.9.4 parity gate (lib, integration, bins, doctests)
+- Same suite with default features and espeak-ng installed, plus `cargo build --examples`
+
+Codacy quality analysis on PRs is unchanged (Codacy GitHub App). CI adds the library test gates Codacy does not run. Mark the CI jobs as required checks in branch protection if you want merges blocked on failures.
 
 ## Scope
 
