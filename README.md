@@ -18,8 +18,19 @@ It is designed for TTS models like **Kokoro**, providing Part-of-Speech-aware ph
     - ed past tense stemming
     - ing continuous tense stemming
 - **Number Conversion**: Automatically converts numeric values into their spoken word equivalents.
-- **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words. Disable with `default-features = false` for a build without the espeak dependency; unresolved words are marked with `G2P::unk` (❓ by default), not spelled letter-by-letter.
+- **Optional espeak fallback** (feature `espeak`, enabled by default): Uses [espeak-ng](https://github.com/espeak-ng/espeak-ng) for out-of-vocabulary words.
+- **Optional silver / British lexicons** (features `silver` and `gb`, enabled by default): leave them out of slim or GPL-cautious builds (see [#34](https://github.com/MicheleYin/misaki-rs/issues/34)).
 
+
+## Cargo features
+
+| Feature | Default | Effect |
+|---------|---------|--------|
+| `espeak` | yes | Link `espeak-rs` and use espeak-ng for OOV words |
+| `silver` | yes | Embed `us_silver.json` (and `gb_silver.json` when `gb` is on) |
+| `gb` | yes | Embed British lexicons and enable `Language::EnglishGB` |
+
+`us_gold.json` is always embedded. Plain `misaki-rs = "0.12.0"` gets the full default bundle. Runtime clearing of `lexicon.silvers` does not shrink the binary — disable the `silver` / `gb` features instead.
 
 ## Unknown words and fallback
 
@@ -38,7 +49,7 @@ Without a fallback, an out-of-vocabulary word remains unresolved and uses `G2P::
 
 ## Rust and Python comparison samples
 
-These US English samples were rerun with Rust and Python Misaki 0.9.4. Rust's default feature enables espeak; build with `--no-default-features` to disable it. In Python, `fallback=None` disables fallback and `espeak.EspeakFallback` enables it. The phoneme strings below match in both implementations and fallback modes.
+These US English samples were rerun with Rust and Python Misaki 0.9.4. Rust's default features enable espeak plus silver and GB lexicons; build with `--no-default-features --features "silver,gb"` to keep full lexicons without espeak. In Python, `fallback=None` disables fallback and `espeak.EspeakFallback` enables it. The phoneme strings below match in both implementations and fallback modes.
 
 For words in the lexicon, enabling fallback does not change the result:
 
@@ -69,21 +80,24 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-misaki-rs = "0.11.0"
+misaki-rs = "0.12.0"
 ```
 
-**Optional: disable espeak fallback** (smaller build, no espeak-ng dependency):
+**No espeak, full US+GB lexicons** (parity / lexicon-only builds):
 
 ```toml
 [dependencies]
-misaki-rs = { version = "0.11.0", default-features = false }
+misaki-rs = { version = "0.12.0", default-features = false, features = ["silver", "gb"] }
 ```
 
-To depend on misaki-rs without default features but still use espeak:
+**Minimal / GPL-cautious** (US gold only — about ~10 MB less JSON; no silver, no British, no espeak):
 
 ```toml
-misaki-rs = { version = "0.11.0", default-features = false, features = ["espeak"] }
+[dependencies]
+misaki-rs = { version = "0.12.0", default-features = false }
 ```
+
+> Note: bare `default-features = false` used to keep all dictionaries while only dropping espeak. From 0.12.0 it is US-gold-only; re-enable `silver` and/or `gb` explicitly if you still want them without espeak. Plain `misaki-rs = "0.12.0"` is unchanged.
 
 ## Quick Start
 
@@ -134,12 +148,12 @@ The original misaki project had very few words and some were not pronunced corre
 
 ## Misaki parity
 
-The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. The US English phoneme output and per-token phoneme attribution match on 122 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,959 tokens across 822 sentences.
+The English pipeline is tested against Misaki 0.9.4 using frozen differential fixtures. **US and British** phoneme output and per-token phoneme attribution each match on 122 adversarial examples, 700 prose examples, and 900 held-out examples. The spaCy-compatible tokenizer and POS tagger are also checked against 20,959 tokens across 822 sentences.
 
-Run the parity suite with:
+Run the lexicon-pinned parity suite (espeak off, silver+gb on) with:
 
 ```bash
-cargo test --no-default-features
+cargo test --no-default-features --features "silver,gb"
 ```
 
 See [PARITY.md](PARITY.md) for the test methodology and coverage details.

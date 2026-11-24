@@ -138,12 +138,14 @@ impl G2P {
         .unwrap();
 
         let rules: Box<dyn LanguageRules> = match lang {
-            Language::EnglishUS | Language::EnglishGB => Box::new(English),
+            Language::EnglishUS => Box::new(English),
+            #[cfg(feature = "gb")]
+            Language::EnglishGB => Box::new(English),
             // Language::Italian => Box::new(Italian),
         };
 
         #[cfg(feature = "espeak")]
-        let fallback: Option<Box<dyn Fallback>> = match EspeakFallback::new(lang == Language::EnglishGB) {
+        let fallback: Option<Box<dyn Fallback>> = match EspeakFallback::new(lang.is_british()) {
             Ok(fb) => Some(Box::new(fb)),
             Err(e) => {
                 log::warn!("espeak-ng fallback unavailable: {}", e);
@@ -2002,6 +2004,9 @@ mod tests {
     }
 
     #[test]
+    // "lilly" lives in us_silver only; without the `silver` feature both
+    // pieces are OOV and the string is "❓❓".
+    #[cfg(feature = "silver")]
     fn test_hyphenated_oov_preserves_unknown_marker_without_fallback() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
         let (phonemes, tokens) = g2p.g2p("il-lilly").unwrap();
