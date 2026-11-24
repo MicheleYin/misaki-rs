@@ -503,6 +503,8 @@ impl G2P {
     }
 
     pub fn g2p(&self, text: &str) -> Result<(String, Vec<MToken>), G2PError> {
+        #[cfg(feature = "fixes")]
+        let text = &*crate::fixes::straight_quotes(text);
         // misaki `G2P.preprocess`: `text = text.lstrip()` before tokenization.
         let text = text.trim_start();
         // Parse `[text](feature)` markers and attach them to the subtokens
@@ -2231,6 +2233,7 @@ mod tests {
     }
 
     // Expected strings are misaki 0.9.4's output (stock oracle).
+    #[cfg(not(feature = "fixes"))]
     #[test]
     fn test_full_stop_after_ampersand_word() {
         let g2p = G2P::with_fallback(Language::EnglishUS, None);
